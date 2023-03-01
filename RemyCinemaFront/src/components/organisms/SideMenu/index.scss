@@ -1,0 +1,169 @@
+@import "../../../styles/base.scss";
+.sidemenu_container {
+  width: 85%;
+  max-width: 400px;
+  background-color: white;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  transform: translateX(100%);
+  transition: all 0.4s;
+  z-index: 10;
+  .sidemenu_main {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    .sidemenu_top_container {
+      justify-content: flex-end;
+      display: flex;
+      height: 100px;
+      align-items: center;
+      .sidemenu_search_container {
+        display: flex;
+        align-items: center;
+        border-radius: 10px;
+        transition: all 0.3s;
+        label {
+          display: flex;
+          justify-content: center;
+          transition: all 0.3s;
+          padding: 10px;
+          border-radius: 999px;
+          cursor: pointer;
+          svg {
+            font-size: $iconMediumSize;
+          }
+          svg:nth-child(2) {
+            display: none;
+          }
+        }
+        label:hover {
+          background-color: $tertiary-color;
+          color: white;
+        }
+        .sidemenu_search_input {
+          width: 100%;
+          input {
+            background-color: transparent;
+            width: 0%;
+            margin-left: 15px;
+          }
+        }
+      }
+      .sidemenu_search_container:has(.sidemenu_search_input input:focus) {
+        background-color: $inputText;
+        transition: all 0.3s;
+        input {
+          width: 100%;
+        }
+        label {
+          background-color: $tertiary-color;
+          color: white;
+          svg:nth-child(1) {
+            display: none;
+          }
+          svg:nth-child(2) {
+            display: block;
+          }
+        }
+      }
+
+      .sidemenu_close_container {
+        align-self: flex-start;
+        display: flex;
+        justify-content: flex-end;
+        margin: 15px 0;
+        padding: 0 10px;
+        .sidemenu_close_button {
+          padding: 5px;
+          display: flex;
+          svg {
+            color: $tertiary-color;
+            font-size: $iconBigSize;
+            transition: all 0.5s;
+            cursor: pointer;
+          }
+        }
+        .sidemenu_close_button:has(svg:hover) {
+          background-color: $tertiary-color;
+          border-radius: 999px;
+          svg {
+            color: white;
+          }
+        }
+      }
+    }
+    .sidemenu_main_routes {
+      li {
+        background-color: $tertiary-color;
+        cursor: pointer;
+        color: white;
+        transition: all 0.5s;
+        .sidemenu_item {
+          display: flex;
+          justify-content: space-between;
+          padding: 30px 20px;
+          .icontext_container {
+            font-weight: bold;
+          }
+          svg {
+            font-size: $iconSmallSize;
+            color: white;
+          }
+        }
+        .sidemenu_subroutes {
+          width: 100%;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.2s ease-out;
+          ul {
+            li {
+              padding: 20px 10px;
+              svg {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+      li:not(:has(.sidemenu_subroutes)) {
+        .icontext_container {
+          svg {
+            display: block;
+          }
+        }
+        svg {
+          display: none;
+        }
+      }
+      li:hover {
+        background-color: $primary-color;
+      }
+      li:has(.sidemenu_subroutes) {
+        svg {
+          transition: all 0.2s;
+        }
+        .sidemenu_item.active {
+          background-color: $primary-color;
+          .sidemenu_item_arrow {
+            svg {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.open {
+  transform: translateX(0%);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+@media (min-width: $tablet) {
+  .sidemenu_container {
+    display: none;
+  }
+}

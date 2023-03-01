@@ -1,0 +1,224 @@
+@import "../../../styles/base.scss";
+.proccess_seats_selection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 20px;
+  .screen_title {
+    align-self: center;
+    font-size: $textBigSize;
+    font-weight: 900;
+    color: grey;
+  }
+  .seat_selection_screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .screen {
+      width: 72%;
+      margin: auto;
+      max-width: 800px;
+      border: 1px solid rgb(250, 247, 247);
+      height: 15px;
+      background-color: white;
+      position: relative;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    }
+    .shadow-screen {
+      width: 90%;
+      max-width: 1000px;
+      height: 80px;
+      background: rgb(244, 244, 244);
+      filter: blur(80px);
+
+      background: linear-gradient(
+        0deg,
+        rgba(244, 244, 244, 1) 0%,
+        rgba(255, 255, 255, 1) 100%
+      );
+      clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+    }
+  }
+
+  .all_seats_main_info {
+    position: relative;
+    margin: 40px 0;
+    .list_letter_seats_left,
+    .list_letter_seats_right {
+      li {
+        font-size: 10px;
+        width: 20px;
+        aspect-ratio: 1/1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .list_letter_seats_left {
+      position: absolute;
+      display: flex;
+      left: 0;
+      top: 0;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .list_letter_seats_right {
+      position: absolute;
+      display: flex;
+      right: 0;
+      top: 0;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .all_seats_container {
+      display: grid;
+      max-width: 800px;
+      margin: auto;
+      padding: 0 20px;
+      grid-template-columns: repeat(11, 1fr);
+      grid-template-rows: auto;
+      gap: 2px;
+      .seat_container {
+        display: flex;
+        justify-content: center;
+        .seat {
+          width: 20px;
+          aspect-ratio: 1/1;
+          padding: 0;
+          border: 1px solid $tertiary-color;
+          background-color: transparent;
+          color: $tertiary-color;
+          border-radius: 999px;
+          justify-content: center;
+          font-size: 8px;
+        }
+        .seat:disabled {
+          background-color: rgb(206, 2, 2);
+          opacity: 1;
+          color: white;
+          border: 1px solid transparent;
+          pointer-events: none;
+        }
+        .selected {
+          background-color: $tertiary-color;
+          color: white;
+        }
+      }
+    }
+  }
+  .seat_selection_info {
+    display: flex;
+    align-self: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    li {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      font-size: $textSmallSize;
+    }
+    .circle {
+      height: 20px;
+      width: 20px;
+      border-radius: 999px;
+    }
+    .available_seat {
+      .circle {
+        border: 2px solid $tertiary-color;
+      }
+    }
+    .occupied_seat {
+      .circle {
+        background-color: rgb(206, 2, 2);
+      }
+    }
+    .selected_seat {
+      .circle {
+        background-color: $tertiary-color;
+      }
+    }
+  }
+  .selected_seats_info {
+    background-color: $tertiary-color;
+    color: white;
+    font-size: $textSmallSize;
+    text-align: center;
+    font-weight: bold;
+    gap: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .next_step_button {
+    align-self: center;
+  }
+}
+@media (min-width: $mobile) {
+  .proccess_seats_selection {
+    .all_seats_main_info {
+      .list_letter_seats_left,
+      .list_letter_seats_right {
+        li {
+          width: 30px;
+        }
+      }
+      .all_seats_container {
+        .seat_container {
+          .seat {
+            width: 30px;
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: $tablet) {
+  .proccess_seats_selection {
+    .screen_title {
+      font-size: $textVeryBigSize;
+    }
+    .all_seats_main_info {
+      .all_seats_container {
+        gap: 10px;
+        padding: 0 30px;
+        .seat_container {
+          .seat {
+            font-size: $textSmallSize;
+            width: 40px;
+          }
+        }
+      }
+      .list_letter_seats_left,
+      .list_letter_seats_right {
+        gap: 10px;
+        li {
+          width: 40px;
+          font-size: $textSmallSize;
+        }
+      }
+    }
+    .seat_selection_info {
+      li {
+        font-size: $textMediumSize;
+      }
+      .circle {
+        height: 30px;
+        width: 30px;
+      }
+    }
+    .selected_seats_info {
+      padding: 20px;
+      font-size: $textMediumSize;
+    }
+    .next_step_button {
+      button {
+        padding: 10px 15px;
+        font-size: initial;
+      }
+    }
+  }
+}

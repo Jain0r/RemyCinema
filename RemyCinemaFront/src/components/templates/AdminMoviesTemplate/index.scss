@@ -1,0 +1,11 @@
+@import "../../../styles/base.scss";
+
+.adminmovies_template_container {
+  padding: 20px;
+  .adminmovies_list_cards {
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+}

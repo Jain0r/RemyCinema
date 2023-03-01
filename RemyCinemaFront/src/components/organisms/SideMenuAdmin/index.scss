@@ -1,0 +1,233 @@
+@import "../../../styles/base.scss";
+
+.admin_sidemenu_container {
+  background-color: $tertiary-color;
+  width: 110px;
+  transition: all 0.4s;
+  height: 100vh;
+  position: fixed;
+  color: white;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  user-select: none;
+  z-index: 1;
+
+  .admin_sidemenu_main {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+    .admin_sidemenu_top_container {
+      padding: 20px;
+      display: flex;
+      height: 80px;
+      justify-content: space-between;
+      margin: 10px 0;
+      position: relative;
+      align-items: center;
+      .admin_logo {
+        width: $iconVeryBigSize;
+        animation: hide linear forwards 0.2s;
+      }
+      .admin_toggle {
+        padding: 20px;
+        position: absolute;
+        transition: all 0.2s;
+        right: 22px;
+        border-radius: 999px;
+        display: flex;
+        cursor: pointer;
+        svg {
+          font-size: $iconMediumSize;
+        }
+      }
+      .admin_toggle:hover {
+        background-color: white;
+        svg {
+          color: $primary-color;
+        }
+      }
+    }
+    .admin_sidemenu_paths_list_container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+      .path_item {
+        display: flex;
+        align-items: center;
+        transition: all 0.2s;
+        padding: 10px;
+        border-radius: 10px;
+        text-transform: capitalize;
+        gap: 30px;
+        cursor: pointer;
+        .path_text {
+          animation: hide linear forwards 0.2s;
+          font-weight: 600;
+        }
+        .path_icon {
+          display: flex;
+          margin-left: 1px;
+          transform: translateX(10px);
+          svg {
+            font-size: $iconMediumSize;
+          }
+        }
+        .tooltip_text {
+          position: absolute;
+          justify-content: center;
+          display: none;
+          width: 100px;
+          background-color: white;
+          border-radius: 10px;
+          padding: 10px;
+          pointer-events: none;
+          box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+          color: $primary-color;
+          animation: hide linear forwards 0.5s;
+          right: -110px;
+
+          p:after {
+            position: absolute;
+            content: "";
+            width: 10px;
+            aspect-ratio: 1/1;
+            background-color: white;
+            clip-path: polygon(30% 0, 0% 100%, 100% 100%);
+            left: -3px;
+            bottom: 0px;
+          }
+        }
+      }
+      .path_item:hover {
+        .tooltip_text {
+          display: flex;
+          animation: show linear forwards 0.3s;
+        }
+      }
+      .active {
+        background-color: white;
+        color: $tertiary-color;
+      }
+
+      .path_item:hover {
+        background-color: white;
+        color: $tertiary-color;
+      }
+    }
+    .admin_perfil_container {
+      background-color: #0c3d68;
+      position: absolute;
+      display: flex;
+      align-items: center;
+      padding: 5px 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      .admin_current_perfil {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        gap: 10px;
+        animation: hide linear forwards 0.2s;
+        .admin_info {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+          span {
+            width: 120px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+          span:last-child {
+            font-size: $textSmallSize;
+          }
+        }
+        img {
+          width: 50px;
+          aspect-ratio: 1/1;
+          border-radius: 999px;
+        }
+      }
+      .admin_logout_button {
+        position: absolute;
+        right: 22px;
+        transition: all 0.2s;
+        padding: 20px;
+        display: flex;
+        cursor: pointer;
+        svg {
+          font-size: $iconMediumSize;
+        }
+      }
+      .admin_logout_button:hover {
+        background-color: white;
+        border-radius: 999px;
+        svg {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+.open {
+  width: 300px;
+  .admin_sidemenu_main {
+    .admin_sidemenu_top_container {
+      //justify-content: space-between;
+      .admin_logo {
+        animation: show linear forwards 0.2s;
+        display: block;
+      }
+      .admin_toggle {
+        svg {
+          transform: none;
+        }
+      }
+    }
+    .admin_sidemenu_paths_list_container {
+      .path_item {
+        transition: all 0.2s;
+        .path_text {
+          animation: show linear forwards 0.2s;
+        }
+      }
+      .path_item:hover {
+        .tooltip_text {
+          display: none;
+        }
+      }
+    }
+    .admin_perfil_container {
+      .admin_current_perfil {
+        animation: show linear forwards 0.2s;
+      }
+    }
+  }
+}
+
+@keyframes hide {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}

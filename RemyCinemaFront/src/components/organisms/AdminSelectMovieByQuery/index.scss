@@ -1,0 +1,74 @@
+@import "../../../styles/base.scss";
+.adminselect_movie {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  .title_proccess {
+    font-size: $textMediumSize;
+  }
+  .input_movie_query {
+    display: flex;
+    justify-content: space-between;
+    input {
+      border: 1px solid #f7f7f7;
+      border-radius: 10px;
+      width: 60%;
+      padding: 5px 10px;
+    }
+    button {
+      justify-content: center;
+      width: 30%;
+    }
+  }
+  .movie_query_results {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: 200px;
+    padding: 10px;
+    overflow-y: scroll;
+    place-items: center;
+    gap: 20px;
+  }
+  .movie_query_results:has(.movie_no_data_query, .movie_loading_query) {
+    display: flex;
+    justify-content: center;
+  }
+  .current_movie_modal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    .current_movie_title {
+      font-size: $textMediumSize;
+      width: 100%;
+      color: $secondary-color;
+      font-weight: 600;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f7f7f7;
+    }
+    .current_movie_main {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 20px;
+      img {
+        width: 100%;
+        aspect-ratio: 1/1.5;
+        object-fit: contain;
+        border-radius: 10px;
+      }
+      .current_movie_overview {
+        span {
+          font-weight: 500;
+        }
+        p {
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          margin-top: 10px;
+          font-size: $textSmallSize;
+        }
+      }
+    }
+  }
+}

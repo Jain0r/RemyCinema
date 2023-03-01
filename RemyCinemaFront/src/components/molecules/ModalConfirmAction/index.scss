@@ -1,0 +1,59 @@
+@import "../../../styles/base.scss";
+
+.modal_mask_container {
+  .modal_confirm_container {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 90%;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    .modal_close_button {
+      width: 100%;
+      display: flex;
+      background-color: $tertiary-color;
+      justify-content: flex-end;
+      padding: 5px;
+      svg {
+        font-size: $iconSmallSize;
+        color: white;
+        cursor: pointer;
+      }
+    }
+    .modal_container_main {
+      width: 100%;
+      text-align: center;
+      gap: 20px;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      flex-direction: column;
+      .modal_container_title {
+        font-size: $textBigSize;
+        font-weight: 900;
+        color: $tertiary-color;
+      }
+      .modal_confirm_buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        button {
+          width: 100%;
+        }
+      }
+
+      .modal_confirm_image {
+        display: none; //aún se vera si poner o no
+        width: 150px;
+        aspect-ratio: 1/1;
+        align-self: center;
+      }
+      button {
+        justify-content: center;
+        font-size: $textMediumSize;
+      }
+    }
+  }
+}

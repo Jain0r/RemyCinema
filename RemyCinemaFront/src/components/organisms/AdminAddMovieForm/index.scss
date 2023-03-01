@@ -1,0 +1,83 @@
+@import "../../../styles/base.scss";
+.add_movie_form_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .title_proccess {
+    font-size: $textMediumSize;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .checkbox_inputs_select {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      .checkbox_input {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .checkbox_list {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: column;
+          gap: 5px;
+          .checkbox_item {
+            display: flex;
+            position: relative;
+            align-items: center;
+            padding: 5px 5px 5px 0;
+            gap: 10px;
+            input {
+              opacity: 0;
+              width: 15px;
+              aspect-ratio: 1/1;
+            }
+            label {
+              text-transform: capitalize;
+              font-size: $textSmallSize;
+            }
+          }
+          .checkbox_item:has(input:checked)::before {
+            background-color: $tertiary-color;
+          }
+          .checkbox_item::before {
+            content: "";
+            background-color: transparent;
+            position: absolute;
+            border: 1px solid #d4d2d2;
+            border-radius: 999px;
+            width: 15px;
+            aspect-ratio: 1/1;
+          }
+        }
+      }
+      .checkbox_input:last-child {
+        border-left: 1px solid #9c9c9c;
+        padding-left: 10px;
+      }
+    }
+    .selects_input {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .select_input {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      select {
+        padding: 10px 5px;
+        border-radius: 5px;
+        border: 1px solid #f7f7f7;
+        font-size: 10px;
+        text-transform: capitalize;
+      }
+    }
+    button {
+      justify-content: center;
+      margin-top: 10px;
+    }
+  }
+}

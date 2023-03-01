@@ -1,0 +1,66 @@
+@import "../../../styles/base.scss";
+
+.shopsummary_main {
+  .shopsummary_items {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 320px;
+    overflow: auto;
+
+    .shopsummary_item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      .shopsummary_category {
+        color: $tertiary-color;
+        font-weight: 900;
+      }
+      .shopsummary_container {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        column-gap: 15px;
+        align-items: center;
+
+        p {
+          font-size: $textSmallSize;
+        }
+        p:nth-child(2) {
+          font-style: italic;
+        }
+        p:nth-child(3) {
+          font-weight: bold;
+          justify-self: flex-end;
+        }
+      }
+    }
+  }
+  .shopsummary_total_order_price {
+    font-size: $textMediumSize;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    border-top: 3px dashed #e0dcdc;
+    font-weight: 900;
+    color: $primary-color;
+    padding-top: 10px;
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: $tablet) {
+  .shopsummary_main {
+    .shopsummary_items {
+      .shopsummary_item {
+        .shopsummary_category {
+          font-size: $textBigSize;
+        }
+        .shopsummary_container {
+          p {
+            font-size: initial;
+          }
+        }
+      }
+    }
+  }
+}

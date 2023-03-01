@@ -1,0 +1,92 @@
+@import "../../../styles/base.scss";
+
+.movies_list_grid_container {
+  display: flex;
+  padding: 20px 0;
+  flex-direction: column;
+  gap: 30px;
+  .movies_list_grid_title {
+    font-size: $textVeryBigSize;
+    font-weight: 900;
+    padding: 0 10px;
+    text-shadow: rgb(236, 236, 236) 10px 20px;
+    color: #949494;
+  }
+  .movies_grid_slider {
+    display: grid;
+    height: 700px;
+    position: relative;
+    grid-template-columns: repeat(16, 1fr);
+    gap: 10px;
+    grid-template-rows: repeat(10, 1fr);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    button:only-of-type {
+      grid-column: 1/17;
+      grid-row: 10/11;
+      justify-content: center;
+      font-size: $textMediumSize;
+    }
+    .cardmovie_container:nth-child(1) {
+      grid-column: 1/17;
+      grid-row: 1/5;
+    }
+    .cardmovie_container:nth-child(2) {
+      grid-column: 1/9;
+      grid-row: 5/8;
+    }
+    .cardmovie_container:nth-child(3) {
+      grid-column: 9/17;
+      grid-row: 5/8;
+    }
+    .cardmovie_container:nth-child(4) {
+      grid-column: 1/9;
+      grid-row: 8/10;
+    }
+    .cardmovie_container:nth-child(5) {
+      grid-column: 9/17;
+      grid-row: 8/10;
+    }
+  }
+}
+
+@media (min-width: $tablet) {
+  .movies_list_grid_container {
+    .movies_list_grid_title {
+      font-size: $textExtraBigSize;
+    }
+    .movies_grid_slider {
+      grid-template-columns: repeat(13, 1fr);
+      grid-template-rows: repeat(6, 1fr);
+
+      button:only-of-type {
+        grid-column: 10/14;
+        grid-row: 6/7;
+      }
+      .cardmovie_container:nth-child(1) {
+        grid-column: 1/7;
+        grid-row: 1/7;
+      }
+      .cardmovie_container:nth-child(2) {
+        grid-column: 7/10;
+        grid-row: 1/4;
+      }
+      .cardmovie_container:nth-child(3) {
+        grid-column: 7/10;
+        grid-row: 4/7;
+      }
+      .cardmovie_container:nth-child(4) {
+        grid-column: 10/14;
+        grid-row: 1/5;
+      }
+      .cardmovie_container:nth-child(5) {
+        grid-column: 10/14;
+        grid-row: 5/6;
+      }
+    }
+  }
+}

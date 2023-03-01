@@ -1,0 +1,65 @@
+@import "../../../styles/base.scss";
+
+.modalaction_container {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  gap: 20px;
+  overflow: hidden;
+  border-radius: 10px;
+  span {
+    svg {
+      font-size: $iconMediumSize;
+    }
+  }
+  .icon_close {
+    position: absolute;
+    top: 1px;
+    right: 5px;
+    svg {
+      font-size: $iconSmallSize;
+      color: rgb(182, 182, 182);
+      cursor: pointer;
+    }
+    svg:hover {
+      color: black;
+    }
+  }
+  .modalaction_barrer {
+    content: "";
+    position: absolute;
+    background-color: $tertiary-color;
+    height: 5px;
+    animation: barrer 1.5s forwards linear;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+@keyframes slipUp {
+  0% {
+    bottom: -100px;
+  }
+  100% {
+    bottom: 40px;
+  }
+}
+@keyframes slipDown {
+  100% {
+    bottom: 40px;
+  }
+  0% {
+    bottom: -100px;
+  }
+}
+@keyframes barrer {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}

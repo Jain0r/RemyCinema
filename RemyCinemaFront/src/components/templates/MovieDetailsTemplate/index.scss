@@ -1,0 +1,361 @@
+@import "../../../styles/base.scss";
+.moviedetails_template_container {
+  .moviedetails_main {
+    display: flex;
+    flex-direction: column;
+    .moviedetails_trailer_video {
+      width: 100%;
+      height: 400px;
+    }
+    .moviedetails_sticky_info {
+      display: flex;
+      justify-content: space-between;
+      background-color: white;
+      gap: 10px;
+      padding: 20px;
+      transition: all 0.3s;
+      background-color: $tertiary-color;
+      color: white;
+      top: 100px;
+      position: sticky;
+      z-index: 10;
+      .moviedetails_relevant_info {
+        .moviedetails_title {
+          font-size: $textBigSize;
+          font-weight: 900;
+          color: white;
+        }
+        .moviedetails_primary_info {
+          span:first-child {
+            padding-left: 0;
+          }
+          span {
+            padding: 0 5px;
+            font-size: $textSmallSize;
+            border-right: 1px solid rgb(155, 155, 155);
+          }
+          span:last-child {
+            border: none;
+          }
+        }
+      }
+      button {
+        align-self: center;
+      }
+    }
+
+    .moviedetails_layout_info {
+      display: flex;
+      padding: 20px;
+
+      margin: 20px auto;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      flex-direction: column;
+      background-color: $quartery-color;
+      .moviedetails_poster_path {
+        min-width: 200px;
+        width: 100%;
+        max-width: 500px;
+        display: flex;
+        justify-content: center;
+        img {
+          object-fit: contain;
+          width: 100%;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        }
+      }
+      .moviedetails_about_info {
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .moviedetails_sipnosis {
+          font-size: $textBigSize;
+          font-weight: 900;
+          color: $tertiary-color;
+        }
+        .moviedetails_overview {
+          font-size: $textSmallSize;
+        }
+        ul {
+          li {
+            display: flex;
+            padding: 5px 0;
+            flex-direction: column;
+            gap: 10px;
+            color: $primary-color;
+            font-weight: 900;
+            .moviedetails_directors_all,
+            .moviedetails_idioms_options,
+            .moviedetails_available_options {
+              display: flex;
+              font-size: $textSmallSize;
+              gap: 5px;
+              p:after {
+                content: ",";
+              }
+              p:last-child::after {
+                content: "";
+              }
+            }
+            p {
+              span {
+                padding-right: 5px;
+              }
+            }
+            strong {
+              font-weight: 900;
+            }
+          }
+          .moviedetails_idioms {
+            .moviedetails_idioms_options {
+              p {
+                padding: 5px;
+                text-transform: uppercase;
+                border: 1px solid $tertiary-color;
+                border-radius: 5px;
+              }
+              p:after {
+                content: "";
+              }
+            }
+          }
+        }
+      }
+    }
+    .moviedetails_layout_info::after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      left: 20px;
+      top: 10px;
+      background-color: $tertiary-color;
+      position: absolute;
+    }
+    .moviedetails_select_function {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .moviedetails_select_title {
+        font-size: $textBigSize;
+        color: $tertiary-color;
+        font-weight: bold;
+      }
+      .moviedetails_selects_area {
+        .moviedetails_selects_container {
+          display: flex;
+          justify-content: center;
+          ul {
+            display: flex;
+            width: 100%;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            justify-content: center;
+            li {
+              width: 33.33%;
+              border-right: 1px solid rgb(228, 228, 228);
+              display: flex;
+              padding: 5px;
+              position: relative;
+              .select_dropdown_layout {
+                position: relative;
+                color: black;
+                width: 100%;
+                font-size: $textSmallSize;
+                .select_title {
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  font-weight: 600;
+                  white-space: nowrap;
+                }
+                .select_label {
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  margin-top: 10px;
+                  text-transform: capitalize;
+                }
+              }
+
+              select {
+                position: absolute;
+                height: 100%;
+                border: none;
+                background: transparent;
+                color: white;
+                width: 100%;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                option {
+                  color: black;
+                }
+              }
+            }
+            li:last-child {
+              border-right: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: $mobile) {
+  .moviedetails_template_container {
+    .moviedetails_main {
+      .moviedetails_trailer_video {
+        height: 600px;
+      }
+      .moviedetails_sticky_info {
+        .moviedetails_relevant_info {
+          .moviedetails_title {
+            font-size: $textVeryBigSize;
+          }
+        }
+      }
+      .moviedetails_layout_info {
+        .moviedetails_about_info {
+          .moviedetails_sipnosis {
+            font-size: $textVeryBigSize;
+          }
+          .moviedetails_overview {
+            font-size: initial;
+          }
+          ul {
+            li {
+              strong {
+                font-size: $textMediumSize;
+              }
+            }
+          }
+        }
+      }
+      .moviedetails_select_function {
+        .moviedetails_select_title {
+          font-size: $textVeryBigSize;
+          font-weight: 900;
+        }
+        .moviedetails_selects_area {
+          .moviedetails_selects_container {
+            ul {
+              li {
+                padding: 20px;
+                .select_dropdown_layout {
+                  font-size: $textMediumSize;
+                  .select_label {
+                    font-size: initial;
+                  }
+                }
+              }
+              select {
+                font-size: initial;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: $desktop) {
+  .moviedetails_template_container {
+    .moviedetails_main {
+      .moviedetails_trailer_video {
+        height: 750px;
+      }
+      .moviedetails_sticky_info {
+        justify-content: space-around;
+        .moviedetails_relevant_info {
+          .moviedetails_title {
+            font-size: $textExtraBigSize;
+          }
+          .moviedetails_primary_info {
+            span {
+              font-size: $textMediumSize;
+            }
+          }
+        }
+      }
+      .moviedetails_layout_info {
+        flex-direction: row;
+        margin-top: 100px;
+        background-color: transparent;
+        gap: 20px;
+        .moviedetails_poster_path {
+          min-width: 400px;
+          img {
+            z-index: 1;
+          }
+        }
+        .moviedetails_about_info {
+          background-color: #eeeeee;
+          position: relative;
+          max-width: 600px;
+          padding: 120px 20px;
+          box-shadow: -70px 0px 0px 0px #eeeeee;
+
+          .moviedetails_sipnosis {
+            font-size: $textExtraBigSize;
+          }
+          .moviedetails_overview {
+            font-size: $textBigSize;
+            line-height: 30px;
+          }
+          ul {
+            li {
+              strong {
+                font-size: $textBigSize;
+              }
+            }
+          }
+        }
+        .moviedetails_about_info::after {
+          content: "";
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          left: 20px;
+          top: 10px;
+          background-color: $tertiary-color;
+          position: absolute;
+        }
+      }
+      .moviedetails_layout_info::after {
+        display: none;
+      }
+      .moviedetails_select_function {
+        .moviedetails_select_title {
+          font-size: $textExtraBigSize;
+        }
+        .moviedetails_selects_area {
+          .moviedetails_selects_container {
+            ul {
+              li {
+                padding: 20px;
+                .select_dropdown_layout {
+                  font-size: $textMediumSize;
+                  .select_title {
+                    font-size: $textBigSize;
+                  }
+                  .select_label {
+                    font-size: $textMediumSize;
+                  }
+                }
+                select {
+                  font-size: $textMediumSize;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,87 @@
+@import "../../../styles/base.scss";
+
+.card_slider_container {
+  color: white;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 600px;
+  display: flex;
+
+  padding: 40px 50px;
+  .card_slider_main {
+    width: 100%;
+    align-self: flex-end;
+    .card_slider_layout {
+      display: flex;
+      flex-direction: column;
+      max-width: 600px;
+      gap: 20px;
+      position: relative;
+      z-index: 10;
+
+      .card_slider_title {
+        font-size: $textVeryBigSize;
+        font-weight: 900;
+      }
+      .card_slider_title::before {
+        content: "";
+        width: 100px;
+        aspect-ratio: 1/0.5;
+        background-color: $tertiary-color;
+        position: absolute;
+        left: -10px;
+        z-index: -1;
+      }
+      .card_slider_description {
+        font-size: $textSmallSize;
+        line-height: 20px;
+      }
+      button {
+        justify-content: center;
+        align-self: flex-start;
+      }
+    }
+  }
+}
+
+@media (min-width: $mobile) {
+  .card_slider_container {
+    .card_slider_main {
+      .card_slider_layout {
+        .card_slider_title {
+          font-size: $textExtraBigSize;
+        }
+        .card_slider_title::before {
+          width: 150px;
+        }
+        .card_slider_description {
+          font-size: initial;
+          line-height: 30px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $tablet) {
+  .card_slider_container {
+    height: 700px;
+    padding: 80px;
+    .card_slider_main {
+      .card_slider_layout {
+        gap: 40px;
+        .card_slider_title {
+          font-size: $textSuperExtraBigSize;
+        }
+        .card_slider_title::before {
+          width: 200px;
+        }
+        .card_slider_description {
+          font-size: $textMediumSize;
+        }
+      }
+    }
+  }
+}

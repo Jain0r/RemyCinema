@@ -1,0 +1,192 @@
+@import "../../../styles/base.scss";
+
+.navbar_container {
+  background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  z-index: 15;
+  position: fixed;
+  left: 0;
+  right: 0;
+  .navbar_main_container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    padding: 20px 0;
+
+    gap: 10px;
+    .navbar_logo {
+      width: $logoMediumSize;
+    }
+    .navbar_main_routes {
+      display: none;
+    }
+    .navbar_menu_list {
+      display: flex;
+      gap: 5px;
+      li {
+        display: flex;
+        align-items: center;
+        transition: all 0.2s;
+        svg {
+          font-size: $iconSmallSize;
+          margin: 10px;
+        }
+        svg:nth-child(2) {
+          display: none;
+        }
+      }
+      li:not(:has(.navbar_search_input)):has(svg:hover) {
+        background-color: $tertiary-color;
+        color: white;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      .navbar_search_container {
+        display: none;
+        border-radius: 10px;
+        label {
+          display: flex;
+          justify-content: center;
+          transition: all 0.2s;
+          border-radius: 999px;
+          cursor: pointer;
+        }
+        label:hover {
+          background-color: $tertiary-color;
+          color: white;
+        }
+        .navbar_search_input {
+          width: 100%;
+          input {
+            background-color: transparent;
+            width: 0%;
+            margin-left: 15px;
+          }
+        }
+      }
+      li:has(.navbar_search_input input:focus) {
+        background-color: $inputText;
+        transition: all 0.2s;
+        input {
+          width: 100%;
+        }
+        label {
+          background-color: $tertiary-color;
+          color: white;
+          svg:nth-child(1) {
+            display: none;
+          }
+          svg:nth-child(2) {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+.navbar_container > div {
+  padding-top: 100px;
+}
+@media (min-width: $desktop) {
+  .navbar_container {
+    .navbar_main_container {
+      .navbar_menu_list {
+        .navbar_search_container {
+          width: 300px;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+}
+@media (min-width: $tablet) {
+  .navbar_container {
+    .navbar_main_container {
+      gap: 50px;
+      .navbar_main_routes {
+        display: flex;
+        gap: 20px;
+        li {
+          a {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            svg {
+              margin-top: 2px;
+            }
+          }
+          .sublinks_container {
+            position: fixed;
+            width: 250px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s;
+            padding: 50px 20px 40px 20px;
+            background-color: white;
+            li {
+              padding: 10px 0;
+              border-bottom: 1px solid rgb(236, 236, 236);
+            }
+          }
+          .sublinks_container::before {
+            content: "";
+            position: absolute;
+            height: 5px;
+            top: 39px;
+            width: 0;
+            left: 0;
+            transition: all 0.5s;
+            background-color: $tertiary-color;
+          }
+
+          a {
+            color: $primary-color;
+            font-size: $textMediumSize;
+            font-weight: bold;
+            position: relative;
+            cursor: pointer;
+            svg {
+              transition: all 0.2s;
+            }
+          }
+        }
+
+        li:hover {
+          .sublinks_container {
+            opacity: 1;
+            pointer-events: all;
+          }
+          .sublinks_container::before {
+            width: 100%;
+            opacity: 1;
+          }
+          a {
+            color: $tertiary-color;
+            svg {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+      .navbar_menu_list {
+        gap: 15px;
+        li:last-child {
+          display: none;
+        }
+        .navbar_search_container {
+          display: flex;
+          input {
+            font-size: $textMediumSize;
+          }
+        }
+      }
+    }
+  }
+}
+.navbar_container + div {
+  padding-top: 100px;
+}

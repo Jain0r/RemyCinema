@@ -1,0 +1,45 @@
+@import "../../../styles/base.scss";
+.ticket_item_container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  .ticket_info {
+    border-right: 1px solid #cccccc;
+    padding-right: 10px;
+    line-height: 30px;
+    .ticket_name {
+      font-weight: 900;
+      font-size: $textMediumSize;
+      color: $tertiary-color;
+    }
+  }
+
+  .ticket_cant {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 10px;
+    gap: 10px;
+    span {
+      color: $tertiary-color;
+      font-weight: 900;
+    }
+    button {
+      padding: 0;
+      width: 30px;
+      border: 1px solid $tertiary-color;
+      background-color: transparent;
+      color: $tertiary-color;
+      display: flex;
+      border-radius: 999px;
+      font-size: 20px;
+      transition: all 0.2s;
+      justify-content: center;
+      aspect-ratio: 1/1;
+    }
+    button:hover {
+      background-color: $tertiary-color;
+      color: white;
+    }
+  }
+}

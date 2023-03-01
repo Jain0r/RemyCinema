@@ -1,0 +1,61 @@
+@import "../../../styles/base.scss";
+
+.cardfood_container {
+  background-color: white;
+  width: 250px;
+  .cardfood_main {
+    display: grid;
+    grid-template-rows: 2fr 2fr 0.5fr;
+    .cardfood_image {
+      width: 100%;
+      img {
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+      }
+    }
+    .cardfood_layout {
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      strong {
+        color: $tertiary-color;
+        font-weight: 900;
+        font-size: $textMediumSize;
+      }
+      p {
+        font-style: italic;
+        color: #848484;
+      }
+    }
+    .cardfood_buttons {
+      border-top: 1px solid #bbb5b5;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      justify-content: space-between;
+      color: $tertiary-color;
+      font-weight: 800;
+      font-size: $textMediumSize;
+
+      .cardfood_buttons_options {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        button {
+          width: 40px;
+          aspect-ratio: 1/1;
+          padding: 0;
+          border-radius: 999px;
+          justify-content: center;
+          border: 1px solid $tertiary-color;
+          background-color: transparent;
+          color: $tertiary-color;
+          font-size: $textBigSize;
+        }
+      }
+    }
+  }
+}

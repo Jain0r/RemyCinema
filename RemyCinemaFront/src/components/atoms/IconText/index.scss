@@ -1,0 +1,12 @@
+@import "../../../styles/base.scss";
+.icontext_container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  span {
+    svg {
+      font-size: $iconSmallSize;
+      color: $tertiary-color;
+    }
+  }
+}

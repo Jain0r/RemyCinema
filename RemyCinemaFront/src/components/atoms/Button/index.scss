@@ -1,0 +1,36 @@
+@import "../../../styles/base.scss";
+
+button {
+  padding: 10px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: all 0.3s;
+  cursor: pointer;
+  svg {
+    font-size: $iconSmallSize;
+  }
+}
+
+.primary_button {
+  background-color: $primary-color;
+}
+.secondary_button {
+  background-color: $secondary-color;
+}
+.tertiary_button {
+  background-color: $tertiary-color;
+}
+
+.fifth_button {
+  background-color: $fifth-color;
+}
+
+button:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

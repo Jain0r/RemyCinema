@@ -1,0 +1,13 @@
+.admininit_container {
+  width: calc(100% - 110px);
+  float: right;
+  transition: all 0.4s;
+  .admininit_main {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+}
+.admininit_container:has(.open) {
+  width: calc(100% - 300px);
+}

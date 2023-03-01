@@ -1,0 +1,64 @@
+@import "../../../styles/base.scss";
+.cardmovie_container {
+  transition: all 0.3s;
+  position: relative;
+  .cardmovie_buttons_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    button {
+      opacity: 0;
+      font-size: $textSmallSize;
+      padding: 5px;
+      visibility: hidden;
+      cursor: pointer;
+    }
+  }
+}
+.cardmovie_container:hover {
+  transform: scale(1.03);
+  img {
+    transition: all 0.3s;
+    filter: brightness(70%);
+  }
+  .cardmovie_buttons_container {
+    button {
+      animation: fadeIn forwards 0.3s linear;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: visible;
+  }
+}
+@media (min-width: $mobile) {
+  .cardmovie_container {
+    .cardmovie_buttons_container {
+      button {
+        padding: 9px;
+        font-size: 16px;
+      }
+    }
+  }
+}

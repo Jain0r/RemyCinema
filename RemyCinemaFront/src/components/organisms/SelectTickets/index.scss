@@ -1,0 +1,104 @@
+@import "../../../styles/base.scss";
+.proccess_tickets_selection {
+  .select_tickets_main {
+    padding: 20px 0;
+    .select_tickets_info {
+      text-align: center;
+      line-height: 30px;
+      strong {
+        font-size: $textBigSize;
+        color: $tertiary-color;
+        font-weight: 900;
+      }
+      p {
+        margin: 20px 0;
+      }
+    }
+    .select_tickets_options {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      ul {
+        strong {
+          font-size: $textBigSize;
+          color: $tertiary-color;
+          font-weight: 900;
+        }
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .tickets_options_benefits {
+        padding: 20px;
+        line-height: 30px;
+        border-top: 3px solid #bebebe;
+        strong {
+          font-size: $textBigSize;
+          color: $tertiary-color;
+          font-weight: 900;
+        }
+        .all_benefits {
+          text-align: center;
+          padding: 10px 0;
+          svg {
+            font-size: $iconVeryBigSize;
+            color: $tertiary-color;
+          }
+        }
+      }
+    }
+    .select_tickets_promo_code {
+      background-color: $tertiary-color;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+      .promo_code_info {
+        line-height: 30px;
+        strong {
+          font-size: $textMediumSize;
+        }
+        p {
+          font-size: $textSmallSize;
+        }
+      }
+      .promo_code_input {
+        border-bottom: 1px solid white;
+        input {
+          background-color: transparent;
+          color: white;
+          font-size: $textMediumSize;
+          padding-bottom: 5px;
+        }
+        input::placeholder {
+          color: white;
+        }
+      }
+      .promo_code_button {
+        border: 3px solid white;
+        border-radius: 10px;
+        button {
+          font-size: initial;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $tablet) {
+  .proccess_tickets_selection {
+    .select_tickets_main {
+      .select_tickets_promo_code {
+        flex-direction: row;
+        justify-content: space-between;
+        .promo_code_info {
+          text-align: initial;
+        }
+      }
+    }
+  }
+}
