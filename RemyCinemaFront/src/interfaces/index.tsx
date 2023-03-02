@@ -16,10 +16,24 @@ export interface initialAddMovieFormAPIProps {
 }
 
 //MovieAllInfoTransform
+export interface movieRCFormatTest {
+  title_movie: string;
+  duration_movie: number;
+  sinopsis_movie: string;
+  trailers_movie: string;
+  poster_movie: string;
+  genres_movie: string;
+  directors_movie: string;
+  //esta info pondremos nosotros
+  release_date_movie: string;
+  restrictions_movie: string;
+  idioms_movie?: string;
+  available_movie?: string;
+  status_movie?: string;
+}
 
 export interface movieRCFormat {
   //esta info se obtendra de la API TheMovieDB v3
-  id_movie: number;
   title_movie: string;
   duration_movie: number;
   sinopsis_movie: string;

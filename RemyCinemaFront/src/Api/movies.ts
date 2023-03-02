@@ -1,5 +1,5 @@
 import Api from "."
-import { API_KEY, API_LANGUAGE, BASE_URL} from "./config"
+import { API_KEY, API_LANGUAGE, BASE_URL, BASE_URL_API} from "./config"
 
 const BASE_CONFIG_API = "?" + new URLSearchParams({api_key : API_KEY, language: API_LANGUAGE});
 
@@ -39,6 +39,15 @@ export default class MoviesService {
             const rspJson = await rsp.json()
             return rspJson
 
+        } catch(error){
+            console.log(error)
+        }
+    }
+    static async postMovie (data:any) {
+        try {
+            const rsp = await Api.put(`${BASE_URL_API}/movie`,data);
+            const rspJson = await rsp.json()
+            return rspJson
         } catch(error){
             console.log(error)
         }
