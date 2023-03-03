@@ -5,7 +5,7 @@ import { POSTER_PATH } from "../../../Api/config";
 import "./index.scss";
 import { HiOutlineTicket } from "react-icons/hi";
 import SelectSeats from "../../organisms/SelectSeats";
-import { Ticket, transformMovieAllInfo } from "../../../interfaces";
+import { movieRCFormatTest, Ticket } from "../../../interfaces";
 import Button from "../../atoms/Button";
 import SelectTickets from "../../organisms/SelectTickets";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,7 @@ import {
 } from "../../../redux/actions/shopActions";
 
 interface ShopTemplateProps {
-  data: transformMovieAllInfo;
+  data: movieRCFormatTest;
 }
 
 interface Step {
@@ -37,8 +37,8 @@ const steps: Step[] = [
 
 const ShopTemplate = ({ data }: ShopTemplateProps) => {
   const [proccessStep, setProccessStep] = useState<Step>(steps[0]);
-  const [summary, setSummary] = useState(false);
-  const [modalConfirm, setModalConfirm] = useState(false);
+  const [summary, setSummary] = useState<boolean>(false);
+  const [modalConfirm, setModalConfirm] = useState<boolean>(false);
   const { selectedSeats, selectedTickets } = useSelector(
     (state: any) => state.shop
   );
@@ -92,11 +92,11 @@ const ShopTemplate = ({ data }: ShopTemplateProps) => {
           </p>
           <img
             className="movie_poster_path"
-            src={`${POSTER_PATH}/${data?.poster_movie}`}
-            alt={data?.title_movie}
+            src={`${POSTER_PATH}/${data?.posterMovie}`}
+            alt={data?.titleMovie}
           ></img>
           <div className="shoptemplate_movie_layout">
-            <strong>{data?.title_movie}</strong>
+            <strong>{data?.titleMovie}</strong>
             <p className="moviedetails_info_oneline">
               <span>CP Alcazar, SALA 6</span>
               <span>2D, Regular</span>

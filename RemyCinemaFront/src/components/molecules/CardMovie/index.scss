@@ -18,16 +18,16 @@
       cursor: pointer;
     }
   }
-}
-.cardmovie_container:hover {
-  transform: scale(1.03);
-  img {
-    transition: all 0.3s;
-    filter: brightness(70%);
-  }
-  .cardmovie_buttons_container {
-    button {
-      animation: fadeIn forwards 0.3s linear;
+  &:hover {
+    transform: scale(1.03);
+    img {
+      transition: all 0.3s;
+      filter: brightness(70%);
+    }
+    .cardmovie_buttons_container {
+      button {
+        animation: fadeIn forwards 0.3s linear;
+      }
     }
   }
 }

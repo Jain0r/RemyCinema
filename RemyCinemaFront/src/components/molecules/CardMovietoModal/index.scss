@@ -12,7 +12,7 @@
   .selected {
     border: 5px solid $tertiary-color;
   }
-}
-.card_movie_detail:hover {
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
 }

@@ -86,12 +86,12 @@
             transition: all 0.5s;
             cursor: pointer;
           }
-        }
-        .sidemenu_close_button:has(svg:hover) {
-          background-color: $tertiary-color;
-          border-radius: 999px;
-          svg {
-            color: white;
+          &:has(svg:hover) {
+            background-color: $tertiary-color;
+            border-radius: 999px;
+            svg {
+              color: white;
+            }
           }
         }
       }
@@ -128,29 +128,29 @@
             }
           }
         }
-      }
-      li:not(:has(.sidemenu_subroutes)) {
-        .icontext_container {
+        &:not(:has(.sidemenu_subroutes)) {
+          .icontext_container {
+            svg {
+              display: block;
+            }
+          }
           svg {
-            display: block;
+            display: none;
           }
         }
-        svg {
-          display: none;
-        }
-      }
-      li:hover {
-        background-color: $primary-color;
-      }
-      li:has(.sidemenu_subroutes) {
-        svg {
-          transition: all 0.2s;
-        }
-        .sidemenu_item.active {
+        &:hover {
           background-color: $primary-color;
-          .sidemenu_item_arrow {
-            svg {
-              transform: rotate(180deg);
+        }
+        &:has(.sidemenu_subroutes) {
+          svg {
+            transition: all 0.2s;
+          }
+          .sidemenu_item.active {
+            background-color: $primary-color;
+            .sidemenu_item_arrow {
+              svg {
+                transform: rotate(180deg);
+              }
             }
           }
         }

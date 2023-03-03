@@ -1,25 +1,25 @@
 import {
-  AllMovieInfo,
+  FetchAllMovieInfo,
   FetchMovieCreditsResponse,
   FetchMovieDetailsResponse,
   FetchVideosMovie,
-  transformMovieAllInfo,
+  movieRCFormatTest,
 } from ".";
 
-export const initialTransformAllMovieData: transformMovieAllInfo = {
-  id_movie: 0,
-  title_movie: "",
-  duration_movie: 0,
-  sinopsis_movie: "",
-  trailers_movie: "",
-  restrictions_movie: "",
-  directors_movie: "",
-  idioms_movie: [],
-  available_movie: [],
-  poster_movie: "",
-  genres_movie: [],
-  release_date_movie: "",
-  status_movie: "",
+export const initialMovieRCFormatTest: movieRCFormatTest = {
+  idMovie: 0,
+  titleMovie: "",
+  durationMovie: 0,
+  sinopsisMovie: "",
+  trailerMovie: "",
+  restrictionsMovie: "",
+  directorsMovie: "",
+  idiomsMovie: "",
+  availableMovie: "",
+  posterMovie: "",
+  genresMovie: "",
+  releaseDateMovie: "",
+  statusMovie: "",
 };
 export const initialFetchDetailsMovie: FetchMovieDetailsResponse = {
   adult: false,
@@ -59,6 +59,33 @@ export const initialFetchVideosMovie: FetchVideosMovie = {
   results: [],
 };
 
+export const initialAllMovieData: FetchAllMovieInfo = {
+  ...initialFetchCreditsMovie,
+  ...initialFetchDetailsMovie,
+  ...initialFetchVideosMovie,
+};
+
+//
+
+export const initialMovieByQuery = {
+  adult: false,
+  backdrop_path: "",
+  genre_ids: [],
+  id: 0,
+  original_language: "",
+  original_title: "",
+  overview: "",
+  popularity: 0,
+  poster_path: "",
+  release_date: "",
+  title: "",
+  video: false,
+  vote_average: 0,
+  vote_count: 0,
+};
+
+//
+
 export const initialAvailableMovieFormat = [
   { id: 1, format: "2D" },
   { id: 2, format: "3D" },
@@ -97,25 +124,4 @@ export const initialStatusMovie = [
   { id: 2, status: "por estrenar" },
 ];
 
-export const initialAllMovieData: AllMovieInfo = {
-  ...initialFetchCreditsMovie,
-  ...initialFetchDetailsMovie,
-  ...initialFetchVideosMovie,
-};
-
-export const initialMovieByQuery = {
-  adult: false,
-  backdrop_path: "",
-  genre_ids: [],
-  id: 0,
-  original_language: "",
-  original_title: "",
-  overview: "",
-  popularity: 0,
-  poster_path: "",
-  release_date: "",
-  title: "",
-  video: false,
-  vote_average: 0,
-  vote_count: 0,
-};
+//

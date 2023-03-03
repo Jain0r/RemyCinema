@@ -14,23 +14,20 @@ button {
   svg {
     font-size: $iconSmallSize;
   }
-}
-
-.primary_button {
-  background-color: $primary-color;
-}
-.secondary_button {
-  background-color: $secondary-color;
-}
-.tertiary_button {
-  background-color: $tertiary-color;
-}
-
-.fifth_button {
-  background-color: $fifth-color;
-}
-
-button:disabled {
-  opacity: 0.5;
-  pointer-events: none;
+  &.primary_button {
+    background-color: $primary-color;
+  }
+  &.secondary_button {
+    background-color: $secondary-color;
+  }
+  &.tertiary_button {
+    background-color: $tertiary-color;
+  }
+  &.fifth_button {
+    background-color: $fifth-color;
+  }
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }

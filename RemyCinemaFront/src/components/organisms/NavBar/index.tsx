@@ -15,6 +15,8 @@ import { TbMovie } from "react-icons/tb";
 import SideMenu from "../SideMenu";
 import "./index.scss";
 import IconText from "../../atoms/IconText";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../shared/navigation";
 
 interface NavMenuItemProps {
   route: string;
@@ -35,6 +37,7 @@ const NavMenuItem = ({ route, subroutes }: NavMenuItemProps) => {
 
 const NavBar = () => {
   const [search, setSearch] = useState<string>("");
+  const navigate = useNavigate();
   const [isOpenSideMenu, setIsOpenSideMenu] = useState<boolean>(false);
 
   const handleQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +46,13 @@ const NavBar = () => {
   return (
     <div id="nav_container" className="navbar_container">
       <div className="navbar_main_container section">
-        <img className="navbar_logo" src={logo} alt="logo" title="logo"></img>
+        <img
+          onClick={() => navigate(`${routes.home.init}`)}
+          className="navbar_logo"
+          src={logo}
+          alt="logo"
+          title="logo"
+        ></img>
         <ul className="navbar_main_routes">
           <NavMenuItem route="Inicio" />
           <NavMenuItem

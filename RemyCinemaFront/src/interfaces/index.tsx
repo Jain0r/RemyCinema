@@ -1,35 +1,49 @@
 //AddMovieFormProps
 
 export interface initialAddMovieFormProps {
-  release_date_movie: string;
-  restrictions_movie: string;
-  idioms_movie: string[];
-  available_movie: string[];
-  status_movie: string;
-}
-export interface initialAddMovieFormAPIProps {
-  release_date_movie: string;
-  restrictions_movie: restrictionMovie;
-  idioms_movie: idiomMovie[];
-  available_movie: availableMovie[];
-  status_movie: statusMovie;
+  releaseDateMovie: string;
+  restrictionsMovie: string;
+  idiomsMovie: string[];
+  availableMovie: string[];
+  statusMovie: string;
 }
 
-//MovieAllInfoTransform
+export interface RouteParams {
+  id: string;
+}
+export interface initialAddMovieFormAPIProps {
+  releaseDateMovie: string;
+  restrictionsMovie: restrictionMovie;
+  idiomsMovie: idiomMovie[];
+  availableMovie: availableMovie[];
+  statusMovie: statusMovie;
+}
+
+export interface transformDataFromApi {
+  titleMovie: string;
+  durationMovie: number;
+  sinopsisMovie: string;
+  trailerMovie: string;
+  directorsMovie: string;
+  posterMovie: string;
+  genresMovie: string;
+}
+
 export interface movieRCFormatTest {
-  title_movie: string;
-  duration_movie: number;
-  sinopsis_movie: string;
-  trailers_movie: string;
-  poster_movie: string;
-  genres_movie: string;
-  directors_movie: string;
+  idMovie: number;
+  titleMovie: string;
+  durationMovie: number;
+  sinopsisMovie: string;
+  trailerMovie: string;
+  posterMovie: string;
+  genresMovie: string;
+  directorsMovie: string;
   //esta info pondremos nosotros
-  release_date_movie: string;
-  restrictions_movie: string;
-  idioms_movie?: string;
-  available_movie?: string;
-  status_movie?: string;
+  releaseDateMovie: string;
+  restrictionsMovie: string;
+  idiomsMovie?: string;
+  availableMovie?: string;
+  statusMovie?: string;
 }
 
 export interface movieRCFormat {
@@ -46,19 +60,21 @@ export interface movieRCFormat {
   restrictions_movie: restrictionMovie;
   idioms_movie?: idiomMovie[];
   available_movie?: availableMovie[];
-  status_movie?: statusMovie;
+  status_movie?: string; //0 -> no en cartelera, 1 -> en cartelera
 }
-
-//MovieAllinfo
+export interface Genre {
+  id: number;
+  name: string;
+}
 
 export interface restrictionMovie {
   id: number;
-  value: string;
+  value: string; // +A +12 +14 +1 +18
   description: string;
 }
 export interface availableMovie {
   id: number;
-  format: string;
+  format: string; //4D, Prime, 3D, XXXFactor
 }
 export interface idiomMovie {
   id: number;
@@ -69,10 +85,31 @@ export interface statusMovie {
   status: string;
 }
 
-export interface AllMovieInfo
+//THEMOVIEDB RESPONSES
+export interface FetchAllMovieInfo
   extends FetchMovieCreditsResponse,
     FetchMovieDetailsResponse,
     FetchVideosMovie {}
+
+//MoviebyQuery
+
+export interface MovieByQuery {
+  adult: boolean;
+  backdrop_path?: string;
+  genre_ids: number[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path?: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
 //MovieDetails
 export interface FetchMovieDetailsResponse {
   adult: boolean;
@@ -101,23 +138,6 @@ export interface FetchMovieDetailsResponse {
   vote_average: number;
   vote_count: number;
 }
-
-export interface MovieByQuery {
-  adult: boolean;
-  backdrop_path?: string;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path?: string;
-  release_date: string;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
 export interface Spokenlanguage {
   english_name: string;
   iso_639_1: string;
@@ -134,11 +154,6 @@ export interface Productioncompany {
   logo_path?: any;
   name: string;
   origin_country: string;
-}
-
-export interface Genre {
-  id: number;
-  name: string;
 }
 
 //MovieCredits

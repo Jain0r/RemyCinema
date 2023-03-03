@@ -21,7 +21,7 @@ public class MovieRest {
     private MovieService movieService;
 
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    //@CrossOrigin(origins = "http://localhost:8080")
     @GetMapping
     private ResponseEntity<List<Movie>> getAllMovies(){
         List<Movie> moviesToSend = movieService.findAll();
@@ -37,11 +37,10 @@ public class MovieRest {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
+    //@CrossOrigin(origins = "http://localhost:8080")
     @PostMapping
     private ResponseEntity<Movie> postMovie(@RequestBody Movie movie){
         Movie movieToSave = movieService.save(movie);
-
         try{
             return ResponseEntity.created(new URI("/movie/" + movieToSave.getIdMovie())).body(movieToSave);
         } catch (Exception e){

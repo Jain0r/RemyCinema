@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { POSTER_PATH } from "../../../Api/config";
 import { MovieByQuery } from "../../../interfaces";
+import logo from "../../../assets/logo-transparent-png.png";
 import "./index.scss";
 
 interface CardMovieToModalProps {
@@ -23,8 +23,8 @@ const CardMovieToModal = ({
       <img
         className={isSelected ? "selected" : ""}
         onClick={() => openModal(data)}
-        src={`${POSTER_PATH}/${data.poster_path}`}
-        alt={data.title}
+        src={data?.poster_path ? `${POSTER_PATH}/${data?.poster_path}` : logo}
+        alt={data?.title}
       ></img>
     </div>
   );

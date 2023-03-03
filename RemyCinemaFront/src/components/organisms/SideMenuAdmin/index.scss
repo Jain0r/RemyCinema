@@ -41,11 +41,11 @@
         svg {
           font-size: $iconMediumSize;
         }
-      }
-      .admin_toggle:hover {
-        background-color: white;
-        svg {
-          color: $primary-color;
+        &:hover {
+          background-color: white;
+          svg {
+            color: $primary-color;
+          }
         }
       }
     }
@@ -100,21 +100,18 @@
             bottom: 0px;
           }
         }
-      }
-      .path_item:hover {
-        .tooltip_text {
-          display: flex;
-          animation: show linear forwards 0.3s;
+        &:hover {
+          background-color: white;
+          color: $tertiary-color;
+          .tooltip_text {
+            display: flex;
+            animation: show linear forwards 0.3s;
+          }
         }
-      }
-      .active {
-        background-color: white;
-        color: $tertiary-color;
-      }
-
-      .path_item:hover {
-        background-color: white;
-        color: $tertiary-color;
+        &.active {
+          background-color: white;
+          color: $tertiary-color;
+        }
       }
     }
     .admin_perfil_container {
@@ -141,9 +138,9 @@
             white-space: nowrap;
             text-overflow: ellipsis;
             overflow: hidden;
-          }
-          span:last-child {
-            font-size: $textSmallSize;
+            &:last-child {
+              font-size: $textSmallSize;
+            }
           }
         }
         img {
@@ -162,12 +159,12 @@
         svg {
           font-size: $iconMediumSize;
         }
-      }
-      .admin_logout_button:hover {
-        background-color: white;
-        border-radius: 999px;
-        svg {
-          color: $primary-color;
+        &:hover {
+          background-color: white;
+          border-radius: 999px;
+          svg {
+            color: $primary-color;
+          }
         }
       }
     }
@@ -195,10 +192,10 @@
         .path_text {
           animation: show linear forwards 0.2s;
         }
-      }
-      .path_item:hover {
-        .tooltip_text {
-          display: none;
+        &:hover {
+          .tooltip_text {
+            display: none;
+          }
         }
       }
     }

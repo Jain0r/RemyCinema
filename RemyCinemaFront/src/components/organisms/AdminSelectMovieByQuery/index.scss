@@ -28,11 +28,12 @@
     overflow-y: scroll;
     place-items: center;
     gap: 20px;
+    &:has(.movie_no_data_query, .movie_loading_query) {
+      display: flex;
+      justify-content: center;
+    }
   }
-  .movie_query_results:has(.movie_no_data_query, .movie_loading_query) {
-    display: flex;
-    justify-content: center;
-  }
+
   .current_movie_modal {
     display: flex;
     flex-direction: column;

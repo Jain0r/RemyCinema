@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { POSTER_PATH } from "../../../Api/config";
 import MoviesService from "../../../Api/movies";
+import MoviesServiceTMD from "../../../Api/moviesTMD";
 import { MovieByQuery } from "../../../interfaces";
 import { initialMovieByQuery } from "../../../interfaces/initials";
 import Button from "../../atoms/Button";
+import Loader from "../../atoms/Loader";
 import CardMovieToModal from "../../molecules/CardMovietoModal";
 import ModalLayout from "../../molecules/ModalLayout";
 import "./index.scss";
@@ -37,7 +39,7 @@ const AdminSelectMovieByQuery = ({
     getMovieByQuery();
   };
   const getMovieByQuery = async () => {
-    await MoviesService.getMoviesByQuery(query)
+    await MoviesServiceTMD.getMoviesByQuery(query)
       .then((data) => setQueryResults(data.results))
       .then(() => setLoading(false))
       .catch((error) => console.log(error));
@@ -58,7 +60,9 @@ const AdminSelectMovieByQuery = ({
       </div>
       <div className="movie_query_results">
         {loading ? (
-          <p className="movie_loading_query">Loading...</p>
+          <p className="movie_loading_query">
+            <Loader />
+          </p>
         ) : queryResults?.length > 0 ? (
           queryResults &&
           queryResults?.map((result) => {

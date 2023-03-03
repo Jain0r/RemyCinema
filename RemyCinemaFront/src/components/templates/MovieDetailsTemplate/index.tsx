@@ -4,7 +4,7 @@ import {
   convertToHrsandMins,
 } from "../../../functions";
 import { TbTicket } from "react-icons/tb";
-import { movieRCFormat } from "../../../interfaces";
+import { movieRCFormatTest } from "../../../interfaces";
 import Button from "../../atoms/Button";
 import "./index.scss";
 import { POSTER_PATH } from "../../../Api/config";
@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import routes from "../../../shared/navigation";
 
 interface MovieDetailsTemplateProps {
-  data: movieRCFormat;
+  data: movieRCFormatTest;
 }
 interface FilterFunctions {
   cinema_function: string;
@@ -128,8 +128,8 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
         <iframe
           className="moviedetails_trailer_video"
           src={
-            data?.trailers_movie &&
-            `https://www.youtube.com/embed/${data.trailers_movie}`
+            data?.trailerMovie &&
+            `https://www.youtube.com/embed/${data?.trailerMovie}`
           }
           frameBorder="0"
           title="YouTube video player"
@@ -138,10 +138,10 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
         ></iframe>
         <div className="moviedetails_sticky_info">
           <div className="moviedetails_relevant_info">
-            <span className="moviedetails_title">{data?.title_movie}</span>
+            <span className="moviedetails_title">{data?.titleMovie}</span>
             <p className="moviedetails_primary_info">
-              <span>{data?.genres_movie && data.genres_movie[0]?.name}</span>
-              <span>{convertToHrsandMins(data?.duration_movie)}</span>
+              <span>{data?.genresMovie && data?.genresMovie}</span>
+              <span>{convertToHrsandMins(data?.durationMovie)}</span>
             </p>
           </div>
           <Button
@@ -155,19 +155,19 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
         <div className="moviedetails_layout_info section">
           <div className="moviedetails_poster_path">
             <img
-              src={`${POSTER_PATH}/${data?.poster_movie}`}
-              alt={data?.title_movie}
+              src={`${POSTER_PATH}/${data?.posterMovie}`}
+              alt={data?.titleMovie}
             ></img>
           </div>
 
           <div className="moviedetails_about_info">
             <p className="moviedetails_sipnosis">Sinopsis.</p>
-            <p className="moviedetails_overview">{data?.sinopsis_movie}</p>
+            <p className="moviedetails_overview">{data?.sinopsisMovie}</p>
             <ul>
               <li className="moviedetails_directors">
                 <strong>Director(es)</strong>
                 <div className="moviedetails_directors_all">
-                  {data?.directors_movie ? data?.directors_movie : <p>-</p>}
+                  {data?.directorsMovie ? data?.directorsMovie : <p>-</p>}
                 </div>
               </li>
               <li className="moviedetails_idioms">

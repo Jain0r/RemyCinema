@@ -1,23 +1,27 @@
 import React from "react";
 import { POSTER_PATH } from "../../../Api/config";
-import { movieRCFormat } from "../../../interfaces";
+import { movieRCFormatTest } from "../../../interfaces";
 import imagen1 from "../../../assets/imagen.jpg";
+import logo from "../../../assets/logo-transparent-png.png";
 import { CgDetailsMore } from "react-icons/cg";
 import { HiOutlineTicket } from "react-icons/hi";
 import "./index.scss";
 import Button from "../../atoms/Button";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../shared/navigation";
 
-// interface CardMovieProps {
-//   data: movieRCFormat;
-// }
+interface CardMovieProps {
+  data: movieRCFormatTest;
+}
 
-const CardMovie = () => {
+const CardMovie = ({ data }: CardMovieProps) => {
+  const navigate = useNavigate();
+
   return (
     <div className="cardmovie_container">
       <img
-        src={imagen1}
-        // src={`${POSTER_PATH}/${data.poster_movie}`}
-        // alt={data.title_movie}
+        src={data?.posterMovie ? `${POSTER_PATH}/${data.posterMovie}` : logo}
+        alt={data?.titleMovie}
       ></img>
       <div className="cardmovie_buttons_container">
         <Button
@@ -31,7 +35,9 @@ const CardMovie = () => {
           text="Detalles"
           type="button"
           icon={<CgDetailsMore />}
-          onClick={() => console.log("hoa")}
+          onClick={() =>
+            navigate(`${routes.mainRoutes.movies}/${data.idMovie}`)
+          }
           className="tertiary_button"
         ></Button>
       </div>

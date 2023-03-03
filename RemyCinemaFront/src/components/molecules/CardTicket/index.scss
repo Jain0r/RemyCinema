@@ -36,10 +36,10 @@
       transition: all 0.2s;
       justify-content: center;
       aspect-ratio: 1/1;
-    }
-    button:hover {
-      background-color: $tertiary-color;
-      color: white;
+      &:hover {
+        background-color: $tertiary-color;
+        color: white;
+      }
     }
   }
 }

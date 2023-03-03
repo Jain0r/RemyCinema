@@ -33,9 +33,9 @@
             padding: 0 5px;
             font-size: $textSmallSize;
             border-right: 1px solid rgb(155, 155, 155);
-          }
-          span:last-child {
-            border: none;
+            &:last-child {
+              border: none;
+            }
           }
         }
       }
@@ -47,7 +47,6 @@
     .moviedetails_layout_info {
       display: flex;
       padding: 20px;
-
       margin: 20px auto;
       justify-content: center;
       align-items: center;
@@ -116,9 +115,9 @@
                 text-transform: uppercase;
                 border: 1px solid $tertiary-color;
                 border-radius: 5px;
-              }
-              p:after {
-                content: "";
+                &:after {
+                  content: "";
+                }
               }
             }
           }
@@ -181,7 +180,6 @@
                   text-transform: capitalize;
                 }
               }
-
               select {
                 position: absolute;
                 height: 100%;
@@ -197,9 +195,9 @@
                   color: black;
                 }
               }
-            }
-            li:last-child {
-              border-right: none;
+              &:last-child {
+                border-right: none;
+              }
             }
           }
         }
@@ -300,7 +298,6 @@
           max-width: 600px;
           padding: 120px 20px;
           box-shadow: -70px 0px 0px 0px #eeeeee;
-
           .moviedetails_sipnosis {
             font-size: $textExtraBigSize;
           }
@@ -315,20 +312,20 @@
               }
             }
           }
+          &::after {
+            content: "";
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            left: 20px;
+            top: 10px;
+            background-color: $tertiary-color;
+            position: absolute;
+          }
         }
-        .moviedetails_about_info::after {
-          content: "";
-          width: 100%;
-          height: 100%;
-          z-index: -1;
-          left: 20px;
-          top: 10px;
-          background-color: $tertiary-color;
-          position: absolute;
+        &::after {
+          display: none;
         }
-      }
-      .moviedetails_layout_info::after {
-        display: none;
       }
       .moviedetails_select_function {
         .moviedetails_select_title {

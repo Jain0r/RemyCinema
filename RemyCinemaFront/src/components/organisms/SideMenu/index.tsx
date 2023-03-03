@@ -23,7 +23,7 @@ interface SideMenuItemProps {
   icon?: JSX.Element;
 }
 const SideMenuItem = ({ route, subroutes, icon }: SideMenuItemProps) => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState<boolean>(false);
   const dropMenuRef = useRef() as React.MutableRefObject<HTMLDivElement>;
   let content = dropMenuRef.current?.nextElementSibling;
   return (

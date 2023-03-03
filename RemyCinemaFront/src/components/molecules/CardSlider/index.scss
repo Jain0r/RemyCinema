@@ -8,7 +8,6 @@
   width: 100%;
   height: 600px;
   display: flex;
-
   padding: 40px 50px;
   .card_slider_main {
     width: 100%;
@@ -20,19 +19,18 @@
       gap: 20px;
       position: relative;
       z-index: 10;
-
       .card_slider_title {
         font-size: $textVeryBigSize;
         font-weight: 900;
-      }
-      .card_slider_title::before {
-        content: "";
-        width: 100px;
-        aspect-ratio: 1/0.5;
-        background-color: $tertiary-color;
-        position: absolute;
-        left: -10px;
-        z-index: -1;
+        &::before {
+          content: "";
+          width: 100px;
+          aspect-ratio: 1/0.5;
+          background-color: $tertiary-color;
+          position: absolute;
+          left: -10px;
+          z-index: -1;
+        }
       }
       .card_slider_description {
         font-size: $textSmallSize;
@@ -52,9 +50,9 @@
       .card_slider_layout {
         .card_slider_title {
           font-size: $textExtraBigSize;
-        }
-        .card_slider_title::before {
-          width: 150px;
+          &::before {
+            width: 150px;
+          }
         }
         .card_slider_description {
           font-size: initial;
@@ -74,9 +72,9 @@
         gap: 40px;
         .card_slider_title {
           font-size: $textSuperExtraBigSize;
-        }
-        .card_slider_title::before {
-          width: 200px;
+          &::before {
+            width: 200px;
+          }
         }
         .card_slider_description {
           font-size: $textMediumSize;

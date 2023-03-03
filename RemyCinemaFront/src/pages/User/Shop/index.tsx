@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import Loader from "../../../components/atoms/Loader";
 import ShopTemplate from "../../../components/templates/ShopTemplate";
-import {
-  fetchAllMovieInfo,
-  fetchTransformAllMovieInfo,
-} from "../../../functions";
-import { transformMovieAllInfo } from "../../../interfaces";
-import { initialTransformAllMovieData } from "../../../interfaces/initials";
+import useGetMovieById from "../../../hooks/useGetMovieById";
 import {
   setCombos,
   setFoods,
@@ -16,32 +12,26 @@ import {
 } from "../../../redux/actions/shopActions";
 
 const ShopPage = () => {
-  const [movieData, setMovieData] = useState<transformMovieAllInfo>(
-    initialTransformAllMovieData
-  );
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
-  const params = useParams();
-
-  const getMovieDetails = async () => {
-    if (params.id !== undefined && params.id !== null) {
-      await fetchAllMovieInfo(params.id)
-        .then((data) => setMovieData(fetchTransformAllMovieInfo(data)))
-        .then(() => setLoading(false))
-        .catch((error) => console.log(error));
-    }
-  };
-
+  const params = useParams(); // useParams trae un objeto donde los valores de los parametros (en este caso id) puedes ser string | undefined
+  const paramsId = params?.id !== undefined ? parseInt(params?.id) : 1; // aca validamos si es undefined devolvera 1 pero si no lo es hara un parseInt de este string (caracter numerico)
+  const [id, setId] = useState<number>(paramsId); // ahora seteamos un id para pasarlo al customhook ahora ya asegurandonos de que es un numero
+  const { loading, data, error } = useGetMovieById(id); //traemos lo que retorna el customhook
   useEffect(() => {
-    getMovieDetails();
-    dispatch(setTickets([]));
+    setId(paramsId); // cada vez que se cambie el params.id setearemos nuestro valor de estado id con el valor de paramsId
+    dispatch(setTickets([])); // setearemos valores vacios al momento de cambiar el params.id
     dispatch(setSeats([]));
     dispatch(setFoods([]));
     dispatch(setCombos([]));
-  }, [params]);
-  return (
-    <div>{loading ? <p>Loading...</p> : <ShopTemplate data={movieData} />}</div>
-  );
+  }, [params.id]);
+  if (error) {
+    return (
+      <div>
+        <p>{JSON.stringify(error)}</p>
+      </div>
+    );
+  }
+  return <div>{loading ? <Loader /> : <ShopTemplate data={data} />}</div>;
 };
 
 export default ShopPage;

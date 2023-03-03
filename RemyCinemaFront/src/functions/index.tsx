@@ -1,10 +1,11 @@
-import MoviesService from "../Api/movies";
+import MoviesServiceTMD from "../Api/moviesTMD";
 import {
-  AllMovieInfo,
   Combo,
+  Crew,
+  FetchAllMovieInfo,
   Food,
   Ticket,
-  transformMovieAllInfo,
+  transformDataFromApi,
 } from "../interfaces";
 import { initialAllMovieData } from "../interfaces/initials";
 
@@ -71,48 +72,35 @@ export const totalCantCombos = (selectedCombos: Combo[]) => {
 };
 
 //APIS
-export const fetchAllMovieInfo = async (id: number): Promise<AllMovieInfo> => {
+export const fetchAllMovieInfo = async (
+  id: number
+): Promise<FetchAllMovieInfo> => {
   let result = initialAllMovieData;
   await Promise.all([
-    MoviesService.getMovieDetails(id),
-    MoviesService.getMovieCredits(id),
-    MoviesService.getMovieTrailer(id),
+    MoviesServiceTMD.getMovieDetails(id),
+    MoviesServiceTMD.getMovieCredits(id),
+    MoviesServiceTMD.getMovieTrailer(id),
   ])
     .then((values) => (result = { ...values[0], ...values[1], ...values[2] }))
     .catch((reason) => console.log(reason));
   return result;
 };
 export const fetchTransformAllMovieInfo = (
-  allMovieData: AllMovieInfo
-): transformMovieAllInfo => {
+  allMovieData: FetchAllMovieInfo
+): transformDataFromApi => {
   let directors: string[] = [];
   allMovieData.crew
-    .filter((crewMember) => crewMember.job === "Director")
-    .map((director) => directors.push(director.name));
-
+    ?.filter((crewMember: Crew) => crewMember.job === "Director")
+    .map((director: Crew) => directors.push(director.name));
   return {
-    id_movie: allMovieData.id,
-    title_movie: allMovieData.title,
-    duration_movie: allMovieData.runtime,
-    sinopsis_movie: allMovieData.overview,
-    restrictions_movie: "A",
-    trailers_movie: allMovieData.results.slice(-1)[0].key, //devolviendo string del array original
-    directors_movie: directors.join(", "),
-    poster_movie: allMovieData.poster_path,
-    genres_movie: allMovieData.genres,
-    release_date_movie: allMovieData.release_date,
+    titleMovie: allMovieData?.title,
+    durationMovie: allMovieData?.runtime,
+    sinopsisMovie: allMovieData?.overview,
+    trailerMovie: allMovieData?.results
+      ? allMovieData.results.slice(-1)[0].key
+      : "", //devolviendo string del array original
+    directorsMovie: directors?.length > 0 ? directors.join(", ") : "",
+    posterMovie: allMovieData?.poster_path,
+    genresMovie: allMovieData?.genres[0].name,
   };
 };
-
-// export default function createCointainer() {
-//   const portalId = "notifyContainer";
-//   let element = document.getElementById(portalId);
-//   if (element) {
-//     return element;
-//   }
-//   element = document.createElement("div");
-//   element.setAttribute("id", portalId);
-//   element.className = "notifies_container";
-//   document.body.appendChild(element);
-//   return element;
-// }

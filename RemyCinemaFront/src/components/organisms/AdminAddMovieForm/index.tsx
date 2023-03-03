@@ -31,23 +31,30 @@ interface AdminAddMovieFormProps {
 
 const AdminAddMovieForm = ({ movieData }: AdminAddMovieFormProps) => {
   const initialValues: initialAddMovieFormProps = {
-    release_date_movie: "",
-    restrictions_movie: "",
-    idioms_movie: [],
-    available_movie: [],
-    status_movie: "",
+    releaseDateMovie: "",
+    restrictionsMovie: "",
+    idiomsMovie: [],
+    availableMovie: [],
+    statusMovie: "",
   };
   const handleSubmit = async (values: initialAddMovieFormProps) => {
     const data = await fetchAllMovieInfo(movieData?.id);
     const tranformDataMovie = fetchTransformAllMovieInfo(data);
+    const getStatus = () => {
+      if (values.statusMovie === "en cartelera") {
+        return 1;
+      } else {
+        return 0;
+      }
+    };
     const testMovieData = {
       ...tranformDataMovie,
       ...values,
-      genres_movie: tranformDataMovie.genres_movie[0].name,
-      idioms_movie: values.idioms_movie.join(","),
-      available_movie: values.available_movie.join(","),
+      idiomsMovie: values.idiomsMovie.join(","),
+      availableMovie: values.availableMovie.join(","),
+      statusMovie: getStatus(),
     };
-    console.log("aea", JSON.stringify(testMovieData));
+    console.log("aea", testMovieData);
     MoviesService.postMovie(testMovieData);
     // const available_movie_API: availableMovie[] = [];
     // const idioms_movie_API: idiomMovie[] = [];
@@ -95,14 +102,14 @@ const AdminAddMovieForm = ({ movieData }: AdminAddMovieFormProps) => {
         {({ errors }) => (
           <Form>
             <RCInput
-              name="release_date_movie"
+              name="releaseDateMovie"
               type="date"
               label="Fecha de estreno"
             />
             <div className="selects_input">
               <div className="select_input">
                 <p>Restricción</p>
-                <Field as="select" name="restrictions_movie">
+                <Field as="select" name="restrictionsMovie">
                   <option value="">--Seleccione una restricción--</option>
                   {initialRestrictionsAge &&
                     initialRestrictionsAge?.map(
@@ -120,13 +127,13 @@ const AdminAddMovieForm = ({ movieData }: AdminAddMovieFormProps) => {
                 </Field>
                 <InputErrorMessage
                   text={
-                    errors.restrictions_movie ? errors.restrictions_movie : ""
+                    errors.restrictionsMovie ? errors.restrictionsMovie : ""
                   }
                 />
               </div>
               <div className="select_input">
                 <p>Estado de la película</p>
-                <Field as="select" name="status_movie">
+                <Field as="select" name="statusMovie">
                   <option value="">--Seleccione un estado--</option>
                   {initialStatusMovie &&
                     initialStatusMovie.map((status: statusMovie) => {
@@ -138,7 +145,7 @@ const AdminAddMovieForm = ({ movieData }: AdminAddMovieFormProps) => {
                     })}
                 </Field>
                 <InputErrorMessage
-                  text={errors?.status_movie ? errors?.status_movie : ""}
+                  text={errors?.statusMovie ? errors?.statusMovie : ""}
                 />
               </div>
             </div>
@@ -154,7 +161,7 @@ const AdminAddMovieForm = ({ movieData }: AdminAddMovieFormProps) => {
                             <Field
                               id={format?.format}
                               type="checkbox"
-                              name="available_movie"
+                              name="availableMovie"
                               value={format?.format}
                             />
                             <label htmlFor={format?.format}>
@@ -167,8 +174,8 @@ const AdminAddMovieForm = ({ movieData }: AdminAddMovieFormProps) => {
                 </div>
                 <InputErrorMessage
                   text={
-                    errors?.available_movie?.toString()
-                      ? errors?.available_movie.toString()
+                    errors?.availableMovie?.toString()
+                      ? errors?.availableMovie.toString()
                       : ""
                   }
                 />
@@ -184,7 +191,7 @@ const AdminAddMovieForm = ({ movieData }: AdminAddMovieFormProps) => {
                             id={idiom?.idiom}
                             key={idiom?.id}
                             type="checkbox"
-                            name="idioms_movie"
+                            name="idiomsMovie"
                             value={idiom?.idiom}
                           />
                           <label htmlFor={idiom?.idiom}>{idiom?.idiom}</label>
@@ -194,8 +201,8 @@ const AdminAddMovieForm = ({ movieData }: AdminAddMovieFormProps) => {
                 </div>
                 <InputErrorMessage
                   text={
-                    errors?.idioms_movie?.toString()
-                      ? errors?.idioms_movie.toString()
+                    errors?.idiomsMovie?.toString()
+                      ? errors?.idiomsMovie.toString()
                       : ""
                   }
                 />

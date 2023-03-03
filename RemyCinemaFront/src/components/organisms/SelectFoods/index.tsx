@@ -6,7 +6,7 @@ import { initialCombos, initialFoods } from "../../../Api/dataFake";
 import "./index.scss";
 
 const SelectFoods = () => {
-  const [selectType, setSelectType] = useState("combos");
+  const [selectType, setSelectType] = useState<string>("combos");
 
   const showedProducts = () => {
     if (selectType === "snacks") {

@@ -7,7 +7,7 @@ import ModalLayout from "../../molecules/ModalLayout";
 import AdminAddMovieForm from "../../organisms/AdminAddMovieForm";
 import AdminAddMovieProccess from "../../organisms/AdminAddMovieProccess";
 const AdminMoviesTemplate = () => {
-  const [AddMovieModalForm, setAddMovieModalForm] = useState(false);
+  const [AddMovieModalForm, setAddMovieModalForm] = useState<boolean>(false);
   return (
     <div className="adminmovies_template_container">
       <div className="adminmovies_list_cards">

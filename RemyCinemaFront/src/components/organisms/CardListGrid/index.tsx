@@ -1,25 +1,25 @@
 import React from "react";
-import { movieRCFormat } from "../../../interfaces";
+import { movieRCFormatTest } from "../../../interfaces";
 import CardMovie from "../../molecules/CardMovie";
 import Button from "../../atoms/Button";
 import "./index.scss";
 
 interface CardListGridProps {
-  data?: movieRCFormat[];
+  data: movieRCFormatTest[];
   title: string;
   onSeeMore?(): void;
 }
 
-const CardListGrid = ({ title, onSeeMore }: CardListGridProps) => {
+const CardListGrid = ({ title, onSeeMore, data }: CardListGridProps) => {
   return (
     <div className="movies_list_grid_container section">
       {title ? <p className="movies_list_grid_title  ">{title}</p> : null}
       <div className="movies_grid_slider ">
-        <CardMovie />
-        <CardMovie />
-        <CardMovie />
-        <CardMovie />
-        <CardMovie />
+        {data
+          ? data.map((movieItem) => {
+              return <CardMovie key={movieItem?.idMovie} data={movieItem} />;
+            })
+          : null}
         <Button
           type="button"
           onClick={() => console.log("hola")}

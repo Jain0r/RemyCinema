@@ -1,43 +1,29 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Loader from "../../../components/atoms/Loader";
 import MovieDetailsTemplate from "../../../components/templates/MovieDetailsTemplate";
-import {
-  fetchAllMovieInfo,
-  fetchTransformAllMovieInfo,
-} from "../../../functions";
-import { transformMovieAllInfo } from "../../../interfaces";
-import { initialTransformAllMovieData } from "../../../interfaces/initials";
+import useGetMovieById from "../../../hooks/useGetMovieById";
 
 const MovieDetailsPage = () => {
-  const params = useParams();
-  const [movie, setMovie] = useState<transformMovieAllInfo>(
-    initialTransformAllMovieData
-  ); //se tiene q inicializar con el interface pero con valores vacios
-  const [loading, setLoading] = useState(true);
-
-  const getAllMovieInfo = async () => {
-    if (params.id !== undefined && params.id !== null) {
-      await fetchAllMovieInfo(params.id)
-        .then((data) => setMovie(fetchTransformAllMovieInfo(data)))
-        .then(() => setLoading(false))
-        .catch((error) => console.log(error));
-    }
-  };
+  const params = useParams(); // useParams trae un objeto donde los valores de los parametros (en este caso id) puedes ser string | undefined
+  const paramsId = params?.id !== undefined ? parseInt(params?.id) : 1; // aca validamos si es undefined devolvera 1 pero si no lo es hara un parseInt de este string (caracter numerico)
+  const [id, setId] = useState<number>(paramsId); // ahora seteamos un id para pasarlo al customhook ahora ya asegurandonos de que es un numero
+  const { loading, data, error } = useGetMovieById(id); //traemos lo que retorna el customhook
 
   useEffect(() => {
-    getAllMovieInfo();
-  }, [params]);
-  console.log("loading", loading);
-  console.log("movie", movie);
-  console.log("JSON", JSON.stringify(movie));
-
+    setId(paramsId); // ahora para que react haga el llamado del customhook cada vez que cambie el params
+  }, [params.id]); // lo que hacemos es setear nuevamente nuestro valor de estado id con params.id cada vez que cambie el params.id
+  // de esta forma se hara el llamado del customhook y se volvera a pintar el dom cada vez que detecte cambio en el params.id(url:id)
+  if (error) {
+    return (
+      <div>
+        <p>{JSON.stringify(error)}</p>
+      </div>
+    );
+  }
   return (
     <div>
-      {loading && movie ? (
-        <p>Loading...</p>
-      ) : (
-        <MovieDetailsTemplate data={movie} />
-      )}
+      {loading && data ? <Loader /> : <MovieDetailsTemplate data={data} />}
     </div>
   );
 };

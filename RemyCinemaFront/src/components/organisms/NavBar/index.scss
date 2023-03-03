@@ -17,6 +17,7 @@
     gap: 10px;
     .navbar_logo {
       width: $logoMediumSize;
+      cursor: pointer;
     }
     .navbar_main_routes {
       display: none;
@@ -35,12 +36,29 @@
         svg:nth-child(2) {
           display: none;
         }
-      }
-      li:not(:has(.navbar_search_input)):has(svg:hover) {
-        background-color: $tertiary-color;
-        color: white;
-        border-radius: 999px;
-        cursor: pointer;
+        &:not(:has(.navbar_search_input)):has(svg:hover) {
+          background-color: $tertiary-color;
+          color: white;
+          border-radius: 999px;
+          cursor: pointer;
+        }
+        &:has(.navbar_search_input input:focus) {
+          background-color: $inputText;
+          transition: all 0.2s;
+          input {
+            width: 100%;
+          }
+          label {
+            background-color: $tertiary-color;
+            color: white;
+            svg:nth-child(1) {
+              display: none;
+            }
+            svg:nth-child(2) {
+              display: block;
+            }
+          }
+        }
       }
       .navbar_search_container {
         display: none;
@@ -51,10 +69,10 @@
           transition: all 0.2s;
           border-radius: 999px;
           cursor: pointer;
-        }
-        label:hover {
-          background-color: $tertiary-color;
-          color: white;
+          &:hover {
+            background-color: $tertiary-color;
+            color: white;
+          }
         }
         .navbar_search_input {
           width: 100%;
@@ -62,23 +80,6 @@
             background-color: transparent;
             width: 0%;
             margin-left: 15px;
-          }
-        }
-      }
-      li:has(.navbar_search_input input:focus) {
-        background-color: $inputText;
-        transition: all 0.2s;
-        input {
-          width: 100%;
-        }
-        label {
-          background-color: $tertiary-color;
-          color: white;
-          svg:nth-child(1) {
-            display: none;
-          }
-          svg:nth-child(2) {
-            display: block;
           }
         }
       }
@@ -131,16 +132,16 @@
               padding: 10px 0;
               border-bottom: 1px solid rgb(236, 236, 236);
             }
-          }
-          .sublinks_container::before {
-            content: "";
-            position: absolute;
-            height: 5px;
-            top: 39px;
-            width: 0;
-            left: 0;
-            transition: all 0.5s;
-            background-color: $tertiary-color;
+            &::before {
+              content: "";
+              position: absolute;
+              height: 5px;
+              top: 39px;
+              width: 0;
+              left: 0;
+              transition: all 0.5s;
+              background-color: $tertiary-color;
+            }
           }
 
           a {
@@ -153,21 +154,20 @@
               transition: all 0.2s;
             }
           }
-        }
-
-        li:hover {
-          .sublinks_container {
-            opacity: 1;
-            pointer-events: all;
-          }
-          .sublinks_container::before {
-            width: 100%;
-            opacity: 1;
-          }
-          a {
-            color: $tertiary-color;
-            svg {
-              transform: rotate(180deg);
+          &:hover {
+            .sublinks_container {
+              opacity: 1;
+              pointer-events: all;
+              &::before {
+                width: 100%;
+                opacity: 1;
+              }
+            }
+            a {
+              color: $tertiary-color;
+              svg {
+                transform: rotate(180deg);
+              }
             }
           }
         }

@@ -60,8 +60,10 @@ const SideMenuAdmin = () => {
     const Path = SideMenuPaths.find((path) => path.text === currentPath);
     return Path?.id;
   };
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentPath, setCurrentPath] = useState(getCurrentPath());
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [currentPath, setCurrentPath] = useState<number | undefined>(
+    getCurrentPath()
+  );
   const navigate = useNavigate();
 
   const handlePath = (path: Paths) => {

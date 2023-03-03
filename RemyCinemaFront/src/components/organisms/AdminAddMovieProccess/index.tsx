@@ -6,10 +6,10 @@ import AdminAddMovieForm from "../AdminAddMovieForm";
 import AdminSelectMovieByQuery from "../AdminSelectMovieByQuery";
 
 const AdminAddMovieProccess = () => {
-  const [proccess, setProccess] = useState(1);
+  const [proccess, setProccess] = useState<number>(1);
   const [selectedMovie, setSelectedMovie] =
     useState<MovieByQuery>(initialMovieByQuery);
-  const [modalInform, setModalInform] = useState(false);
+  const [modalInform, setModalInform] = useState<boolean>(false);
 
   console.log("moviesase", selectedMovie);
   const handleStep = (step: number) => {
