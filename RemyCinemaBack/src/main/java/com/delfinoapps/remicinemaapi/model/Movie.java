@@ -25,8 +25,13 @@ public class Movie {
     @Column(name = "sinopsis_movie")
     private String sinopsisMovie;
 
-    @Column(name = "restrictions_movie")
+    /*@Column(name = "restrictions_movie")
     private String restrictionsMovie;
+    */
+
+    @ManyToOne
+    @JoinColumn(name = "restriction_movie")
+    private Restriction restrictionRef;
 
     @Column(name = "directors_movie")
     private String directorsMovie;
@@ -49,7 +54,7 @@ public class Movie {
     @Column(name = "status_movie")
     private String statusMovie;
 
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "movie_genre",
@@ -64,12 +69,12 @@ public class Movie {
     */
     public Movie() {}
 
-    public Movie(Long idMovie, String titleMovie, Long durationMovie, String sinopsisMovie, String restrictionsMovie, String directorsMovie, String trailerMovie, String idiomsMovie, String availableMovie, String posterMovie, Date releaseDateMovie, String statusMovie, List<Genre> genre) {
+    public Movie(Long idMovie, String titleMovie, Long durationMovie, String sinopsisMovie, Restriction restrictionsMovie, String directorsMovie, String trailerMovie, String idiomsMovie, String availableMovie, String posterMovie, Date releaseDateMovie, String statusMovie, List<Genre> genre) {
         this.idMovie = idMovie;
         this.titleMovie = titleMovie;
         this.durationMovie = durationMovie;
         this.sinopsisMovie = sinopsisMovie;
-        this.restrictionsMovie = restrictionsMovie;
+        this.restrictionRef = restrictionsMovie;
         this.directorsMovie = directorsMovie;
         this.trailerMovie = trailerMovie;
         this.idiomsMovie = idiomsMovie;
@@ -112,12 +117,12 @@ public class Movie {
         this.sinopsisMovie = sinopsisMovie;
     }
 
-    public String getRestrictionsMovie() {
-        return restrictionsMovie;
+    public Restriction getRestrictionsMovie() {
+        return restrictionRef;
     }
 
-    public void setRestrictionsMovie(String restrictionsMovie) {
-        this.restrictionsMovie = restrictionsMovie;
+    public void setRestrictionsMovie(Restriction restrictionsMovie) {
+        this.restrictionRef = restrictionsMovie;
     }
 
     public String getDirectorsMovie() {
@@ -180,7 +185,5 @@ public class Movie {
         return genre;
     }
 
-    public void setGenre(List<Genre> genre) {
-        this.genre = genre;
-    }
+    public void setGenre(List<Genre> genre) { this.genre = genre; }
 }

@@ -15,7 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("moviegenres")
+@RequestMapping("/moviegenres/")
 public class MovieGenreRest {
 
     @Autowired
