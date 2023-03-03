@@ -8,9 +8,6 @@ export interface initialAddMovieFormProps {
   statusMovie: string;
 }
 
-export interface RouteParams {
-  id: string;
-}
 export interface initialAddMovieFormAPIProps {
   releaseDateMovie: string;
   restrictionsMovie: restrictionMovie;

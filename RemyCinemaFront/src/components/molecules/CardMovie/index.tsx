@@ -1,7 +1,5 @@
-import React from "react";
 import { POSTER_PATH } from "../../../Api/config";
 import { movieRCFormatTest } from "../../../interfaces";
-import imagen1 from "../../../assets/imagen.jpg";
 import logo from "../../../assets/logo-transparent-png.png";
 import { CgDetailsMore } from "react-icons/cg";
 import { HiOutlineTicket } from "react-icons/hi";

@@ -60,9 +60,9 @@ const AdminSelectMovieByQuery = ({
       </div>
       <div className="movie_query_results">
         {loading ? (
-          <p className="movie_loading_query">
+          <div>
             <Loader />
-          </p>
+          </div>
         ) : queryResults?.length > 0 ? (
           queryResults &&
           queryResults?.map((result) => {

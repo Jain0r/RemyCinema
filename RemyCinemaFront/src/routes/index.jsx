@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import routes from "../shared/navigation";
 import { Provider } from "react-redux";
 import Home from "../pages/User/Home";
@@ -14,7 +14,6 @@ import MovieDetailsPage from "../pages/User/MovieDetails";
 import AdminInitPage from "../pages/Admin/AdminInit";
 import AdminMoviePage from "../pages/Admin/AdminMovies";
 import UserContainer from "../pages/User/Container";
-import NavBar from "../components/organisms/NavBar";
 import ShopPage from "../pages/User/Shop";
 import store, { Persistor } from "../redux/store";
 import { PersistGate } from "redux-persist/lib/integration/react";

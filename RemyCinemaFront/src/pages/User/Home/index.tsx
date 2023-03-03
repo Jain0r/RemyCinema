@@ -1,18 +1,33 @@
-import { useEffect, useState } from "react";
-import { BASE_URL } from "../../../Api/config";
 import MoviesService from "../../../Api/movies";
 import Loader from "../../../components/atoms/Loader";
 import HomeTemplate from "../../../components/templates/HomeTemplate";
-import useGetAllMovies from "../../../hooks/useGetAllMovies";
 import { movieRCFormatTest } from "../../../interfaces";
+import { useQuery } from "react-query";
 
 const HomePage = () => {
-  const { loading, data, error } = useGetAllMovies();
-  console.log(data);
-
-  if (data !== null) {
-    return <div>{loading ? <Loader /> : <HomeTemplate data={data} />}</div>;
-  }
+  const {
+    isLoading,
+    error,
+    isError,
+    data: allMovies,
+  }: {
+    data: movieRCFormatTest[] | undefined;
+    isLoading: boolean;
+    error: unknown; //el tipado del error se debe hacer cuando se establezca que se enviara de error
+    isError: boolean;
+  } = useQuery({
+    queryKey: ["allMovies"],
+    queryFn: () => MoviesService.getAllMovies(),
+  });
+  if (isLoading) return <Loader />;
+  else if (isError) return <div>{JSON.stringify(error)}</div>;
+  //se establecera una página 404 de
+  else if (allMovies !== undefined)
+    return (
+      <div>
+        <HomeTemplate data={allMovies} />
+      </div>
+    );
 };
 
 export default HomePage;
