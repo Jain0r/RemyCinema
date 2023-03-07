@@ -78,7 +78,8 @@ public class MovieGenreService implements MovieGenreRepository {
 
     @Override
     public <S extends MovieGenre> List<S> saveAll(Iterable<S> entities) {
-        return null;
+
+        return movieGenreRepository.saveAll(entities);
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.delfinoapps.remicinemaapi.rest;
 
 import com.delfinoapps.remicinemaapi.model.Movie;
 import com.delfinoapps.remicinemaapi.repository.MovieRepository;
+import com.delfinoapps.remicinemaapi.service.GenreService;
+import com.delfinoapps.remicinemaapi.service.MovieGenreService;
 import com.delfinoapps.remicinemaapi.service.MovieService;
 import io.swagger.models.Response;
 import org.hibernate.Hibernate;
@@ -19,6 +21,12 @@ public class MovieRest {
 
     @Autowired
     private MovieService movieService;
+
+    @Autowired
+    private MovieGenreService movieGenreService;
+
+    @Autowired
+    private GenreService genreService;
 
 
     //@CrossOrigin(origins = "http://localhost:8080")

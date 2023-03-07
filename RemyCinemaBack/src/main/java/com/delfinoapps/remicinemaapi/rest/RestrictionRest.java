@@ -22,5 +22,4 @@ public class RestrictionRest {
         return ResponseEntity.ok(restrictionService.findAll());
     }
 
-
 }

@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   convertToDayWeekandNumber,
   convertToHrsandMins,
+  fetchAllMovieInfo,
+  fetchTransformAllMovieInfo,
 } from "../../../functions";
 import { TbTicket } from "react-icons/tb";
 import { movieRCFormatTest } from "../../../interfaces";
@@ -11,9 +13,11 @@ import { POSTER_PATH } from "../../../Api/config";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import routes from "../../../shared/navigation";
+import Loader from "../../atoms/Loader";
 
 interface MovieDetailsTemplateProps {
-  data: movieRCFormatTest;
+  data:any;
+  // data: movieRCFormatTest;
 }
 interface FilterFunctions {
   cinema_function: string;

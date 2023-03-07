@@ -44,4 +44,16 @@ public class MovieGenreRest {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
+    @PostMapping("list/")
+    private ResponseEntity<List<MovieGenre>> postListMovieGenre(@RequestBody List<MovieGenre> movieGenreList){
+        List<MovieGenre> movieGenreListToSave = movieGenreService.saveAll(movieGenreList);
+
+        try{
+            return ResponseEntity.created(new URI("/moviegenres/")).body(movieGenreListToSave);
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 }
+

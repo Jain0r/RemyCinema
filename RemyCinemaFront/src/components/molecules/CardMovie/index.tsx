@@ -9,7 +9,8 @@ import { useNavigate } from "react-router-dom";
 import routes from "../../../shared/navigation";
 
 interface CardMovieProps {
-  data: movieRCFormatTest;
+  data:any
+  // data: movieRCFormatTest;
 }
 
 const CardMovie = ({ data }: CardMovieProps) => {
@@ -18,7 +19,8 @@ const CardMovie = ({ data }: CardMovieProps) => {
   return (
     <div className="cardmovie_container">
       <img
-        src={data?.posterMovie ? `${POSTER_PATH}/${data.posterMovie}` : logo}
+        // src={data?.posterMovie ? `${POSTER_PATH}/${data.posterMovie}` : logo}
+        src={data.poster_path? `${POSTER_PATH}/${data.poster_path}` : logo}
         alt={data?.titleMovie}
       ></img>
       <div className="cardmovie_buttons_container">
@@ -34,8 +36,11 @@ const CardMovie = ({ data }: CardMovieProps) => {
           type="button"
           icon={<CgDetailsMore />}
           onClick={() =>
-            navigate(`${routes.mainRoutes.movies}/${data.idMovie}`)
-          }
+               navigate(`${routes.mainRoutes.movies}/${data.id}`)
+            }
+          // onClick={() =>
+          //   navigate(`${routes.mainRoutes.movies}/${data.idMovie}`)
+          // }
           className="tertiary_button"
         ></Button>
       </div>

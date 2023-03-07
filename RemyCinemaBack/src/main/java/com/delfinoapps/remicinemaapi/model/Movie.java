@@ -39,11 +39,31 @@ public class Movie {
     @Column(name = "trailer_movie")
     private String trailerMovie;
 
-    @Column(name = "idioms_movie")
+    /*@Column(name = "idioms_movie")
     private String idiomsMovie;
+     */
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "movie_idiom",
+            joinColumns = { @JoinColumn(name = "id_movie")},
+            inverseJoinColumns = {@JoinColumn(name = "id_idiom")}
+    )
+    private List<Idiom> idiom = new ArrayList<>();
 
-    @Column(name = "available_movie")
+
+    /*@Column(name = "available_movie")
     private String availableMovie;
+     */
+
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "movie_available",
+            joinColumns = { @JoinColumn(name = "id_movie") },
+            inverseJoinColumns = { @JoinColumn(name = "id_available") }
+    )
+    private List<Available> availables = new ArrayList<>();
+
 
     @Column(name = "poster_movie")
     private String posterMovie;
@@ -69,7 +89,7 @@ public class Movie {
     */
     public Movie() {}
 
-    public Movie(Long idMovie, String titleMovie, Long durationMovie, String sinopsisMovie, Restriction restrictionsMovie, String directorsMovie, String trailerMovie, String idiomsMovie, String availableMovie, String posterMovie, Date releaseDateMovie, String statusMovie, List<Genre> genre) {
+    public Movie(Long idMovie, String titleMovie, Long durationMovie, String sinopsisMovie, Restriction restrictionsMovie, String directorsMovie, String trailerMovie, List<Idiom> idiomsMovie, List<Available> availableMovie, String posterMovie, Date releaseDateMovie, String statusMovie, List<Genre> genre) {
         this.idMovie = idMovie;
         this.titleMovie = titleMovie;
         this.durationMovie = durationMovie;
@@ -77,8 +97,8 @@ public class Movie {
         this.restrictionRef = restrictionsMovie;
         this.directorsMovie = directorsMovie;
         this.trailerMovie = trailerMovie;
-        this.idiomsMovie = idiomsMovie;
-        this.availableMovie = availableMovie;
+        this.idiom = idiomsMovie;
+        this.availables = availableMovie;
         this.posterMovie = posterMovie;
         this.releaseDateMovie = releaseDateMovie;
         this.statusMovie = statusMovie;
@@ -141,20 +161,20 @@ public class Movie {
         this.trailerMovie = trailerMovie;
     }
 
-    public String getIdiomsMovie() {
-        return idiomsMovie;
+    public List<Idiom> getIdiomsMovie() {
+        return idiom;
     }
 
-    public void setIdiomsMovie(String idiomsMovie) {
-        this.idiomsMovie = idiomsMovie;
+    public void setIdiomsMovie(List<Idiom> idiomsMovie) {
+        this.idiom = idiomsMovie;
     }
 
-    public String getAvailableMovie() {
-        return availableMovie;
+    public List<Available> getAvailableMovie() {
+        return availables;
     }
 
-    public void setAvailableMovie(String availableMovie) {
-        this.availableMovie = availableMovie;
+    public void setAvailableMovie(List<Available> availableMovie) {
+        this.availables = availableMovie;
     }
 
     public String getPosterMovie() {
