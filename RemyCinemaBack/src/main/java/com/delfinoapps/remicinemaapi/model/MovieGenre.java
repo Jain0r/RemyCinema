@@ -22,6 +22,11 @@ public class MovieGenre {
     public MovieGenre() {
     }
 
+    public MovieGenre(Movie movieRef, Genre genreRef) {
+        this.movieRef = movieRef;
+        this.genreRef = genreRef;
+    }
+
     public MovieGenre(Long idMovieGenre, Movie movieRef, Genre genreRef) {
         this.idMovieGenre = idMovieGenre;
         this.movieRef = movieRef;

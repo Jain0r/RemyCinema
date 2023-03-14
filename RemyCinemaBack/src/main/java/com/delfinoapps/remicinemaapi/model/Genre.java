@@ -19,12 +19,15 @@ public class Genre {
     private String descrGenre;
 
     @JsonIgnore
+    /*
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "movie_genre",
             joinColumns = {@JoinColumn(name = "id_genre")},
             inverseJoinColumns =  {@JoinColumn(name = "id_movie")}
     )
+     */
+    @ManyToMany(mappedBy = "genre")
     private List<Movie> movies = new ArrayList<>();
 
     public Genre() {

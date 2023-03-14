@@ -75,7 +75,7 @@ public class Movie {
     private String statusMovie;
 
     //@JsonIgnore
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(
             name = "movie_genre",
             joinColumns = { @JoinColumn(name = "id_movie") },
@@ -83,10 +83,11 @@ public class Movie {
     )
     private List<Genre> genre = new ArrayList<>();
 
-    /*@JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "movieRef")
     private List<MovieGenre> genrexMovie;
-    */
+
+    //Constructors, getters and setters
     public Movie() {}
 
     public Movie(Long idMovie, String titleMovie, Long durationMovie, String sinopsisMovie, Restriction restrictionsMovie, String directorsMovie, String trailerMovie, List<Idiom> idiomsMovie, List<Available> availableMovie, String posterMovie, Date releaseDateMovie, String statusMovie, List<Genre> genre) {
