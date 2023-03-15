@@ -130,7 +130,7 @@ public class IdiomService implements IdiomRepository {
 
     @Override
     public Idiom getReferenceById(Long aLong) {
-        return null;
+        return idiomRepository.getReferenceById(aLong);
     }
 
     @Override

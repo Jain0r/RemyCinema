@@ -25,10 +25,6 @@ public class Movie {
     @Column(name = "sinopsis_movie")
     private String sinopsisMovie;
 
-    /*@Column(name = "restrictions_movie")
-    private String restrictionsMovie;
-    */
-
     @ManyToOne
     @JoinColumn(name = "restriction_movie")
     private Restriction restrictionRef;
@@ -39,31 +35,25 @@ public class Movie {
     @Column(name = "trailer_movie")
     private String trailerMovie;
 
-    /*@Column(name = "idioms_movie")
-    private String idiomsMovie;
-     */
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(
             name = "movie_idiom",
             joinColumns = { @JoinColumn(name = "id_movie")},
             inverseJoinColumns = {@JoinColumn(name = "id_idiom")}
     )
     private List<Idiom> idiom = new ArrayList<>();
+    @OneToMany(mappedBy = "movieRef") //referencia al id que identifica a movies en la entidad intermedia
+    private List<MovieIdiom> movieIdiomList;
 
-
-    /*@Column(name = "available_movie")
-    private String availableMovie;
-     */
-
-
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(
             name = "movie_available",
             joinColumns = { @JoinColumn(name = "id_movie") },
             inverseJoinColumns = { @JoinColumn(name = "id_available") }
     )
     private List<Available> availables = new ArrayList<>();
-
+    @OneToMany(mappedBy = "movies") //referencia al id que identifica a movies en la entidad intermedia
+    private List<MovieAvailable> movieAvailableList;
 
     @Column(name = "poster_movie")
     private String posterMovie;
@@ -82,8 +72,6 @@ public class Movie {
             inverseJoinColumns = { @JoinColumn(name = "id_genre") }
     )
     private List<Genre> genre = new ArrayList<>();
-
-    //@JsonIgnore
     @OneToMany(mappedBy = "movieRef")
     private List<MovieGenre> genrexMovie;
 

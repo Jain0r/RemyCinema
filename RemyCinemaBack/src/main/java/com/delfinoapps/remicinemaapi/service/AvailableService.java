@@ -134,7 +134,7 @@ public class AvailableService implements AvailableRepository {
 
     @Override
     public Available getReferenceById(Long aLong) {
-        return null;
+        return availableRepository.getReferenceById(aLong);
     }
 
     @Override

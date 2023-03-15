@@ -1,12 +1,8 @@
 package com.delfinoapps.remicinemaapi.rest;
 
-import com.delfinoapps.remicinemaapi.model.Genre;
-import com.delfinoapps.remicinemaapi.model.Movie;
-import com.delfinoapps.remicinemaapi.model.MovieGenre;
+import com.delfinoapps.remicinemaapi.model.*;
 import com.delfinoapps.remicinemaapi.repository.MovieRepository;
-import com.delfinoapps.remicinemaapi.service.GenreService;
-import com.delfinoapps.remicinemaapi.service.MovieGenreService;
-import com.delfinoapps.remicinemaapi.service.MovieService;
+import com.delfinoapps.remicinemaapi.service.*;
 import io.swagger.models.Response;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +30,12 @@ public class MovieRest {
     @Autowired
     private GenreService genreService;
 
+    @Autowired
+    private AvailableService availableService;
+
+    @Autowired
+    private IdiomService idiomService;
+
 
     //@CrossOrigin(origins = "http://localhost:8080")
     @GetMapping
@@ -57,8 +59,8 @@ public class MovieRest {
     private ResponseEntity<Movie> postMovie(@RequestBody Movie movie){
         //retrieve Genre's entities for the persistence context
         List<Genre> managedGenres = new ArrayList<>();
-
-
+        List<Available> managedAvailables = new ArrayList<>();
+        List<Idiom> managedIdioms = new ArrayList<>();
 
         for(Genre genre : movie.getGenre()){
             Long id = genre.getIdGenre();
@@ -68,6 +70,23 @@ public class MovieRest {
             managedGenres.add(managedGenre);
         }
         movie.setGenre(managedGenres);
+
+        for(Available available : movie.getAvailableMovie()){
+            Long id = available.getIdAvailable();
+            Available managedAvailable = availableService.getReferenceById(id);
+            managedAvailable = (Available)Hibernate.unproxy(managedAvailable);
+            managedAvailables.add(managedAvailable);
+        }
+        movie.setAvailableMovie(managedAvailables);
+
+        for(Idiom idiom : movie.getIdiomsMovie()){
+            Long id = idiom.getIdIdiom();
+            Idiom managedIdiom = idiomService.getReferenceById(id);
+            managedIdiom = (Idiom) Hibernate.unproxy(managedIdiom);
+            managedIdioms.add(managedIdiom);
+        }
+        movie.setIdiomsMovie(managedIdioms);
+
         movieService.save(movie);
         //Movie movieToSave = new Movie();
 
