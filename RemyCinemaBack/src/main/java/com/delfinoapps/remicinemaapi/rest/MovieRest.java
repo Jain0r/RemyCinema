@@ -97,3 +97,12 @@ public class MovieRest {
         }
     }
 }
+
+
+//HISTORIAL DE VERSION
+//v1 -> post works fine but Idiom and Available references give null values
+//v2 -> fixed error, get methods in both services were empty
+// to do:
+//    - optimize spaghetti code
+//    - manage errors and exceptions
+//    - Add cors
