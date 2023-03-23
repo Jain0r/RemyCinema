@@ -1,0 +1,96 @@
+@import "../../../styles/base.scss";
+.adminupdateform_container {
+  .adminupdateform_main {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .info_input {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      p {
+        font-size: 13px;
+        padding: 10px;
+        background-color: #fafafa;
+        border-radius: 5px;
+      }
+
+      input {
+        padding: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      .related_primary_info {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        .select_input {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          select {
+            padding: 10px 5px;
+            border-radius: 5px;
+            border: 1px solid #f7f7f7;
+            text-transform: capitalize;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+      .checkbox_inputs_select {
+        .checkbox_input {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          .checkbox_list {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            gap: 5px;
+            .checkbox_item {
+              display: flex;
+              position: relative;
+              align-items: center;
+              padding: 5px 5px 5px 0;
+              gap: 10px;
+              input {
+                opacity: 0;
+                width: 15px;
+                aspect-ratio: 1/1;
+              }
+              label {
+                text-transform: capitalize;
+                font-size: $textSmallSize;
+              }
+            }
+            .checkbox_item:has(input:checked)::before {
+              background-color: $tertiary-color;
+            }
+            .checkbox_item::before {
+              content: "";
+              background-color: transparent;
+              position: absolute;
+              border: 1px solid #d4d2d2;
+              border-radius: 999px;
+              width: 15px;
+              aspect-ratio: 1/1;
+            }
+          }
+          .checkbox_list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+      }
+    }
+  }
+}

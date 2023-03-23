@@ -18,6 +18,15 @@
   align-items: center;
   z-index: 100;
 }
+.admin_section {
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+}
+.admin_section_title {
+  font-size: $textBigSize;
+  font-weight: 900;
+}
 
 @media (max-width: 480px) {
   .Toastify__toast {

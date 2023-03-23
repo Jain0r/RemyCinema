@@ -10,9 +10,12 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    .checkbox_inputs_select {
+    .related_primary_info {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .checkbox_inputs_select {
       .checkbox_input {
         display: flex;
         flex-direction: column;
@@ -51,16 +54,11 @@
             aspect-ratio: 1/1;
           }
         }
+        .checkbox_list {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+        }
       }
-      .checkbox_input:last-child {
-        border-left: 1px solid #9c9c9c;
-        padding-left: 10px;
-      }
-    }
-    .selects_input {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
     }
 
     .select_input {
@@ -72,11 +70,11 @@
         border-radius: 5px;
         border: 1px solid #f7f7f7;
         text-transform: capitalize;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-    }
-    button {
-      justify-content: center;
-      margin-top: 10px;
     }
   }
 }

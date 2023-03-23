@@ -10,6 +10,8 @@
   bottom: 0;
   top: 0;
   left: 0;
+  display: none;
+
   user-select: none;
   z-index: 1;
 
@@ -19,11 +21,10 @@
     position: relative;
     height: 100%;
     .admin_sidemenu_top_container {
-      padding: 20px;
+      padding: 20px 20px 0 20px;
+      height: 70px;
       display: flex;
-      height: 80px;
       justify-content: space-between;
-      margin: 10px 0;
       position: relative;
       align-items: center;
       .admin_logo {
@@ -35,6 +36,8 @@
         position: absolute;
         transition: all 0.2s;
         right: 22px;
+        background-color: $tertiary-color;
+
         border-radius: 999px;
         display: flex;
         cursor: pointer;
@@ -57,11 +60,10 @@
       .path_item {
         display: flex;
         align-items: center;
-        transition: all 0.2s;
-        padding: 10px;
-        border-radius: 10px;
+        padding: 20px 10px;
         text-transform: capitalize;
         gap: 30px;
+        border-radius: 999px;
         cursor: pointer;
         .path_text {
           animation: hide linear forwards 0.2s;
@@ -188,7 +190,7 @@
     }
     .admin_sidemenu_paths_list_container {
       .path_item {
-        transition: all 0.2s;
+        border-radius: 10px;
         .path_text {
           animation: show linear forwards 0.2s;
         }
@@ -226,5 +228,10 @@
   100% {
     opacity: 1;
     visibility: visible;
+  }
+}
+@media (min-width: $tablet) {
+  .admin_sidemenu_container {
+    display: block;
   }
 }

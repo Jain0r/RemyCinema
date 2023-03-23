@@ -1,32 +1,21 @@
 @import "../../../styles/base.scss";
 .admin_breadcumb_container {
   width: 100%;
-  padding: 20px;
+  padding: 20px 40px;
   border-bottom: 1px solid #f7f7f7;
+  margin-top: 80px;
   .admin_breadcumb_main {
+    display: flex;
     .admin_current_path {
-      font-size: $textMediumSize;
       text-transform: capitalize;
       font-weight: 700;
       color: $secondary-color;
     }
   }
 }
-@media (min-width: $mobile) {
-  .admin_breadcumb_container {
-    .admin_breadcumb_main {
-      .admin_current_path {
-        font-size: $textBigSize;
-      }
-    }
-  }
-}
+
 @media (min-width: $tablet) {
   .admin_breadcumb_container {
-    .admin_breadcumb_main {
-      .admin_current_path {
-        font-size: $textVeryBigSize;
-      }
-    }
+    margin-top: 0;
   }
 }

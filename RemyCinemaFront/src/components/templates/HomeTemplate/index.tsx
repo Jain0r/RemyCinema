@@ -1,16 +1,15 @@
-import { movieRCFormatTest } from "../../../interfaces";
-import Loader from "../../atoms/Loader";
+import { movieRCFormat } from "../../../interfaces";
 import CardListGrid from "../../organisms/CardListGrid";
-import Footer from "../../organisms/Footer";
 import HomeSlider from "../../organisms/HomeSlider";
 import ProccessBuyInfo from "../../organisms/ProccessBuyInfo";
 import "./index.scss";
 
 interface HomeTemplateProps {
-  data: movieRCFormatTest[];
+  data: movieRCFormat[];
 }
 
 const HomeTemplate = ({ data }: HomeTemplateProps) => {
+  console.log("dataRC", data);
   return (
     <div>
       <HomeSlider />
@@ -20,7 +19,6 @@ const HomeTemplate = ({ data }: HomeTemplateProps) => {
       />
       <CardListGrid data={data && data.slice(0, 5)} title="Próximos estrenos" />
       <ProccessBuyInfo />
-      <Footer />
     </div>
   );
 };

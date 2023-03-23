@@ -1,0 +1,72 @@
+@import "../../../styles/base.scss";
+
+.admintabletodo_container {
+  display: flex;
+  flex-direction: column;
+  .admintabletodo_head {
+    ul {
+      background-color: white;
+      display: grid;
+      li {
+        padding: 10px 5px;
+        justify-content: center;
+        p {
+          color: grey;
+        }
+      }
+      border-bottom: 3px solid $tertiary-color;
+    }
+  }
+  .admintabletodo_body {
+    min-height: 280px;
+    ul {
+      display: flex;
+      flex-direction: column;
+      .admintabletodo_body_item {
+        display: grid;
+        ul {
+          li {
+            overflow: hidden;
+            display: none;
+            padding: 10px 5px;
+            align-items: center;
+            justify-content: center;
+            .item_container {
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              font-size: 14px;
+            }
+          }
+        }
+        &:nth-child(odd) {
+          background-color: #f7fafc;
+        }
+      }
+    }
+    .admintabletodo_no_data_available {
+      height: 280px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+      background-color: $inputText;
+      svg {
+        font-size: $iconBigSize;
+      }
+    }
+  }
+  .admintabletodo_paginated {
+    align-self: flex-end;
+    margin-top: 10px;
+    .admintabletodo_paginated_buttons {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      p {
+        font-size: $textSmallSize;
+      }
+    }
+  }
+}

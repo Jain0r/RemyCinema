@@ -1,13 +1,29 @@
+@import "../../../styles/base.scss";
+
 .admininit_container {
-  width: calc(100% - 110px);
-  float: right;
   transition: all 0.4s;
   .admininit_main {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    .admininit_outlet {
+      background-color: rgb(245, 249, 253);
+      padding: 10px;
+    }
   }
 }
-.admininit_container:has(.open) {
-  width: calc(100% - 300px);
+
+@media (min-width: $tablet) {
+  .admininit_container {
+    width: calc(100% - 110px);
+    float: right;
+    .admininit_main {
+      .admininit_outlet {
+        padding: 40px;
+      }
+    }
+    &:has(.admin_sidemenu_container.open) {
+      width: calc(100% - 300px);
+    }
+  }
 }

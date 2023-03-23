@@ -9,7 +9,7 @@ const AdminBreadCumb = () => {
   return (
     <div className="admin_breadcumb_container">
       <div className="admin_breadcumb_main">
-        <p className="admin_current_path">
+        <p className="admin_current_path admin_section_title">
           {currentPath === "admin" ? "dashboard" : currentPath}
         </p>
       </div>

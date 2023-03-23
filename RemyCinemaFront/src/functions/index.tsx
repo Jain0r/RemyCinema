@@ -1,13 +1,5 @@
 import MoviesServiceTMD from "../Api/moviesTMD";
-import {
-  Combo,
-  Crew,
-  FetchAllMovieInfo,
-  Food,
-  Ticket,
-  transformDataFromApi,
-} from "../interfaces";
-import { initialAllMovieData } from "../interfaces/initials";
+import { Combo, Food, movieRCFormat, Ticket } from "../interfaces";
 
 export const convertToHrsandMins = (duration: number) => {
   const hrs = Math.trunc(duration / 60);
@@ -26,6 +18,23 @@ export const convertToDayWeekandNumber = (date: Date) => {
   const dayWeek = dateIntFormat.split(",")[0];
   const dayNumber = dateIntFormat.split(" ")[1];
   return `${dayWeek} ${dayNumber}`;
+};
+
+export const todayDate = new Date();
+export const tomorrowDate = new Date(todayDate);
+tomorrowDate.setDate(todayDate.getDate() + 1);
+todayDate.setHours(0, 0, 0, 0);
+tomorrowDate.setHours(0, 0, 0, 0);
+
+export const convertISODateToValid = (date: string) => {
+  const validDate = new Date(date);
+  const year = validDate.getFullYear();
+  const month = validDate.getMonth() + 1;
+  const day = validDate.getDate();
+  const formattedDate = `${year}-${month.toString().padStart(2, "0")}-${day
+    .toString()
+    .padStart(2, "0")}`;
+  return formattedDate;
 };
 
 //ShopFunctions
@@ -72,10 +81,8 @@ export const totalCantCombos = (selectedCombos: Combo[]) => {
 };
 
 //APIS
-export const fetchAllMovieInfo = async (
-  id: number
-): Promise<FetchAllMovieInfo> => {
-  let result = initialAllMovieData;
+export const fetchAllMovieInfo = async (id: number) => {
+  let result = {};
   await Promise.all([
     MoviesServiceTMD.getMovieDetails(id),
     MoviesServiceTMD.getMovieCredits(id),
@@ -85,13 +92,11 @@ export const fetchAllMovieInfo = async (
     .catch((reason) => console.log(reason));
   return result;
 };
-export const fetchTransformAllMovieInfo = (
-  allMovieData: FetchAllMovieInfo
-): transformDataFromApi => {
+export const fetchTransformAllMovieInfo = (allMovieData: any) => {
   let directors: string[] = [];
   allMovieData.crew
-    ?.filter((crewMember: Crew) => crewMember.job === "Director")
-    .map((director: Crew) => directors.push(director.name));
+    ?.filter((crewMember: any) => crewMember.job === "Director")
+    .map((director: any) => directors.push(director.name));
   return {
     titleMovie: allMovieData?.title,
     durationMovie: allMovieData?.runtime,
@@ -104,3 +109,5 @@ export const fetchTransformAllMovieInfo = (
     genresMovie: allMovieData?.genres[0].name,
   };
 };
+
+

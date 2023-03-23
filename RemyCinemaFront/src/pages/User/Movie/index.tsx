@@ -1,5 +1,11 @@
+import MoviesTemplate from "../../../components/templates/MoviesTemplate";
+
 const MovieInitPage = () => {
-  return <div>Movie</div>;
+  return (
+    <div>
+      <MoviesTemplate />
+    </div>
+  );
 };
 
 export default MovieInitPage;

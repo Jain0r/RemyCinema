@@ -8,17 +8,22 @@ import { BASE_URL_API } from "./config";
 // en un bloque try catch para manejar el error
 export default class MoviesService {
   static async getAllMovies() {
-    const rsp = await Api.get(`${BASE_URL_API}/movie`);
+    const rsp = await Api.get(`${BASE_URL_API}/movies`);
     const dataJson = await rsp.json();
-    return dataJson;
+    return dataJson.result;
   }
   static async getMovieById(id: number) {
-    const rsp = await Api.get(`${BASE_URL_API}/movie/${id}`);
+    const rsp = await Api.get(`${BASE_URL_API}/movies/${id}`);
+    const dataJson = await rsp.json();
+    return dataJson.result;
+  }
+  static async postMovie(data: any) {
+    const rsp = await Api.post(`${BASE_URL_API}/movies`, data);
     const dataJson = await rsp.json();
     return dataJson;
   }
-  static async postMovie(data: any) {
-    const rsp = await Api.post(`${BASE_URL_API}/movie/`, data);
+  static async updateMovie(data: any) {
+    const rsp = await Api.put(`${BASE_URL_API}/movies`, data);
     const dataJson = await rsp.json();
     return dataJson;
   }

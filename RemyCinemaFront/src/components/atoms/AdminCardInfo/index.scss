@@ -1,12 +1,12 @@
 @import "../../../styles/base.scss";
 .admincardinfo_container {
   display: flex;
+  aspect-ratio: 1/1;
   flex-direction: column;
   justify-content: center;
-  padding: 50px 20px;
-  aspect-ratio: 1/1;
   border-radius: 20px;
-  gap: 15px;
+  padding: 10px;
+  gap: 5px;
   .card_icon {
     display: flex;
     flex-direction: column;
@@ -14,11 +14,11 @@
     p {
       display: flex;
       padding: 20px;
-      filter: brightness(50%);
       border-radius: 999px;
-
+      filter: brightness(95%);
       svg {
         font-size: $textBigSize;
+        filter: brightness(80%);
       }
     }
   }

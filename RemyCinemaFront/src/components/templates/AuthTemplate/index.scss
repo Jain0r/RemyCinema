@@ -1,0 +1,190 @@
+@import "../../../styles/base.scss";
+
+.authtemplate_container {
+  .authtemplate_goback {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    align-items: center;
+    p {
+      display: flex;
+      color: $tertiary-color;
+      font-weight: 900;
+      align-items: center;
+      cursor: pointer;
+    }
+    img {
+      width: 150px;
+      aspect-ratio: 3/1;
+    }
+  }
+  .authtemplate_main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    .authtemplate_form {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      gap: 20px;
+      background-color: white;
+      z-index: 1;
+      form {
+        display: flex;
+        flex-direction: column;
+        padding: 20px 0;
+        gap: 20px;
+        input {
+          border: 1px solid #f8f8f8;
+          width: 100%;
+          padding: 15px 10px;
+          border-radius: 10px;
+        }
+        .authform_title {
+          font-size: $textVeryBigSize;
+          font-weight: 900;
+          text-align: center;
+          align-self: center;
+          color: $tertiary-color;
+        }
+        .authform_info {
+          text-align: center;
+          position: relative;
+          &::after {
+            position: absolute;
+            content: "";
+            width: 10px;
+            bottom: 4px;
+            margin-left: 2px;
+            aspect-ratio: 1/1;
+            border-radius: 999px;
+            background-color: $fifth-color;
+          }
+        }
+        .authform_forgot_password {
+          font-size: $textSmallSize;
+          align-self: flex-end;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+      .authform_or {
+        text-align: center;
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+      }
+    }
+    .registertemplate_info,
+    .logintemplate_info {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: $tablet) {
+  .authtemplate_container {
+    .authtemplate_main {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      column-gap: 30px;
+      .authtemplate_form {
+        justify-content: center;
+        padding: 10px;
+        .register_form,
+        .login_form {
+          padding: 30px 20px;
+          border-radius: 10px;
+          box-shadow: 0 4px 9.4px 0.6px rgb(3 39 61 / 10%);
+        }
+      }
+      //flex-direction: row;
+      .registertemplate_info {
+        display: flex;
+        margin: 50px auto;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+
+        .registertemplate_info_benefits {
+          font-size: $textMediumSize;
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          svg {
+            font-size: $iconMediumSize;
+            color: $fifth-color;
+          }
+        }
+        .registertemplate_info_cards {
+          display: flex;
+          flex-direction: column;
+          animation: scaleLoop infinite linear 1s alternate-reverse;
+          position: relative;
+          .partner_card:first-child {
+            transform: translate(0%, 25%);
+          }
+          .partner_card:last-child {
+            transform: translate(12%, -25%);
+          }
+        }
+      }
+      .logintemplate_info {
+        display: flex;
+        margin: 50px auto;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        .logintemplate_info_benefits {
+          font-size: $textMediumSize;
+          display: flex;
+          padding: 30px 0;
+          gap: 10px;
+          align-items: center;
+          svg {
+            font-size: $iconMediumSize;
+            color: $fifth-color;
+          }
+        }
+        .slider_benefits {
+          overflow: hidden;
+          .logintemplate_grid_benefits {
+            display: flex;
+            height: 100px;
+            animation: infiniteLoop infinite linear 5s;
+            width: calc(50px * 6);
+            .item_benefit {
+              width: 50px;
+              height: 50px;
+              svg {
+                font-size: 50px;
+                color: $tertiary-color;
+              }
+              &:nth-child(even) {
+                align-self: flex-end;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes infiniteLoop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100%));
+  }
+}
+@keyframes scaleLoop {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}

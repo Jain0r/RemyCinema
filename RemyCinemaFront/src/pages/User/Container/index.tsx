@@ -1,5 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
+import Footer from "../../../components/organisms/Footer";
 import NavBar from "../../../components/organisms/NavBar";
 
 const UserContainer = () => {
@@ -7,6 +8,7 @@ const UserContainer = () => {
     <div>
       <NavBar />
       <Outlet />
+      <Footer />
     </div>
   );
 };

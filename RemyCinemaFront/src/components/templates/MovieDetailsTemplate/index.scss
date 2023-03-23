@@ -28,6 +28,7 @@
         .moviedetails_primary_info {
           span:first-child {
             padding-left: 0;
+            text-transform: capitalize;
           }
           span {
             padding: 0 5px;
@@ -92,6 +93,9 @@
               display: flex;
               font-size: $textSmallSize;
               gap: 5px;
+              p {
+                text-transform: uppercase;
+              }
               p:after {
                 content: ",";
               }
@@ -112,7 +116,6 @@
             .moviedetails_idioms_options {
               p {
                 padding: 5px;
-                text-transform: uppercase;
                 border: 1px solid $tertiary-color;
                 border-radius: 5px;
                 &:after {
@@ -138,6 +141,7 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
+      padding: 20px 0;
       .moviedetails_select_title {
         font-size: $textBigSize;
         color: $tertiary-color;
@@ -146,59 +150,10 @@
       .moviedetails_selects_area {
         .moviedetails_selects_container {
           display: flex;
-          justify-content: center;
-          ul {
-            display: flex;
-            width: 100%;
-            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-            justify-content: center;
-            li {
-              width: 33.33%;
-              border-right: 1px solid rgb(228, 228, 228);
-              display: flex;
-              padding: 5px;
-              position: relative;
-              .select_dropdown_layout {
-                position: relative;
-                color: black;
-                width: 100%;
-                font-size: $textSmallSize;
-                .select_title {
-                  display: flex;
-                  align-items: center;
-                  justify-content: space-between;
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  font-weight: 600;
-                  white-space: nowrap;
-                }
-                .select_label {
-                  overflow: hidden;
-                  text-overflow: ellipsis;
-                  white-space: nowrap;
-                  margin-top: 10px;
-                  text-transform: capitalize;
-                }
-              }
-              select {
-                position: absolute;
-                height: 100%;
-                border: none;
-                background: transparent;
-                color: white;
-                width: 100%;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                option {
-                  color: black;
-                }
-              }
-              &:last-child {
-                border-right: none;
-              }
-            }
+          width: 100%;
+          box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          .select_dropdown_container {
+            width: calc(100% / 3);
           }
         }
       }
@@ -226,37 +181,12 @@
           .moviedetails_overview {
             font-size: initial;
           }
-          ul {
-            li {
-              strong {
-                font-size: $textMediumSize;
-              }
-            }
-          }
         }
       }
       .moviedetails_select_function {
         .moviedetails_select_title {
           font-size: $textVeryBigSize;
           font-weight: 900;
-        }
-        .moviedetails_selects_area {
-          .moviedetails_selects_container {
-            ul {
-              li {
-                padding: 20px;
-                .select_dropdown_layout {
-                  font-size: $textMediumSize;
-                  .select_label {
-                    font-size: initial;
-                  }
-                }
-              }
-              select {
-                font-size: initial;
-              }
-            }
-          }
         }
       }
     }
@@ -283,7 +213,6 @@
       }
       .moviedetails_layout_info {
         flex-direction: row;
-        margin-top: 100px;
         background-color: transparent;
         gap: 20px;
         .moviedetails_poster_path {
@@ -330,27 +259,6 @@
       .moviedetails_select_function {
         .moviedetails_select_title {
           font-size: $textExtraBigSize;
-        }
-        .moviedetails_selects_area {
-          .moviedetails_selects_container {
-            ul {
-              li {
-                padding: 20px;
-                .select_dropdown_layout {
-                  font-size: $textMediumSize;
-                  .select_title {
-                    font-size: $textBigSize;
-                  }
-                  .select_label {
-                    font-size: $textMediumSize;
-                  }
-                }
-                select {
-                  font-size: $textMediumSize;
-                }
-              }
-            }
-          }
         }
       }
     }

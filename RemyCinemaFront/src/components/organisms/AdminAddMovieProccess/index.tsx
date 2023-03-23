@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { MovieByQuery } from "../../../interfaces";
+import { infoFilterForMoviesPage, MovieByQuery } from "../../../interfaces";
 import { initialMovieByQuery } from "../../../interfaces/initials";
 import ModalConfirmAction from "../../molecules/ModalConfirmAction";
 import AdminAddMovieForm from "../AdminAddMovieForm";
 import AdminSelectMovieByQuery from "../AdminSelectMovieByQuery";
 
-const AdminAddMovieProccess = () => {
+interface AdminAddMovieProccessProps {
+  data: infoFilterForMoviesPage;
+}
+
+const AdminAddMovieProccess = ({ data }: AdminAddMovieProccessProps) => {
   const [proccess, setProccess] = useState<number>(1);
   const [selectedMovie, setSelectedMovie] =
     useState<MovieByQuery>(initialMovieByQuery);
@@ -28,7 +32,13 @@ const AdminAddMovieProccess = () => {
           movieData={selectedMovie}
         />
       )}
-      {proccess === 2 && <AdminAddMovieForm movieData={selectedMovie} />}
+      {proccess === 2 && (
+        <AdminAddMovieForm
+          genres={data?.genres}
+          restrictions={data?.restrictions}
+          movieData={selectedMovie}
+        />
+      )}
       <ModalConfirmAction
         isOpen={modalInform}
         maxWidth={300}

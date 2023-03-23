@@ -5,7 +5,7 @@ import { POSTER_PATH } from "../../../Api/config";
 import "./index.scss";
 import { HiOutlineTicket } from "react-icons/hi";
 import SelectSeats from "../../organisms/SelectSeats";
-import { movieRCFormatTest, Ticket } from "../../../interfaces";
+import { movieRCFormat, Ticket } from "../../../interfaces";
 import Button from "../../atoms/Button";
 import SelectTickets from "../../organisms/SelectTickets";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,7 @@ import {
 } from "../../../redux/actions/shopActions";
 
 interface ShopTemplateProps {
-  data: movieRCFormatTest;
+  data: movieRCFormat;
 }
 
 interface Step {
@@ -92,11 +92,11 @@ const ShopTemplate = ({ data }: ShopTemplateProps) => {
           </p>
           <img
             className="movie_poster_path"
-            src={`${POSTER_PATH}/${data?.posterMovie}`}
-            alt={data?.titleMovie}
+            src={`${POSTER_PATH}/${data?.poster_movie}`}
+            alt={data?.title_movie}
           ></img>
           <div className="shoptemplate_movie_layout">
-            <strong>{data?.titleMovie}</strong>
+            <strong>{data?.title_movie}</strong>
             <p className="moviedetails_info_oneline">
               <span>CP Alcazar, SALA 6</span>
               <span>2D, Regular</span>

@@ -1,0 +1,23 @@
+@import "../../../styles/base.scss";
+
+.moviestemplate_container {
+  padding: 20px 0;
+  .moviestemplate_main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .moviestemplate_title {
+      font-size: $textVeryBigSize;
+      font-weight: 900;
+      color: $tertiary-color;
+    }
+    .moviestemplate_selects_container {
+      display: flex;
+      width: 100%;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      .select_dropdown_container {
+        width: calc(100% / 3);
+      }
+    }
+  }
+}

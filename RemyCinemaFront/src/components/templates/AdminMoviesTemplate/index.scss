@@ -1,11 +1,316 @@
 @import "../../../styles/base.scss";
 
 .adminmovies_template_container {
-  padding: 20px;
-  .adminmovies_list_cards {
-    margin: 20px 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  .adminmovies_template_main {
+    display: flex;
+    flex-direction: column;
     gap: 20px;
+    .adminmovies_primary_info {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      .adminmovies_list_cards {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        .admincardinfo_container {
+          width: 200px;
+        }
+      }
+    }
+    .adminmovies_list_movies_container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .adminmovies_table_info {
+        .admin_top_container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+      .adminmovies_search_and_sort {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .adminmovies_filters_container {
+          display: flex;
+          gap: 5px;
+          .adminmovies_filters_icon {
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            svg {
+              color: rgb(132, 145, 156);
+            }
+          }
+          .adminmovies_filters_selects {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+          }
+        }
+      }
+      .adminmovie_select_container {
+        background-color: $inputText;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+
+        select {
+          padding: 15px 10px;
+          color: rgb(132, 145, 156);
+          width: 100%;
+          outline: none;
+          z-index: 1;
+          border: none;
+          background-color: transparent;
+          -webkit-appearance: none; /* Para Safari y Chrome */
+          -moz-appearance: none; /* Para Firefox */
+          appearance: none; /* Para otros navegadores */
+          text-overflow: ellipsis;
+        }
+        svg {
+          font-size: $iconSmallSize;
+          right: 4px;
+          position: absolute;
+          color: rgb(132, 145, 156);
+        }
+      }
+      .adminmovie_sort_container {
+        align-self: flex-end;
+        display: flex;
+        gap: 5px;
+
+        .adminmovie_sort_order {
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          border-radius: 10px;
+          cursor: pointer;
+          svg {
+            color: rgb(132, 145, 156);
+            transition: all 0.2s;
+          }
+          &:hover {
+            svg {
+              color: $tertiary-color;
+            }
+          }
+        }
+      }
+      .admintabletodo_container {
+        .admintabletodo_head {
+          ul {
+            grid-template-columns: 0.5fr 1fr 1fr;
+            li {
+              display: none;
+              &:first-child {
+                display: flex;
+              }
+              &:nth-child(2) {
+                display: flex;
+              }
+              &:last-child {
+                display: flex;
+              }
+            }
+          }
+        }
+        .admintabletodo_body {
+          ul {
+            .admintabletodo_body_item {
+              ul {
+                display: grid;
+                grid-template-columns: 0.5fr 1fr 1fr;
+                li {
+                  display: none;
+                  &:first-child {
+                    display: flex;
+                  }
+                  &:nth-child(2) {
+                    display: flex;
+                  }
+                  &:last-child {
+                    display: flex;
+                  }
+                  .item_container {
+                    .status {
+                      display: flex;
+                      align-items: center;
+                      gap: 5px;
+                      &::before {
+                        content: "";
+                        width: 8px;
+
+                        border-radius: 999px;
+                        aspect-ratio: 1/1;
+                        background-color: red;
+                      }
+                      &.active {
+                        &::before {
+                          background-color: #4abe1c;
+                        }
+                      }
+                      &.inactive {
+                        &::before {
+                          background-color: rgb(197, 197, 197);
+                        }
+                      }
+                    }
+                    .item_actions_container {
+                      display: flex;
+                      align-items: center;
+                      gap: 8px;
+                      svg {
+                        color: white;
+                      }
+                      .update_action,
+                      .delete_action {
+                        display: flex;
+                        padding: 10px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                      }
+                      .update_action {
+                        background-color: rgb(38, 95, 218);
+                      }
+                      .delete_action {
+                        background-color: rgb(216, 40, 40);
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $mobile) {
+  .adminmovies_template_container {
+    .adminmovies_template_main {
+      .adminmovies_list_movies_container {
+        .adminmovies_search_and_sort {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          .input_search_container {
+            max-width: 500px;
+          }
+        }
+        .admintabletodo_container {
+          .admintabletodo_head {
+            ul {
+              grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr;
+              li {
+                &:nth-child(3) {
+                  display: flex;
+                }
+                &:nth-child(4) {
+                  display: flex;
+                }
+              }
+            }
+          }
+          .admintabletodo_body {
+            ul {
+              .admintabletodo_body_item {
+                ul {
+                  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr;
+                  li {
+                    &:nth-child(3) {
+                      display: flex;
+                    }
+                    &:nth-child(4) {
+                      display: flex;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: $tablet) {
+  .adminmovies_template_container {
+    .adminmovies_template_main {
+      .adminmovies_list_movies_container {
+        .adminmovies_search_and_sort {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .admintabletodo_container {
+          .admintabletodo_head {
+            ul {
+              grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr;
+              li {
+                &:nth-child(5) {
+                  display: flex;
+                }
+              }
+            }
+          }
+          .admintabletodo_body {
+            ul {
+              .admintabletodo_body_item {
+                ul {
+                  grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 1fr;
+                  li {
+                    &:nth-child(5) {
+                      display: flex;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (min-width: $desktop) {
+  .adminmovies_template_container {
+    .adminmovies_template_main {
+      .adminmovies_list_movies_container {
+        .adminmovies_search_and_sort {
+          grid-template-columns: 3fr 2fr;
+        }
+        .admintabletodo_container {
+          .admintabletodo_head {
+            ul {
+              grid-template-columns: 1fr 2fr 2fr 1fr 2fr 1fr 2fr;
+              li {
+                display: flex;
+              }
+            }
+          }
+          .admintabletodo_body {
+            ul {
+              .admintabletodo_body_item {
+                ul {
+                  grid-template-columns: 1fr 2fr 2fr 1fr 2fr 1fr 2fr;
+                  li {
+                    display: flex;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

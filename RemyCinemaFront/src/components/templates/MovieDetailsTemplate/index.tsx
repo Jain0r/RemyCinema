@@ -1,106 +1,68 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
   convertToDayWeekandNumber,
   convertToHrsandMins,
+  todayDate,
+  tomorrowDate,
 } from "../../../functions";
 import { TbTicket } from "react-icons/tb";
-import { movieRCFormatTest } from "../../../interfaces";
+import {
+  FormatMovie,
+  FunctionData,
+  IdiomMovie,
+  movieRCFormat,
+} from "../../../interfaces";
 import Button from "../../atoms/Button";
 import "./index.scss";
 import { POSTER_PATH } from "../../../Api/config";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import routes from "../../../shared/navigation";
+import DropDownFilter from "../../molecules/DropDownFilter";
+import { dataCinemasFake } from "../../../interfaces/initials";
 
 interface MovieDetailsTemplateProps {
-  data: movieRCFormatTest;
+  data: movieRCFormat;
 }
 interface FilterFunctions {
   cinema_function: string;
   city_function: string;
   date_function: string;
 }
-interface FunctionData {
-  id: number;
-  cinema_name: string;
-  city_name: string;
-}
-
-const dataFake: Array<FunctionData> = [
-  {
-    id: 1,
-    cinema_name: "RC Lima Plaza Norte",
-    city_name: "Lima",
-  },
-  {
-    id: 2,
-    cinema_name: "RC Lima Mall de Comas",
-    city_name: "Lima",
-  },
-  {
-    id: 3,
-    cinema_name: "RC Lima Mall de Sur",
-    city_name: "Lima",
-  },
-  {
-    id: 4,
-    cinema_name: "RC Trujillo Centro",
-    city_name: "Trujillo",
-  },
-  {
-    id: 5,
-    cinema_name: "RC Trujillo Real Plaza",
-    city_name: "Trujillo",
-  },
-];
 
 const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
-  const todayDate = new Date();
-  const tomorrowDate = new Date(todayDate);
   const selectFunctionRef = useRef() as React.MutableRefObject<HTMLDivElement>;
-
-  tomorrowDate.setDate(todayDate.getDate() + 1);
-  todayDate.setHours(0, 0, 0, 0);
-  tomorrowDate.setHours(0, 0, 0, 0);
-
   const initialFilterValue: FilterFunctions = {
     cinema_function: "",
     city_function: "",
-    date_function: todayDate.toISOString(),
+    date_function: `Hoy ${convertToDayWeekandNumber(todayDate)}`,
   };
   const [filter, setFilter] = useState<FilterFunctions>(initialFilterValue);
 
-  useEffect(() => {
-    console.log("render");
-  });
-
-  const handleChangeCinema = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
-    if (e.target.value.length > 0) {
+  const handleChangeCinema = (cinema: string) => {
+    console.log(cinema);
+    if (cinema.length > 0) {
       setFilter({
         ...filter,
-        [e.target.name]: e.target.value,
-        city_function: e.target.value.split(" ")[1],
+        cinema_function: cinema,
+        city_function: cinema.split(" ")[1],
       });
     } else {
       setFilter({
         ...filter,
-        [e.target.name]: e.target.value,
+        cinema_function: cinema,
       });
     }
   };
-  const handleChangeCity = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeCity = (city: string) => {
     setFilter({
       ...initialFilterValue,
-      [e.target.name]: e.target.value,
+      city_function: city,
     });
   };
 
-  const handleChangeDate = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeDate = (date: string) => {
     console.log("entrando");
     setFilter({
       ...filter,
-      [e.target.name]: e.target.value,
+      date_function: date,
     });
   };
 
@@ -115,11 +77,6 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
     }
   };
 
-  const scrollToSelectFunction = () => {
-    var access = selectFunctionRef?.current;
-    access?.scrollIntoView({ behavior: "smooth" });
-  };
-
   console.log(filter);
 
   return (
@@ -128,8 +85,8 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
         <iframe
           className="moviedetails_trailer_video"
           src={
-            data?.trailerMovie &&
-            `https://www.youtube.com/embed/${data?.trailerMovie}`
+            data?.trailer_movie &&
+            `https://www.youtube.com/embed/${data?.trailer_movie}`
           }
           frameBorder="0"
           title="YouTube video player"
@@ -138,16 +95,23 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
         ></iframe>
         <div className="moviedetails_sticky_info">
           <div className="moviedetails_relevant_info">
-            <span className="moviedetails_title">{data?.titleMovie}</span>
+            <span className="moviedetails_title">{data?.title_movie}</span>
             <p className="moviedetails_primary_info">
-              <span>{data?.genresMovie && data?.genresMovie}</span>
-              <span>{convertToHrsandMins(data?.durationMovie)}</span>
+              <span>
+                {data?.genres_movie[0].name_genre &&
+                  data?.genres_movie[0].name_genre}
+              </span>
+              <span>{convertToHrsandMins(data?.duration_movie)}</span>
+              <span>
+                {data?.restriction_movie &&
+                  data.restriction_movie?.tag_restriction}
+              </span>
             </p>
           </div>
           <Button
             type="button"
             icon={<TbTicket />}
-            onClick={() => scrollToSelectFunction()}
+            onClick={() => console.log("comprar")}
             text="Comprar"
             className="fifth_button"
           />
@@ -155,34 +119,47 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
         <div className="moviedetails_layout_info section">
           <div className="moviedetails_poster_path">
             <img
-              src={`${POSTER_PATH}/${data?.posterMovie}`}
-              alt={data?.titleMovie}
+              src={`${POSTER_PATH}/${data?.poster_movie}`}
+              alt={data?.title_movie}
             ></img>
           </div>
 
           <div className="moviedetails_about_info">
             <p className="moviedetails_sipnosis">Sinopsis.</p>
-            <p className="moviedetails_overview">{data?.sinopsisMovie}</p>
+            <p className="moviedetails_overview">{data?.sinopsis_movie}</p>
             <ul>
               <li className="moviedetails_directors">
                 <strong>Director(es)</strong>
                 <div className="moviedetails_directors_all">
-                  {data?.directorsMovie ? data?.directorsMovie : <p>-</p>}
+                  {data?.directors_movie ? (
+                    <p>{data?.directors_movie}</p>
+                  ) : (
+                    <p>-</p>
+                  )}
                 </div>
               </li>
               <li className="moviedetails_idioms">
                 <strong>Idioma</strong>
                 <div className="moviedetails_idioms_options">
-                  <p>Subtitulada</p>
-                  <p>Doblada</p>
+                  {data.idioms_available?.length > 0 ? (
+                    data.idioms_available?.map((idiom: IdiomMovie) => {
+                      return <p key={idiom.id_idiom}>{idiom.name_idiom}</p>;
+                    })
+                  ) : (
+                    <p>-</p>
+                  )}
                 </div>
               </li>
               <li className="moviedetails_available">
                 <strong>Disponible</strong>
                 <div className="moviedetails_available_options">
-                  <p>REGULAR</p>
-                  <p>2D</p>
-                  <p>PRIME</p>
+                  {data.formats_available?.length > 0 ? (
+                    data.formats_available?.map((format: FormatMovie) => {
+                      return <p key={format.id_format}>{format.name_format}</p>;
+                    })
+                  ) : (
+                    <p>-</p>
+                  )}
                 </div>
               </li>
             </ul>
@@ -197,95 +174,57 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
           </p>
           <div className="moviedetails_selects_area">
             <div className="moviedetails_selects_container">
-              <ul>
-                <li>
-                  <div className="select_dropdown_layout ">
-                    <div className="select_title">
-                      <span>Por ciudad</span>
-                      <MdOutlineKeyboardArrowDown />
-                    </div>
-                    <div className="select_label">
-                      <span>
-                        {filter?.city_function
-                          ? filter?.city_function
-                          : "Dónde estás"}
-                      </span>
-                    </div>
-                  </div>
-                  <select
-                    id="city_function"
-                    name="city_function"
-                    onChange={handleChangeCity}
-                    value={filter?.city_function}
+              <DropDownFilter
+                onChange={(city) => handleChangeCity(city)}
+                name="city_function"
+                defaultShown="Dónde estas"
+                value={filter?.city_function ? filter?.city_function : ""}
+                filterLabel="Por Ciudad"
+              >
+                <>
+                  <option value="">--Dónde Estas--</option>
+                  <option value="Lima">Lima</option>
+                  <option value="Trujillo">Trujillo</option>
+                </>
+              </DropDownFilter>
+              <DropDownFilter
+                onChange={(cinema) => handleChangeCinema(cinema)}
+                name="cinema_function"
+                defaultShown="Elige tu cineplanet"
+                value={filter?.cinema_function ? filter?.cinema_function : ""}
+                filterLabel="Por Cine"
+              >
+                <>
+                  <option value="">--Elige Tu Cineplanet--</option>
+                  {filteredCinemas(dataCinemasFake).map((cinema: any) => {
+                    return (
+                      <option key={cinema.id} value={cinema.cinema_name}>
+                        {cinema.cinema_name}
+                      </option>
+                    );
+                  })}
+                </>
+              </DropDownFilter>
+              <DropDownFilter
+                value={filter?.date_function ? filter?.date_function : ""}
+                onChange={(date) => handleChangeDate(date)}
+                name="date_function"
+                defaultShown={`Hoy ${convertToDayWeekandNumber(todayDate)}`}
+                filterLabel="Por Fecha"
+              >
+                <>
+                  <option
+                    value={`Hoy  ${convertToDayWeekandNumber(todayDate)}`}
                   >
-                    <option value="">Dónde estás</option>
-                    <option value="Lima">Lima</option>
-                    <option value="Trujillo">Trujillo</option>
-                  </select>
-                </li>
-                <li>
-                  <div className="select_dropdown_layout ">
-                    <div className="select_title">
-                      <span>Por cine</span>
-                      <MdOutlineKeyboardArrowDown />
-                    </div>
-                    <div className="select_label">
-                      <span>
-                        {filter?.cinema_function
-                          ? filter?.cinema_function
-                          : "Elige tu cineplanet"}
-                      </span>
-                    </div>
-                  </div>
-                  <select
-                    id="cinema_function"
-                    name="cinema_function"
-                    onChange={handleChangeCinema}
-                    value={filter?.cinema_function}
+                    Hoy {convertToDayWeekandNumber(todayDate)}
+                  </option>
+                  <option
+                    value={`Mañana ${convertToDayWeekandNumber(tomorrowDate)}`}
                   >
-                    <option value="">Elige tu cineplanet</option>
-                    {filteredCinemas(dataFake).map((cinema: any) => {
-                      return (
-                        <option key={cinema.id} value={cinema.cinema_name}>
-                          {cinema.cinema_name}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </li>
-                <li>
-                  <div className="select_dropdown_layout ">
-                    <div className="select_title">
-                      <span>Por fecha</span>
-                      <MdOutlineKeyboardArrowDown />
-                    </div>
-                    <div className="select_label">
-                      <span>
-                        {`${
-                          Date.parse(filter.date_function) >
-                          Date.parse(todayDate.toISOString())
-                            ? "Mañana"
-                            : "Hoy"
-                        } ${convertToDayWeekandNumber(
-                          new Date(filter.date_function)
-                        )}`}
-                      </span>
-                    </div>
-                  </div>
-                  <select
-                    name="date_function"
-                    onChange={handleChangeDate}
-                    value={filter.date_function}
-                  >
-                    <option value={todayDate.toISOString()}>
-                      Hoy {convertToDayWeekandNumber(todayDate)}
-                    </option>
-                    <option value={tomorrowDate.toISOString()}>
-                      Mañana {convertToDayWeekandNumber(tomorrowDate)}
-                    </option>
-                  </select>
-                </li>
-              </ul>
+                    Mañana {convertToDayWeekandNumber(tomorrowDate)}
+                  </option>
+                </>
+              </DropDownFilter>
             </div>
             <ul></ul>
           </div>

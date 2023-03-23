@@ -1,69 +1,4 @@
-import {
-  FetchAllMovieInfo,
-  FetchMovieCreditsResponse,
-  FetchMovieDetailsResponse,
-  FetchVideosMovie,
-  movieRCFormatTest,
-} from ".";
-
-export const initialMovieRCFormatTest: movieRCFormatTest = {
-  idMovie: 0,
-  titleMovie: "",
-  durationMovie: 0,
-  sinopsisMovie: "",
-  trailerMovie: "",
-  restrictionsMovie: "",
-  directorsMovie: "",
-  idiomsMovie: "",
-  availableMovie: "",
-  posterMovie: "",
-  genresMovie: "",
-  releaseDateMovie: "",
-  statusMovie: "",
-};
-export const initialFetchDetailsMovie: FetchMovieDetailsResponse = {
-  adult: false,
-  backdrop_path: "",
-  belongs_to_collection: null,
-  budget: 0,
-  genres: [],
-  homepage: "",
-  id: 0,
-  imdb_id: "",
-  original_language: "",
-  original_title: "",
-  overview: "",
-  popularity: 0,
-  poster_path: "",
-  production_companies: [],
-  production_countries: [],
-  release_date: "",
-  revenue: 0,
-  runtime: 0,
-  spoken_languages: [],
-  status: "",
-  tagline: "",
-  title: "",
-  video: false,
-  vote_average: 0,
-  vote_count: 0,
-};
-export const initialFetchCreditsMovie: FetchMovieCreditsResponse = {
-  id: 0,
-  cast: [],
-  crew: [],
-};
-
-export const initialFetchVideosMovie: FetchVideosMovie = {
-  id: 0,
-  results: [],
-};
-
-export const initialAllMovieData: FetchAllMovieInfo = {
-  ...initialFetchCreditsMovie,
-  ...initialFetchDetailsMovie,
-  ...initialFetchVideosMovie,
-};
+import { FunctionData, TableTodoColumnType } from ".";
 
 //
 
@@ -86,42 +21,89 @@ export const initialMovieByQuery = {
 
 //
 
-export const initialAvailableMovieFormat = [
-  { id: 1, format: "2D" },
-  { id: 2, format: "3D" },
-  { id: 3, format: "prime" },
-  { id: 4, format: "regular" },
-];
-export const initialIdiomsMovie = [
-  { id: 1, idiom: "español" },
-  { id: 2, idiom: "subtitulada" },
-];
-export const initialRestrictionsAge = [
-  { id: 1, value: "+A", description: "apta para todos los públicos." },
+//
+export const dataCinemasFake: Array<FunctionData> = [
+  {
+    id: 1,
+    cinema_name: "RC Lima Plaza Norte",
+    city_name: "Lima",
+  },
   {
     id: 2,
-    value: "+7",
-    description: "no recomendada para menores de siete años.",
+    cinema_name: "RC Lima Mall de Comas",
+    city_name: "Lima",
   },
   {
     id: 3,
-    value: "+12",
-    description: "no recomendada para menores de 12 años.",
+    cinema_name: "RC Lima Mall de Sur",
+    city_name: "Lima",
   },
   {
     id: 4,
-    value: "+16",
-    description: "no recomendada para menores de 16 años.",
+    cinema_name: "RC Trujillo Centro",
+    city_name: "Trujillo",
   },
   {
     id: 5,
-    value: "+18",
-    description: "no recomendada para menores de 18 años",
+    cinema_name: "RC Trujillo Real Plaza",
+    city_name: "Trujillo",
   },
 ];
-export const initialStatusMovie = [
-  { id: 1, status: "en cartelera" },
-  { id: 2, status: "por estrenar" },
-];
 
-//
+export const initialMovieRCFormat = {
+  id_movie: 0,
+  title_movie: "",
+  duration_movie: 0,
+  sinopsis_movie: "",
+  trailer_movie: "",
+  poster_movie: "",
+  directors_movie: "",
+  //esta info pondremos nosotros
+  release_date_movie: "",
+  restriction_movie: {
+    id_restriction: 0,
+    tag_restriction: "",
+    descrp_restriction: "",
+  },
+  genres_movie: [],
+  idioms_available: [],
+  formats_available: [],
+};
+
+export const ColumsForMoviesTable: TableTodoColumnType[] = [
+  {
+    title: "#",
+    dataIndex: "index_movie",
+    key: "index_movie",
+  },
+  {
+    title: "Nombre",
+    dataIndex: "title_movie",
+    key: "title_movie",
+  },
+  {
+    title: "Estreno",
+    dataIndex: "release_date_movie",
+    key: "release_date_movie",
+  },
+  {
+    title: "Restricción",
+    dataIndex: "restriction_movie",
+    key: "restriction_movie",
+  },
+  {
+    title: "Duración",
+    dataIndex: "duration_movie",
+    key: "duration_movie",
+  },
+  {
+    title: "Estado",
+    dataIndex: "status_movie",
+    key: "status_movie",
+  },
+  {
+    title: "Acciones",
+    dataIndex: "actions_movie",
+    key: "actions_movie",
+  },
+];

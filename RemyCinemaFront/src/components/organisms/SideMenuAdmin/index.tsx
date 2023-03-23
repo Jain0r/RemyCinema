@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import imageAdmin from "../../../assets/logo.png";
+import imageAdmin from "../../../assets/logo-transparent-white-svg.svg";
 import { FaBars } from "react-icons/fa";
 import {
   MdSpaceDashboard,

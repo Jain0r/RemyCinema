@@ -1,7 +1,7 @@
 import MoviesService from "../../../Api/movies";
 import Loader from "../../../components/atoms/Loader";
 import HomeTemplate from "../../../components/templates/HomeTemplate";
-import { movieRCFormatTest } from "../../../interfaces";
+import { movieRCFormat, ResponseFormat } from "../../../interfaces";
 import { useQuery } from "react-query";
 
 const HomePage = () => {
@@ -11,7 +11,7 @@ const HomePage = () => {
     isError,
     data: allMovies,
   }: {
-    data: movieRCFormatTest[] | undefined;
+    data: movieRCFormat[] | undefined;
     isLoading: boolean;
     error: unknown; //el tipado del error se debe hacer cuando se establezca que se enviara de error
     isError: boolean;

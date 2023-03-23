@@ -1,5 +1,5 @@
 import { POSTER_PATH } from "../../../Api/config";
-import { movieRCFormatTest } from "../../../interfaces";
+import { movieRCFormat } from "../../../interfaces";
 import logo from "../../../assets/logo-transparent-png.png";
 import { CgDetailsMore } from "react-icons/cg";
 import { HiOutlineTicket } from "react-icons/hi";
@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import routes from "../../../shared/navigation";
 
 interface CardMovieProps {
-  data: movieRCFormatTest;
+  data: movieRCFormat;
 }
 
 const CardMovie = ({ data }: CardMovieProps) => {
@@ -18,8 +18,8 @@ const CardMovie = ({ data }: CardMovieProps) => {
   return (
     <div className="cardmovie_container">
       <img
-        src={data?.posterMovie ? `${POSTER_PATH}/${data.posterMovie}` : logo}
-        alt={data?.titleMovie}
+        src={data?.poster_movie ? `${POSTER_PATH}/${data.poster_movie}` : logo}
+        alt={data?.title_movie}
       ></img>
       <div className="cardmovie_buttons_container">
         <Button
@@ -34,7 +34,7 @@ const CardMovie = ({ data }: CardMovieProps) => {
           type="button"
           icon={<CgDetailsMore />}
           onClick={() =>
-            navigate(`${routes.mainRoutes.movies}/${data.idMovie}`)
+            navigate(`${routes.mainRoutes.movies}/${data.id_movie}`)
           }
           className="tertiary_button"
         ></Button>

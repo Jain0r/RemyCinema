@@ -1,11 +1,11 @@
 import React from "react";
-import { movieRCFormatTest } from "../../../interfaces";
+import { movieRCFormat } from "../../../interfaces";
 import CardMovie from "../../molecules/CardMovie";
 import Button from "../../atoms/Button";
 import "./index.scss";
 
 interface CardListGridProps {
-  data: movieRCFormatTest[];
+  data: movieRCFormat[];
   title: string;
   onSeeMore?(): void;
 }
@@ -17,7 +17,7 @@ const CardListGrid = ({ title, onSeeMore, data }: CardListGridProps) => {
       <div className="movies_grid_slider ">
         {data
           ? data.map((movieItem) => {
-              return <CardMovie key={movieItem?.idMovie} data={movieItem} />;
+              return <CardMovie key={movieItem?.id_movie} data={movieItem} />;
             })
           : null}
         <Button

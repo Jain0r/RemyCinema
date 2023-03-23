@@ -101,11 +101,15 @@ const AdminSelectMovieByQuery = ({
       </ModalLayout>
       <p>Pelicula seleccionada: {movieData?.title}</p>
       <Button
-        styles={{ justifyContent: "center" }}
         type="button"
         text="Siguiente"
         className="tertiary_button"
         onClick={() => handleStep(2)}
+        styles={{
+          padding: "15px",
+          justifyContent: "center",
+          fontSize: "16px",
+        }}
       ></Button>
     </div>
   );

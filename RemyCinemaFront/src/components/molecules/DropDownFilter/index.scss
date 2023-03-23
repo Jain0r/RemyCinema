@@ -1,0 +1,71 @@
+@import "../../../styles/base.scss";
+
+.select_dropdown_container {
+  border-right: 1px solid rgb(228, 228, 228);
+  display: flex;
+  padding: 10px;
+  position: relative;
+
+  .select_dropdown_layout {
+    position: relative;
+    color: black;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: $textSmallSize;
+
+    .select_title {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      justify-content: space-between;
+      span {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .select_label {
+      margin-top: 10px;
+      text-transform: capitalize;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  select {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: transparent;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    option {
+      color: black;
+    }
+  }
+  &:last-child {
+    border-right: none;
+  }
+}
+
+@media (min-width: $mobile) {
+  .select_dropdown_container {
+    padding: 20px;
+    .select_dropdown_layout {
+      font-size: $textMediumSize;
+      .select_label {
+        font-size: initial;
+      }
+    }
+    select {
+      font-size: initial;
+    }
+  }
+}

@@ -2,7 +2,7 @@ import React from "react";
 import "./index.scss";
 
 interface ButtonProps {
-  text: string;
+  text?: string;
   icon?: JSX.Element;
   styles?: object;
   className: string;
