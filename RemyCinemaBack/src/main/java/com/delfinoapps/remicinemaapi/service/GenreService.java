@@ -81,7 +81,7 @@ public class GenreService implements GenreRepository {
 
     @Override
     public Optional<Genre> findById(Long aLong) {
-        return Optional.empty();
+        return genreRepository.findById(aLong);
     }
 
     @Override
@@ -126,12 +126,13 @@ public class GenreService implements GenreRepository {
 
     @Override
     public Genre getById(Long aLong) {
-        return null;
+        return genreRepository.getById(aLong);
     }
 
     @Override
     public Genre getReferenceById(Long aLong) {
-        return genreRepository.getReferenceById(aLong);
+        Genre genreToReturn = genreRepository.getReferenceById(aLong);
+        return genreToReturn; //genreRepository.getReferenceById(aLong);
     }
 
     @Override

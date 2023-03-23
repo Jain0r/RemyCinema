@@ -19,7 +19,15 @@ public class Genre {
     private String descrGenre;
 
     @JsonIgnore
-    @ManyToMany
+    /*
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "movie_genre",
+            joinColumns = {@JoinColumn(name = "id_genre")},
+            inverseJoinColumns =  {@JoinColumn(name = "id_movie")}
+    )
+     */
+    @ManyToMany(mappedBy = "genre")
     private List<Movie> movies = new ArrayList<>();
 
     public Genre() {
@@ -28,14 +36,14 @@ public class Genre {
     public Genre(long idGenre, String descrGenre, List<Movie> movies) {
         this.idGenre = idGenre;
         this.descrGenre = descrGenre;
-        this.movies = movies;
+        this.movies.addAll(movies); // = movies;
     }
-
+/*
     public Genre(long idGenre, String descrGenre) {
         this.idGenre = idGenre;
         this.descrGenre = descrGenre;
     }
-
+*/
     public long getIdGenre() {
         return idGenre;
     }

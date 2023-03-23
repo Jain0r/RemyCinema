@@ -25,8 +25,9 @@ public class Movie {
     @Column(name = "sinopsis_movie")
     private String sinopsisMovie;
 
-    @Column(name = "restrictions_movie")
-    private String restrictionsMovie;
+    @ManyToOne
+    @JoinColumn(name = "restriction_movie")
+    private Restriction restrictionRef;
 
     @Column(name = "directors_movie")
     private String directorsMovie;
@@ -34,11 +35,25 @@ public class Movie {
     @Column(name = "trailer_movie")
     private String trailerMovie;
 
-    @Column(name = "idioms_movie")
-    private String idiomsMovie;
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(
+            name = "movie_idiom",
+            joinColumns = { @JoinColumn(name = "id_movie")},
+            inverseJoinColumns = {@JoinColumn(name = "id_idiom")}
+    )
+    private List<Idiom> idiom = new ArrayList<>();
+    @OneToMany(mappedBy = "movieRef") //referencia al id que identifica a movies en la entidad intermedia
+    private List<MovieIdiom> movieIdiomList;
 
-    @Column(name = "available_movie")
-    private String availableMovie;
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(
+            name = "movie_available",
+            joinColumns = { @JoinColumn(name = "id_movie") },
+            inverseJoinColumns = { @JoinColumn(name = "id_available") }
+    )
+    private List<Available> availables = new ArrayList<>();
+    @OneToMany(mappedBy = "movies") //referencia al id que identifica a movies en la entidad intermedia
+    private List<MovieAvailable> movieAvailableList;
 
     @Column(name = "poster_movie")
     private String posterMovie;
@@ -49,31 +64,30 @@ public class Movie {
     @Column(name = "status_movie")
     private String statusMovie;
 
-    @JsonIgnore
-    @ManyToMany(cascade = {CascadeType.ALL})
+    //@JsonIgnore
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(
             name = "movie_genre",
             joinColumns = { @JoinColumn(name = "id_movie") },
             inverseJoinColumns = { @JoinColumn(name = "id_genre") }
     )
     private List<Genre> genre = new ArrayList<>();
-
-    /*@JsonIgnore
     @OneToMany(mappedBy = "movieRef")
     private List<MovieGenre> genrexMovie;
-    */
+
+    //Constructors, getters and setters
     public Movie() {}
 
-    public Movie(Long idMovie, String titleMovie, Long durationMovie, String sinopsisMovie, String restrictionsMovie, String directorsMovie, String trailerMovie, String idiomsMovie, String availableMovie, String posterMovie, Date releaseDateMovie, String statusMovie, List<Genre> genre) {
+    public Movie(Long idMovie, String titleMovie, Long durationMovie, String sinopsisMovie, Restriction restrictionsMovie, String directorsMovie, String trailerMovie, List<Idiom> idiomsMovie, List<Available> availableMovie, String posterMovie, Date releaseDateMovie, String statusMovie, List<Genre> genre) {
         this.idMovie = idMovie;
         this.titleMovie = titleMovie;
         this.durationMovie = durationMovie;
         this.sinopsisMovie = sinopsisMovie;
-        this.restrictionsMovie = restrictionsMovie;
+        this.restrictionRef = restrictionsMovie;
         this.directorsMovie = directorsMovie;
         this.trailerMovie = trailerMovie;
-        this.idiomsMovie = idiomsMovie;
-        this.availableMovie = availableMovie;
+        this.idiom = idiomsMovie;
+        this.availables = availableMovie;
         this.posterMovie = posterMovie;
         this.releaseDateMovie = releaseDateMovie;
         this.statusMovie = statusMovie;
@@ -112,12 +126,12 @@ public class Movie {
         this.sinopsisMovie = sinopsisMovie;
     }
 
-    public String getRestrictionsMovie() {
-        return restrictionsMovie;
+    public Restriction getRestrictionsMovie() {
+        return restrictionRef;
     }
 
-    public void setRestrictionsMovie(String restrictionsMovie) {
-        this.restrictionsMovie = restrictionsMovie;
+    public void setRestrictionsMovie(Restriction restrictionsMovie) {
+        this.restrictionRef = restrictionsMovie;
     }
 
     public String getDirectorsMovie() {
@@ -136,20 +150,20 @@ public class Movie {
         this.trailerMovie = trailerMovie;
     }
 
-    public String getIdiomsMovie() {
-        return idiomsMovie;
+    public List<Idiom> getIdiomsMovie() {
+        return idiom;
     }
 
-    public void setIdiomsMovie(String idiomsMovie) {
-        this.idiomsMovie = idiomsMovie;
+    public void setIdiomsMovie(List<Idiom> idiomsMovie) {
+        this.idiom = idiomsMovie;
     }
 
-    public String getAvailableMovie() {
-        return availableMovie;
+    public List<Available> getAvailableMovie() {
+        return availables;
     }
 
-    public void setAvailableMovie(String availableMovie) {
-        this.availableMovie = availableMovie;
+    public void setAvailableMovie(List<Available> availableMovie) {
+        this.availables = availableMovie;
     }
 
     public String getPosterMovie() {
@@ -180,7 +194,5 @@ public class Movie {
         return genre;
     }
 
-    public void setGenre(List<Genre> genre) {
-        this.genre = genre;
-    }
+    public void setGenre(List<Genre> genre) { this.genre = genre; }
 }

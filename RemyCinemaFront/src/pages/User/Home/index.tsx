@@ -3,6 +3,12 @@ import Loader from "../../../components/atoms/Loader";
 import HomeTemplate from "../../../components/templates/HomeTemplate";
 import { movieRCFormat, ResponseFormat } from "../../../interfaces";
 import { useQuery } from "react-query";
+import { BASE_URL } from "../../../Api/config";
+import { useEffect, useState } from "react";
+import {
+  fetchTransformAllMovieInfo,
+  fetchAllMovieInfo,
+} from "../../../functions";
 
 const HomePage = () => {
   const {

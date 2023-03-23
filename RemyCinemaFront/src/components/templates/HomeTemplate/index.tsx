@@ -14,10 +14,18 @@ const HomeTemplate = ({ data }: HomeTemplateProps) => {
     <div>
       <HomeSlider />
       <CardListGrid
+        title="Películas en cartelera"
+        data={data && data.slice(0, 5)}
+      />
+      <CardListGrid
+        title="Próximos estrenos"
+        data={data && data.slice(5, 10)}
+      />
+      {/* <CardListGrid
         data={data && data.slice(0, 5)}
         title="Películas en cartelera"
       />
-      <CardListGrid data={data && data.slice(0, 5)} title="Próximos estrenos" />
+      <CardListGrid data={data && data.slice(0, 5)} title="Próximos estrenos" /> */}
       <ProccessBuyInfo />
     </div>
   );
