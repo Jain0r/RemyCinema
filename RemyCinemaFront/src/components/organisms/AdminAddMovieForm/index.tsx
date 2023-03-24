@@ -14,11 +14,14 @@ import {
 import InputErrorMessage from "../../atoms/InputErrorMessage";
 import Button from "../../atoms/Button";
 import MoviesService from "../../../Api/movies";
+import { toast } from "react-toastify";
 
 interface AdminAddMovieFormProps {
   movieData: MovieByQuery;
   genres: GenreMovie[];
   restrictions: RestrictionMovie[];
+  updateMovies(): void;
+  onClose(): void;
 }
 
 interface initialAddMovieFormProps {
@@ -31,6 +34,8 @@ const AdminAddMovieForm = ({
   movieData,
   genres,
   restrictions,
+  updateMovies,
+  onClose,
 }: AdminAddMovieFormProps) => {
   const initialValues: initialAddMovieFormProps = {
     releaseDateMovie: "",
@@ -40,7 +45,7 @@ const AdminAddMovieForm = ({
 
   const handleSubmit = async (values: initialAddMovieFormProps) => {
     const data = await fetchAllMovieInfo(movieData?.id);
-    const tranformDataMovie = fetchTransformAllMovieInfo(data);
+    const tranformDataMovie = fetchTransformAllMovieInfo(data); //posible error
     const genres_movie_API: GenreMovie[] = [];
     const restriction_movie_API = restrictions.find(
       (restriction: RestrictionMovie) =>
@@ -62,8 +67,20 @@ const AdminAddMovieForm = ({
     };
     console.log("dataFinal", newDataFormAPI);
     MoviesService.postMovie(newDataFormAPI)
-      .then((result) => console.log(result))
-      .catch((error) => console.log(error));
+      .then((result) =>
+        toast.success(result.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+        })
+      )
+      .then(() => updateMovies())
+      .catch((error) =>
+        toast.error(`${error}`, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+        })
+      )
+      .finally(() => onClose());
   };
 
   return (

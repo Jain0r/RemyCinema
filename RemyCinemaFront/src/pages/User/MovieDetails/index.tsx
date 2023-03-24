@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import MoviesService from "../../../Api/movies";
 import Loader from "../../../components/atoms/Loader";
 import MovieDetailsTemplate from "../../../components/templates/MovieDetailsTemplate";
-import { fetchAllMovieInfo, fetchTransformAllMovieInfo } from "../../../functions";
 
 const MovieDetailsPage = () => {
   const params = useParams(); // useParams trae un objeto donde los valores de los parametros (en este caso id) puedes ser string | undefined
@@ -25,23 +24,26 @@ const MovieDetailsPage = () => {
   //   //refetchInterval: 10000, // indica el intervalo en ms para hacer un refetch automatico en la página
   //   //refetchIntervalInBackground: true, // true si desea hacerse el refetch aun si el usuario no tiene el focus en la pagina
   // });
-  const [isLoading, setIsLoading] = useState(true)
-  const [newMovie, setNewMovie] = useState({})
-  useEffect(()=>{
-    fetchAllMovieInfo(id).then((data) => setNewMovie(fetchTransformAllMovieInfo(data))).then(()=> setIsLoading(false))
-  })
+  const {
+    isError,
+    error,
+    isLoading,
+    data: dataMovie,
+  } = useQuery({
+    queryKey: ["movie"],
+    queryFn: () => MoviesService.getMovieById(id),
+  });
   useEffect(() => {
     setId(paramsId); // ahora para que react haga el llamado del customhook cada vez que cambie el params
   }, [params.id]); // lo que hacemos es setear nuevamente nuestro valor de estado id con params.id cada vez que cambie el params.id
   // de esta forma se hara el llamado del customhook y se volvera a pintar el dom cada vez que detecte cambio en el params.id(url:id)
   if (isLoading) return <Loader />;
-  // else if (isError) return <div>{JSON.stringify(error)}</div>;
+  else if (isError) return <div>{JSON.stringify(error)}</div>;
   //se establecera una página 404 de
-  // else if (dataMovie !== undefined)
-  else if (newMovie !== undefined)
+  else if (dataMovie !== undefined)
     return (
       <div>
-        <MovieDetailsTemplate data={newMovie} />
+        <MovieDetailsTemplate data={dataMovie} />
         {/* <MovieDetailsTemplate data={dataMovie} /> */}
       </div>
     );

@@ -7,17 +7,22 @@ import AdminSelectMovieByQuery from "../AdminSelectMovieByQuery";
 
 interface AdminAddMovieProccessProps {
   data: infoFilterForMoviesPage;
+  updateMovies(): void;
+  onClose(): void;
 }
 
-const AdminAddMovieProccess = ({ data }: AdminAddMovieProccessProps) => {
+const AdminAddMovieProccess = ({
+  data,
+  updateMovies,
+  onClose,
+}: AdminAddMovieProccessProps) => {
   const [proccess, setProccess] = useState<number>(1);
   const [selectedMovie, setSelectedMovie] =
     useState<MovieByQuery>(initialMovieByQuery);
   const [modalInform, setModalInform] = useState<boolean>(false);
 
-  console.log("moviesase", selectedMovie);
   const handleStep = (step: number) => {
-    if (selectedMovie.id === 0) {
+    if (!selectedMovie.id) {
       setModalInform(true);
     } else {
       setProccess(2);
@@ -34,6 +39,8 @@ const AdminAddMovieProccess = ({ data }: AdminAddMovieProccessProps) => {
       )}
       {proccess === 2 && (
         <AdminAddMovieForm
+          onClose={() => onClose()}
+          updateMovies={() => updateMovies()}
           genres={data?.genres}
           restrictions={data?.restrictions}
           movieData={selectedMovie}

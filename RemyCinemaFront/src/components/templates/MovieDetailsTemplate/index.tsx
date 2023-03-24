@@ -36,6 +36,8 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
   };
   const [filter, setFilter] = useState<FilterFunctions>(initialFilterValue);
 
+  console.log({ data });
+
   const handleChangeCinema = (cinema: string) => {
     console.log(cinema);
     if (cinema.length > 0) {

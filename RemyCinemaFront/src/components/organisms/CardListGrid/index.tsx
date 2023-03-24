@@ -21,8 +21,8 @@ const CardListGrid = ({ title, onSeeMore, data }: CardListGridProps) => {
             })
           : null} */}
         {data
-          ? data.map((movieItem: any) => {
-              return <CardMovie key={movieItem?.id} data={movieItem} />;
+          ? data.map((movieItem: movieRCFormat) => {
+              return <CardMovie key={movieItem?.id_movie} data={movieItem} />;
             })
           : null}
         <Button

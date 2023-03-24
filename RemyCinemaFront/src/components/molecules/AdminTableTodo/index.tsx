@@ -43,14 +43,6 @@ const AdminTableTodo = ({
     setSliceValue(itemsPerPage);
   }, [dataSource]);
 
-  console.log({
-    pageNumber,
-    dataSource,
-    paginatedItems,
-    sliceValue,
-    itemsPerPage,
-  });
-
   return (
     <div className="admintabletodo_container">
       <div className="admintabletodo_head">
@@ -65,7 +57,10 @@ const AdminTableTodo = ({
             })}
         </ul>
       </div>
-      <div className="admintabletodo_body">
+      <div
+        className="admintabletodo_body"
+        style={{ minHeight: `${itemsPerPage * 56}px` }}
+      >
         {dataSource.length > 0 ? (
           <ul>
             {paginatedItems &&
@@ -86,7 +81,10 @@ const AdminTableTodo = ({
               })}
           </ul>
         ) : (
-          <div className="admintabletodo_no_data_available">
+          <div
+            className="admintabletodo_no_data_available"
+            style={{ minHeight: `${itemsPerPage * 50}px` }}
+          >
             <CgDatabase />
             <p>No hay datos para mostrar.</p>
           </div>
@@ -102,7 +100,15 @@ const AdminTableTodo = ({
             onClick={() => previousPage()}
             styles={{ padding: "3px", borderRadius: "5px" }}
           />
-
+          <div className="admintabletodo_results_page_info">
+            {dataSource.length > 0 ? (
+              <p>
+                Página {pageNumber} de {numberOfPages}
+              </p>
+            ) : (
+              <p>Sin resultados </p>
+            )}
+          </div>
           <Button
             type="button"
             disabled={pageNumber === numberOfPages}

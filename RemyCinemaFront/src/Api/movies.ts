@@ -9,22 +9,38 @@ import { BASE_URL_API } from "./config";
 export default class MoviesService {
   static async getAllMovies() {
     const rsp = await Api.get(`${BASE_URL_API}/movies`);
-    const dataJson = await rsp.json();
-    return dataJson.result;
+    const rspJson = await rsp.json();
+    if (rsp.status !== 200) {
+      throw new Error(rspJson.message);
+    } else {
+      return rspJson.result;
+    }
   }
   static async getMovieById(id: number) {
     const rsp = await Api.get(`${BASE_URL_API}/movies/${id}`);
-    const dataJson = await rsp.json();
-    return dataJson.result;
+    const rspJson = await rsp.json();
+    if (rsp.status !== 200) {
+      throw new Error(rspJson.message);
+    } else {
+      return rspJson.result;
+    }
   }
   static async postMovie(data: any) {
     const rsp = await Api.post(`${BASE_URL_API}/movies`, data);
-    const dataJson = await rsp.json();
-    return dataJson;
+    const rspJson = await rsp.json();
+    if (rsp.status !== 200) {
+      throw new Error(rspJson.message);
+    } else {
+      return rspJson.result;
+    }
   }
   static async updateMovie(data: any) {
     const rsp = await Api.put(`${BASE_URL_API}/movies`, data);
-    const dataJson = await rsp.json();
-    return dataJson;
+    const rspJson = await rsp.json();
+    if (rsp.status !== 200) {
+      throw new Error(rspJson.message);
+    } else {
+      return rspJson.result;
+    }
   }
 }

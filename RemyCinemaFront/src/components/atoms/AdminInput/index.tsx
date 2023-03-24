@@ -7,7 +7,7 @@ interface AdminInputProps {
   inputName: string;
   label?: string;
   icon?: JSX.Element;
-  onChange(value: string): void;
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 const AdminInput = ({
@@ -19,7 +19,7 @@ const AdminInput = ({
   inputName,
 }: AdminInputProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
+    onChange(e);
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminCardInfo from "../../atoms/AdminCardInfo";
-import { MdKeyboardArrowDown, MdMovieFilter } from "react-icons/md";
+import { MdMovieFilter } from "react-icons/md";
 import Button from "../../atoms/Button";
 import ModalLayout from "../../molecules/ModalLayout";
 import AdminAddMovieProccess from "../../organisms/AdminAddMovieProccess";
@@ -11,7 +11,11 @@ import {
   movieRCFormat,
   RestrictionMovie,
 } from "../../../interfaces";
-import { convertToHrsandMins, todayDate } from "../../../functions";
+import {
+  convertToHrsandMins,
+  getMovieStatus,
+  todayDate,
+} from "../../../functions";
 import { HiPencilAlt } from "react-icons/hi";
 import { TbTrash } from "react-icons/tb";
 import AdminTableTodo from "../../molecules/AdminTableTodo";
@@ -20,11 +24,13 @@ import {
   ColumsForMoviesTable,
   initialMovieRCFormat,
 } from "../../../interfaces/initials";
-import { FiSearch } from "react-icons/fi";
+import { FiPlus, FiSearch } from "react-icons/fi";
 import AdminInput from "../../atoms/AdminInput";
 import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { RiFilter3Fill } from "react-icons/ri";
 import "./index.scss";
+import AdminSelect, { OptionSelect } from "../../atoms/AdminSelect";
+import { AiOutlinePlus } from "react-icons/ai";
 
 interface AdminMoviesTemplateProps {
   info: infoFilterForMoviesPage;
@@ -34,6 +40,7 @@ interface AdminMoviesTemplateProps {
 const filterValues: filterTypesForTableMovies = {
   movies_status: "",
   movies_restriction: "",
+  //agregar otro filtro si se desea
 };
 
 const AdminMoviesTemplate = ({
@@ -77,8 +84,7 @@ const AdminMoviesTemplate = ({
         restriction_movie: movie.restriction_movie?.tag_restriction,
         duration_movie: convertToHrsandMins(movie?.duration_movie),
         status_movie:
-          movie?.formats_available.length > 0 &&
-          movie?.idioms_available.length > 0 ? (
+          getMovieStatus(movie) === "active" ? (
             <span className="status active">Activo</span>
           ) : (
             <span className="status inactive">Inactivo</span>
@@ -110,16 +116,14 @@ const AdminMoviesTemplate = ({
     let currentSortedBy = allMovies;
     switch (sortedBy) {
       case "date":
-        if (orderTypeMaxToMin) {
-          currentSortedBy = allMovies.sort((a, b) => {
-            const dateA = new Date(a.release_date_movie);
-            const dateB = new Date(b.release_date_movie);
-            return orderTypeMaxToMin
-              ? dateB.getTime() - dateA.getTime()
-              : dateA.getTime() - dateB.getTime();
-          });
-          break;
-        }
+        currentSortedBy = allMovies.sort((a, b) => {
+          const dateA = new Date(a.release_date_movie);
+          const dateB = new Date(b.release_date_movie);
+          return orderTypeMaxToMin
+            ? dateB.getTime() - dateA.getTime()
+            : dateA.getTime() - dateB.getTime();
+        });
+        break;
       case "duration":
         currentSortedBy = allMovies.sort((a, b) => {
           const durationA = a.duration_movie;
@@ -158,14 +162,9 @@ const AdminMoviesTemplate = ({
             break;
           case "movies_status":
             resultsByFilter.push(
-              movies?.filter((movie: movieRCFormat) =>
-                filters?.movies_status === "active"
-                  ? movie.formats_available?.length > 0 &&
-                    movie.idioms_available?.length > 0
-                  : !(
-                      movie.formats_available?.length > 0 &&
-                      movie.idioms_available?.length > 0
-                    )
+              movies?.filter(
+                (movie: movieRCFormat) =>
+                  getMovieStatus(movie) === filters?.movies_status
               )
             );
             //agregar un para cada filtro que se desea agregar, todo resultante del filtro debe ser almacenado en resultsByFilter
@@ -180,11 +179,12 @@ const AdminMoviesTemplate = ({
       // se verifica si es q se tiene aplicado
       const intersectionFilters = resultsByFilter.reduce(
         (accumulator: movieRCFormat[], currentArray: movieRCFormat[]) => {
-          console.log("acumulator", accumulator);
-          console.log("currentArray", currentArray);
-          return accumulator.filter((element) =>
-            currentArray.includes(element)
-          );
+          console.log({ accumulator, currentArray });
+          return accumulator.filter(
+            (
+              element //itera en cada elemento (objeto) y aplica la condicion
+            ) => currentArray.includes(element) // verifica si el current array contiene el elemento actual del accumulator
+          ); // se devuelve aquellos elementos que existen tanto en el currentvalue como en el accumulator, y ello se vuelve el nuevo accumulator y pasa al siguiente arreglo
         }
       );
       moviesFiltered = intersectionFilters;
@@ -212,15 +212,15 @@ const AdminMoviesTemplate = ({
     setUpdateMovieInfo(data);
     setUpdateMovieModalForm(true);
   };
-  const handleQueryMovie = (value: string) => {
-    setMovieQuery(value);
+  const handleQueryMovie = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMovieQuery(e.target.value);
   };
 
   const handleSortOption = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSortedBy(e.target.value);
   };
 
-  console.log("filters", filters);
+  // console.log("filters", filters);
   return (
     <div className="adminmovies_template_container">
       <div className="adminmovies_template_main">
@@ -254,7 +254,7 @@ const AdminMoviesTemplate = ({
               <Button
                 type="button"
                 onClick={() => setAddMovieModalForm(true)}
-                text="Agregar película"
+                text="+ Agregar película"
                 className="tertiary_button"
                 styles={{ padding: "15px 20px", borderRadius: "5px" }}
               ></Button>
@@ -266,43 +266,45 @@ const AdminMoviesTemplate = ({
               inputName="movies_query"
               defaultValue={movieQuery}
               placeholder="Buscar película"
-              onChange={(value) => handleQueryMovie(value)}
+              onChange={(e) => handleQueryMovie(e)}
             />
             <div className="adminmovies_filters_container">
               <div className="adminmovies_filters_icon">
                 <RiFilter3Fill />
               </div>
               <div className="adminmovies_filters_selects">
-                <div className="adminmovie_select_container">
-                  <select
-                    name="movies_restriction"
-                    onChange={handleFiltersOptions}
-                  >
-                    <option value="">Restricción</option>
-                    {info?.restrictions &&
-                      info.restrictions?.map(
-                        (restriction: RestrictionMovie) => {
-                          return (
-                            <option
-                              key={restriction?.id_restriction}
-                              value={restriction?.tag_restriction}
-                            >
-                              {restriction?.tag_restriction}
-                            </option>
-                          );
-                        }
-                      )}
-                  </select>
-                  <MdKeyboardArrowDown />
-                </div>
-                <div className="adminmovie_select_container">
-                  <select name="movies_status" onChange={handleFiltersOptions}>
-                    <option value="">Estado</option>
-                    <option value="active">Activo</option>
-                    <option value="inactive">Inactivo</option>
-                  </select>
-                  <MdKeyboardArrowDown />
-                </div>
+                <AdminSelect
+                  options={
+                    info?.restrictions &&
+                    info.restrictions?.reduce(
+                      (
+                        accumulator: OptionSelect[],
+                        currentValue: RestrictionMovie
+                      ): OptionSelect[] => {
+                        const option = {
+                          idValue: currentValue.id_restriction,
+                          value: currentValue.tag_restriction,
+                          nameValue: currentValue.tag_restriction,
+                        };
+                        accumulator.push(option);
+                        return accumulator;
+                      },
+                      []
+                    )
+                  }
+                  onChange={(e) => handleFiltersOptions(e)}
+                  inputName="movies_restriction"
+                  defaultValue="Restricción"
+                />
+                <AdminSelect
+                  options={[
+                    { idValue: 1, value: "active", nameValue: "Activo" },
+                    { idValue: 2, value: "inactive", nameValue: "Inactivo" },
+                  ]}
+                  onChange={(e) => handleFiltersOptions(e)}
+                  inputName="movies_status"
+                  defaultValue="Estado"
+                />
               </div>
             </div>
           </div>
@@ -313,14 +315,15 @@ const AdminMoviesTemplate = ({
             >
               {orderTypeMaxToMin ? <FaSortAmountUp /> : <FaSortAmountDown />}
             </div>
-            <div className="adminmovie_select_container">
-              <select name="movies_sort" onChange={handleSortOption}>
-                <option value="">Ordenar por</option>
-                <option value="date">Fecha de Estreno</option>
-                <option value="duration">Duración</option>
-              </select>
-              <MdKeyboardArrowDown />
-            </div>
+            <AdminSelect
+              options={[
+                { idValue: 1, value: "date", nameValue: "Fecha de Estreno" },
+                { idValue: 2, value: "duration", nameValue: "Duración" },
+              ]}
+              onChange={(e) => handleSortOption(e)}
+              inputName="movies_sort"
+              defaultValue="Ordenar por"
+            />
           </div>
 
           <AdminTableTodo
@@ -336,7 +339,13 @@ const AdminMoviesTemplate = ({
         onClose={() => setAddMovieModalForm(false)}
         isOpen={AddMovieModalForm}
       >
-        {<AdminAddMovieProccess data={info} />}
+        {
+          <AdminAddMovieProccess
+            onClose={() => setAddMovieModalForm(false)}
+            updateMovies={() => updateMovies()}
+            data={info}
+          />
+        }
       </ModalLayout>
       <ModalLayout
         title="Actualizar Película"

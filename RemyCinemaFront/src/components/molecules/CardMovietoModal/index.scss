@@ -2,17 +2,60 @@
 
 .card_movie_detail {
   width: 100%;
+  position: relative;
+  border-radius: 5px;
+  padding: 5px;
   img {
     overflow: hidden;
     width: 100%;
     aspect-ratio: 1/2;
     border-radius: 5px;
-    border: 5px solid transparent;
+    transition: all 0.3s;
   }
-  .selected {
-    border: 5px solid $tertiary-color;
+  .card_movie_details_buttons {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-45%, -45%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    button {
+      font-size: $textSmallSize;
+      transition: all 0.3s;
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  .selected_icon {
+    background-color: rgb(13, 192, 13);
+    border-radius: 999px;
+    padding: 1px;
+    display: none;
+    transform: translate(5px, -10px);
+    position: absolute;
+    display: none;
+    right: 0;
+    z-index: 10;
+    svg {
+      color: white;
+    }
   }
   &:hover {
     cursor: pointer;
+    button {
+      opacity: 1;
+      visibility: visible;
+    }
+    img {
+      filter: brightness(50%);
+    }
+  }
+  &.selected {
+    .selected_icon {
+      display: flex;
+    }
   }
 }

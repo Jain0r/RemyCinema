@@ -23,16 +23,19 @@ const AdminSelectMovieByQuery = ({
 }: AdminSelectMovieByQueryProps) => {
   const [query, setQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [modalInfoResult, setModalInfoResult] = useState<boolean>(false);
+  const [modalInfoMovie, setModalInfoMovie] =
+    useState<MovieByQuery>(initialMovieByQuery);
+  const [showModalInfoMovie, setShowModalInfoMovie] = useState<boolean>(false);
   const [queryResults, setQueryResults] = useState<MovieByQuery[]>([]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
 
   const handleOpenModalInfo = (dataMovie: MovieByQuery) => {
-    setMovieData(dataMovie);
-    setModalInfoResult(true);
+    setModalInfoMovie(dataMovie);
+    setShowModalInfoMovie(true);
   };
+
   const fetchMovieByQuery = () => {
     setMovieData(initialMovieByQuery);
     setLoading(true);
@@ -68,6 +71,7 @@ const AdminSelectMovieByQuery = ({
           queryResults?.map((result) => {
             return (
               <CardMovieToModal
+                selectMovie={(data) => setMovieData(data)}
                 isSelected={movieData?.id === result?.id ? true : false}
                 openModal={(dataMovie) => handleOpenModalInfo(dataMovie)}
                 key={result?.id}
@@ -81,20 +85,20 @@ const AdminSelectMovieByQuery = ({
       </div>
       <ModalLayout
         maxWidth={350}
-        isOpen={modalInfoResult}
-        onClose={() => setModalInfoResult(false)}
+        isOpen={showModalInfoMovie}
+        onClose={() => setShowModalInfoMovie(false)}
         title="Información básica"
       >
         <div className="current_movie_modal">
-          <p className="current_movie_title">{movieData?.title}</p>
+          <p className="current_movie_title">{modalInfoMovie?.title}</p>
           <div className="current_movie_main">
             <img
-              src={`${POSTER_PATH}/${movieData?.poster_path}`}
-              alt={movieData?.title}
+              src={`${POSTER_PATH}/${modalInfoMovie?.poster_path}`}
+              alt={modalInfoMovie?.title}
             ></img>
             <div className="current_movie_overview">
               <span>Sipnosis:</span>
-              <p>{movieData?.overview}</p>
+              <p>{modalInfoMovie?.overview}</p>
             </div>
           </div>
         </div>

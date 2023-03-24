@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import MoviesServiceTMD from "../Api/moviesTMD";
 import { Combo, Food, movieRCFormat, Ticket } from "../interfaces";
 
@@ -102,12 +103,22 @@ export const fetchTransformAllMovieInfo = (allMovieData: any) => {
     durationMovie: allMovieData?.runtime,
     sinopsisMovie: allMovieData?.overview,
     trailerMovie: allMovieData?.results
-      ? allMovieData.results.slice(-1)[0].key
+      ? allMovieData.results.slice(-1)[0]
+        ? allMovieData.results.slice(-1)[0].key
+        : ""
       : "", //devolviendo string del array original
     directorsMovie: directors?.length > 0 ? directors.join(", ") : "",
     posterMovie: allMovieData?.poster_path,
-    genresMovie: allMovieData?.genres[0].name,
   };
 };
 
-
+export const getMovieStatus = (movie: movieRCFormat) => {
+  if (
+    movie.idioms_available?.length > 0 &&
+    movie.formats_available?.length > 0
+  ) {
+    return "active";
+  } else {
+    return "inactive";
+  }
+};
