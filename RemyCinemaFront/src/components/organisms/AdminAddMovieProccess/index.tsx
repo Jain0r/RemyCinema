@@ -43,6 +43,8 @@ const AdminAddMovieProccess = ({
           updateMovies={() => updateMovies()}
           genres={data?.genres}
           restrictions={data?.restrictions}
+          idioms={data?.idioms}
+          formats={data?.formats}
           movieData={selectedMovie}
         />
       )}

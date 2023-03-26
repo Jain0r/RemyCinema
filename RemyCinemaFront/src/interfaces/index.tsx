@@ -10,7 +10,7 @@ export interface initialAddMovieFormAPIProps {
 
 export interface movieRCFormat {
   //esta info se obtendra de la API TheMovieDB v3
-  id_movie?: number;
+  id_movie: number;
   title_movie: string;
   duration_movie: number;
   sinopsis_movie: string;
@@ -21,8 +21,8 @@ export interface movieRCFormat {
   release_date_movie: string;
   restriction_movie: RestrictionMovie;
   genres_movie: GenreMovie[];
-  idioms_available: IdiomMovie[];
-  formats_available: FormatMovie[];
+  idioms_movie: IdiomMovie[];
+  formats_movie: FormatMovie[];
 }
 
 //THEMOVIEDB RESPONSES
@@ -130,6 +130,32 @@ export interface StatusMovie {
   name_status: string;
 }
 
+export interface CinemaRC {
+  id_cinema: number;
+  name_cinema: string;
+  department_cinema: string;
+  province_cinema: string;
+  district_cinema: string;
+  street_cinema: string;
+}
+
+export interface HallRC {
+  id_hall: number;
+  tag_hall: string;
+  id_cinema: number;
+  hall_formats: FormatMovie[];
+}
+
+export interface PerformanceMovie {
+  id_performance: number;
+  id_movie: number;
+  id_hall: number;
+  id_format: number;
+  id_idiom: number;
+  schedule_start_performance: string;
+  schedule_end_performance: string;
+}
+
 export interface ResponseFormat {
   status: string;
   message: string;
@@ -149,6 +175,10 @@ export interface filterTypesForTableMovies {
   movies_status: string;
   movies_restriction: string;
 }
+export interface filterTypesForTablePerformances {
+  [key: string]: string;
+  performances_movies: string;
+}
 
 export interface DataTableTodoMovieType {
   index_movie: number;
@@ -164,4 +194,6 @@ export interface infoFilterForMoviesPage {
   movies: movieRCFormat[];
   genres: GenreMovie[];
   restrictions: RestrictionMovie[];
+  idioms: IdiomMovie[];
+  formats: FormatMovie[];
 }

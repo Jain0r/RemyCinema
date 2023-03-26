@@ -66,8 +66,8 @@ export const initialMovieRCFormat = {
     descrp_restriction: "",
   },
   genres_movie: [],
-  idioms_available: [],
-  formats_available: [],
+  idioms_movie: [],
+  formats_movie: [],
 };
 
 export const ColumsForMoviesTable: TableTodoColumnType[] = [

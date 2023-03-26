@@ -20,7 +20,7 @@ export default {
   admin: {
     init: `${mainRoutes.admin}`,
     movies: `${mainRoutes.admin}/movies`,
-    functions: `${mainRoutes.admin}/functions`,
+    functions: `${mainRoutes.admin}/performances`,
     users: `${mainRoutes.admin}/users`,
     cinemas: `${mainRoutes.admin}/cinemas`,
     halls: `${mainRoutes.admin}/halls`,

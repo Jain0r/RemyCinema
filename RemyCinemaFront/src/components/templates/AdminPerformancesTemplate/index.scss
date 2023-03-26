@@ -1,0 +1,30 @@
+.adminperformances_template_container {
+  .adminperformances_template_main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .adminperformances_primary_info {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      .adminperformances_lists_cards {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        .admincardinfo_container {
+          width: 200px;
+        }
+      }
+    }
+    .adminperformances_list_performances_container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .adminperformances_top_container {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+}

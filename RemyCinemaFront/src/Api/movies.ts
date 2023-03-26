@@ -28,19 +28,20 @@ export default class MoviesService {
   static async postMovie(data: any) {
     const rsp = await Api.post(`${BASE_URL_API}/movies`, data);
     const rspJson = await rsp.json();
+    console.log("status", rsp.status);
     if (rsp.status !== 200) {
       throw new Error(rspJson.message);
     } else {
-      return rspJson.result;
+      return rspJson;
     }
   }
-  static async updateMovie(data: any) {
-    const rsp = await Api.put(`${BASE_URL_API}/movies`, data);
+  static async updateMovie(id: number, data: any) {
+    const rsp = await Api.put(`${BASE_URL_API}/movies/${id}`, data);
     const rspJson = await rsp.json();
     if (rsp.status !== 200) {
       throw new Error(rspJson.message);
     } else {
-      return rspJson.result;
+      return rspJson;
     }
   }
 }

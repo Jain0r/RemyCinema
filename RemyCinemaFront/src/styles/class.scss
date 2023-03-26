@@ -27,6 +27,13 @@
   font-size: $textBigSize;
   font-weight: 900;
 }
+.react-datepicker__input-container {
+  input {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: $inputText;
+  }
+}
 
 @media (max-width: 480px) {
   .Toastify__toast {

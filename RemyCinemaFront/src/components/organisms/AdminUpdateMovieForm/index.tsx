@@ -1,8 +1,11 @@
 import { Field, Form, Formik } from "formik";
+import { toast } from "react-toastify";
 import MoviesService from "../../../Api/movies";
-import { convertISODateToValid, convertToHrsandMins } from "../../../functions";
+import { convertISODateToValid } from "../../../functions";
 import {
+  FormatMovie,
   GenreMovie,
+  IdiomMovie,
   movieRCFormat,
   RestrictionMovie,
 } from "../../../interfaces";
@@ -15,6 +18,9 @@ import "./index.scss";
 interface AdminUpdateMovieFormProps {
   dataMovie: movieRCFormat;
   genres: GenreMovie[];
+  formats: FormatMovie[];
+  idioms: IdiomMovie[];
+  onClose(): void;
   restrictions: RestrictionMovie[];
   updateMovies(): void;
 }
@@ -23,23 +29,36 @@ interface initialUpdateMovieFormProps {
   releaseDateMovie: string;
   restrictionMovie: string;
   genresMovie: string[];
+  idiomsMovie: string[];
+  formatsMovie: string[];
 }
 const AdminUpdateMovieForm = ({
   dataMovie,
+  formats,
+  idioms,
   genres,
   restrictions,
   updateMovies,
+  onClose,
 }: AdminUpdateMovieFormProps) => {
   const initialValues: initialUpdateMovieFormProps = {
     releaseDateMovie: convertISODateToValid(dataMovie?.release_date_movie),
-    restrictionMovie: dataMovie?.restriction_movie.tag_restriction,
-    genresMovie: dataMovie?.genres_movie.map(
+    restrictionMovie: dataMovie.restriction_movie?.tag_restriction,
+    idiomsMovie: dataMovie.idioms_movie?.map(
+      (idiom: IdiomMovie) => idiom.name_idiom
+    ),
+    formatsMovie: dataMovie.formats_movie?.map(
+      (format: FormatMovie) => format.name_format
+    ),
+    genresMovie: dataMovie.genres_movie?.map(
       (genre: GenreMovie) => genre.name_genre
     ),
   };
   const handleSubmit = (values: initialUpdateMovieFormProps) => {
-    const genres_movie_API: GenreMovie[] = [];
-    const restriction_movie_API = restrictions.find(
+    const genresMovie: GenreMovie[] = [];
+    const idiomsMovie: IdiomMovie[] = [];
+    const formatsMovie: FormatMovie[] = [];
+    const restrictionMovie = restrictions.find(
       (restriction: RestrictionMovie) =>
         restriction.tag_restriction === values.restrictionMovie
     );
@@ -48,18 +67,47 @@ const AdminUpdateMovieForm = ({
         (item: GenreMovie) => item.name_genre === genre
       );
       if (newValueGenre) {
-        genres_movie_API.push(newValueGenre);
+        genresMovie.push(newValueGenre);
       }
     });
-    const newDataForAPI = {
-      idMovie: dataMovie.id_movie,
+    values.formatsMovie.map((format: string) => {
+      const newValueFormat = formats.find(
+        (item: FormatMovie) => item.name_format === format
+      );
+      if (newValueFormat) {
+        formatsMovie.push(newValueFormat);
+      }
+    });
+    values.idiomsMovie.map((idiom: string) => {
+      const newValueIdiom = idioms.find(
+        (item: IdiomMovie) => item.name_idiom === idiom
+      );
+      if (newValueIdiom) {
+        idiomsMovie.push(newValueIdiom);
+      }
+    });
+    const newDataFormAPI = {
       releaseDateMovie: values.releaseDateMovie,
-      genresMovie: genres_movie_API,
-      restrictionMovie: restriction_movie_API,
+      restrictionMovie,
+      genresMovie,
+      formatsMovie,
+      idiomsMovie,
     };
-    MoviesService.updateMovie(newDataForAPI)
+    MoviesService.updateMovie(dataMovie.id_movie, newDataFormAPI)
+      .then((result) =>
+        toast.success(result.message, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+        })
+      )
       .then(() => updateMovies())
-      .catch((error) => console.log(error));
+      .catch((error) =>
+        toast.error(`${error}`, {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 2000,
+        })
+      )
+      .finally(() => onClose());
   };
   return (
     <div className="adminupdateform_container">
@@ -70,24 +118,6 @@ const AdminUpdateMovieForm = ({
             id="title_movie"
             placeholder={dataMovie?.title_movie}
             type="text"
-            disabled
-          ></input>
-        </div>
-        <div className="info_input">
-          <label htmlFor="sinopsis_movie">Sinopsis</label>
-          <input
-            id="sinopsis_movie"
-            type="text"
-            placeholder={dataMovie?.sinopsis_movie}
-            disabled
-          ></input>
-        </div>
-        <div className="info_input">
-          <label htmlFor="duration_movie">Duración</label>
-          <input
-            id="duration_movie"
-            type="text"
-            placeholder={convertToHrsandMins(dataMovie?.duration_movie)}
             disabled
           ></input>
         </div>
@@ -130,23 +160,21 @@ const AdminUpdateMovieForm = ({
                     />
                   </div>
                 </div>
-              </div>
-              <div className="checkbox_inputs_select">
                 <div className="checkbox_input">
-                  <p>Géneros</p>
+                  <p>Idiomas</p>
                   <div className="checkbox_list">
-                    {genres &&
-                      genres?.map((genre: GenreMovie) => {
+                    {idioms &&
+                      idioms?.map((idiom: IdiomMovie) => {
                         return (
-                          <div key={genre?.id_genre} className="checkbox_item">
+                          <div key={idiom?.id_idiom} className="checkbox_item">
                             <Field
-                              id={genre?.name_genre}
+                              id={idiom?.id_idiom.toString()}
                               type="checkbox"
-                              name="genresMovie"
-                              value={genre?.name_genre}
+                              name="idiomsMovie"
+                              value={idiom?.name_idiom}
                             />
-                            <label htmlFor={genre?.name_genre}>
-                              {genre?.name_genre}
+                            <label htmlFor={idiom?.id_idiom.toString()}>
+                              {idiom?.name_idiom}
                             </label>
                           </div>
                         );
@@ -154,13 +182,74 @@ const AdminUpdateMovieForm = ({
                   </div>
                   <InputErrorMessage
                     text={
-                      errors?.genresMovie?.toString()
-                        ? errors.genresMovie.toString()
+                      errors.idiomsMovie?.toString()
+                        ? errors.idiomsMovie?.toString()
+                        : ""
+                    }
+                  />
+                </div>
+                <div className="checkbox_input">
+                  <p>Formatos</p>
+                  <div className="checkbox_list">
+                    {formats &&
+                      formats?.map((format: FormatMovie) => {
+                        return (
+                          <div
+                            key={format?.id_format}
+                            className="checkbox_item"
+                          >
+                            <Field
+                              id={format?.id_format.toString()}
+                              type="checkbox"
+                              name="formatsMovie"
+                              value={format?.name_format}
+                            />
+                            <label htmlFor={format.id_format.toString()}>
+                              {format?.name_format}
+                            </label>
+                          </div>
+                        );
+                      })}
+                  </div>
+                  <InputErrorMessage
+                    text={
+                      errors.formatsMovie?.toString()
+                        ? errors.formatsMovie?.toString()
                         : ""
                     }
                   />
                 </div>
               </div>
+
+              <div className="checkbox_input">
+                <p>Géneros</p>
+                <div className="checkbox_list">
+                  {genres &&
+                    genres?.map((genre: GenreMovie) => {
+                      return (
+                        <div key={genre?.id_genre} className="checkbox_item">
+                          <Field
+                            id={genre?.name_genre}
+                            type="checkbox"
+                            name="genresMovie"
+                            value={genre?.name_genre}
+                          />
+                          <label htmlFor={genre?.name_genre}>
+                            {genre?.name_genre}
+                          </label>
+                        </div>
+                      );
+                    })}
+                </div>
+                <InputErrorMessage
+                  text={
+                    errors?.genresMovie?.toString()
+                      ? errors.genresMovie.toString()
+                      : ""
+                  }
+                />
+              </div>
+
               <Button
                 text="Actualizar"
                 onClick={() => console.log("hola")}

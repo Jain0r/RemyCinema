@@ -14,6 +14,7 @@ import {
 import {
   convertToHrsandMins,
   getMovieStatus,
+  onShowMovies,
   todayDate,
 } from "../../../functions";
 import { HiPencilAlt } from "react-icons/hi";
@@ -30,7 +31,6 @@ import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { RiFilter3Fill } from "react-icons/ri";
 import "./index.scss";
 import AdminSelect, { OptionSelect } from "../../atoms/AdminSelect";
-import { AiOutlinePlus } from "react-icons/ai";
 
 interface AdminMoviesTemplateProps {
   info: infoFilterForMoviesPage;
@@ -47,15 +47,6 @@ const AdminMoviesTemplate = ({
   info,
   updateMovies,
 }: AdminMoviesTemplateProps) => {
-  const onShowMovies = info.movies?.filter(
-    (movie: movieRCFormat) =>
-      todayDate.getTime() >= new Date(movie.release_date_movie).getTime()
-  );
-  const offShowMovies = info.movies?.filter(
-    (movie: movieRCFormat) =>
-      todayDate.getTime() < new Date(movie.release_date_movie).getTime()
-  );
-
   const [AddMovieModalForm, setAddMovieModalForm] = useState<boolean>(false);
   const [UpdateMovieModalForm, setUpdateMovieModalForm] =
     useState<boolean>(false);
@@ -72,7 +63,9 @@ const AdminMoviesTemplate = ({
     setAllMovies(info.movies);
   }, [info.movies]);
 
-  const formatDataSource = (movies: movieRCFormat[]) => {
+  const formatDataSource = (
+    movies: movieRCFormat[]
+  ): DataTableTodoMovieType[] => {
     const dataSource: DataTableTodoMovieType[] = [];
     movies?.map((movie: movieRCFormat, index) => {
       const dataItem = {
@@ -112,7 +105,7 @@ const AdminMoviesTemplate = ({
     return dataSource;
   };
 
-  const allMoviesSorted = () => {
+  const allMoviesSorted = (): movieRCFormat[] => {
     let currentSortedBy = allMovies;
     switch (sortedBy) {
       case "date":
@@ -139,7 +132,7 @@ const AdminMoviesTemplate = ({
     return currentSortedBy;
   };
 
-  const filteredMovies = (movies: movieRCFormat[]) => {
+  const filteredMovies = (movies: movieRCFormat[]): movieRCFormat[] => {
     let moviesFiltered = movies;
     let resultsByFilter: any = []; // se crea un array para almacenar los arrays que seran los resultados de cada filtro por separado
     for (const filterKey in filters) {
@@ -192,7 +185,7 @@ const AdminMoviesTemplate = ({
     return moviesFiltered;
   };
 
-  const finalDataMovies = () => {
+  const finalDataMovies = (): movieRCFormat[] => {
     if (movieQuery) {
       const moviesByQuery = allMoviesSorted().filter((movie: movieRCFormat) =>
         movie.title_movie
@@ -236,13 +229,13 @@ const AdminMoviesTemplate = ({
             <AdminCardInfo
               icon={<MdMovieFilter />}
               color="#ffdfba"
-              cant={onShowMovies?.length}
+              cant={onShowMovies(info.movies).length}
               title="Péliculas en cartelera"
             />
             <AdminCardInfo
               icon={<MdMovieFilter />}
               color="#ffb3ba"
-              cant={offShowMovies?.length}
+              cant={onShowMovies(info.movies).length}
               title="Péliculas por estrenar"
             />
           </div>
@@ -274,6 +267,7 @@ const AdminMoviesTemplate = ({
               </div>
               <div className="adminmovies_filters_selects">
                 <AdminSelect
+                  value={filters.movies_restriction}
                   options={
                     info?.restrictions &&
                     info.restrictions?.reduce(
@@ -281,7 +275,7 @@ const AdminMoviesTemplate = ({
                         accumulator: OptionSelect[],
                         currentValue: RestrictionMovie
                       ): OptionSelect[] => {
-                        const option = {
+                        const option: OptionSelect = {
                           idValue: currentValue.id_restriction,
                           value: currentValue.tag_restriction,
                           nameValue: currentValue.tag_restriction,
@@ -297,6 +291,7 @@ const AdminMoviesTemplate = ({
                   defaultValue="Restricción"
                 />
                 <AdminSelect
+                  value={filters.movies_status}
                   options={[
                     { idValue: 1, value: "active", nameValue: "Activo" },
                     { idValue: 2, value: "inactive", nameValue: "Inactivo" },
@@ -316,6 +311,7 @@ const AdminMoviesTemplate = ({
               {orderTypeMaxToMin ? <FaSortAmountUp /> : <FaSortAmountDown />}
             </div>
             <AdminSelect
+              value={sortedBy}
               options={[
                 { idValue: 1, value: "date", nameValue: "Fecha de Estreno" },
                 { idValue: 2, value: "duration", nameValue: "Duración" },
@@ -354,6 +350,9 @@ const AdminMoviesTemplate = ({
         isOpen={UpdateMovieModalForm}
       >
         <AdminUpdateMovieForm
+          formats={info.formats}
+          idioms={info.idioms}
+          onClose={() => setUpdateMovieModalForm(false)}
           genres={info.genres}
           updateMovies={() => updateMovies()}
           restrictions={info.restrictions}

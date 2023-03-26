@@ -21,6 +21,10 @@
     appearance: none; /* Para otros navegadores */
     text-overflow: ellipsis;
     margin-right: 20px;
+    text-transform: capitalize;
+    option {
+      text-transform: capitalize;
+    }
   }
   svg {
     font-size: $iconSmallSize;

@@ -7,7 +7,9 @@ import {
 import "./index.scss";
 import { AddMovieFormSchema } from "./yupSchema";
 import {
+  FormatMovie,
   GenreMovie,
+  IdiomMovie,
   MovieByQuery,
   RestrictionMovie,
 } from "../../../interfaces";
@@ -20,6 +22,8 @@ interface AdminAddMovieFormProps {
   movieData: MovieByQuery;
   genres: GenreMovie[];
   restrictions: RestrictionMovie[];
+  idioms: IdiomMovie[];
+  formats: FormatMovie[];
   updateMovies(): void;
   onClose(): void;
 }
@@ -28,6 +32,8 @@ interface initialAddMovieFormProps {
   releaseDateMovie: string;
   restrictionMovie: string;
   genresMovie: string[];
+  idiomsMovie: string[];
+  formatsMovie: string[];
 }
 
 const AdminAddMovieForm = ({
@@ -35,19 +41,25 @@ const AdminAddMovieForm = ({
   genres,
   restrictions,
   updateMovies,
+  idioms,
+  formats,
   onClose,
 }: AdminAddMovieFormProps) => {
   const initialValues: initialAddMovieFormProps = {
     releaseDateMovie: "",
     restrictionMovie: "",
     genresMovie: [],
+    idiomsMovie: [],
+    formatsMovie: [],
   };
 
   const handleSubmit = async (values: initialAddMovieFormProps) => {
     const data = await fetchAllMovieInfo(movieData?.id);
     const tranformDataMovie = fetchTransformAllMovieInfo(data); //posible error
-    const genres_movie_API: GenreMovie[] = [];
-    const restriction_movie_API = restrictions.find(
+    const genresMovie: GenreMovie[] = [];
+    const idiomsMovie: IdiomMovie[] = [];
+    const formatsMovie: FormatMovie[] = [];
+    const restrictionMovie = restrictions.find(
       (restriction: RestrictionMovie) =>
         restriction.tag_restriction === values.restrictionMovie
     );
@@ -56,14 +68,32 @@ const AdminAddMovieForm = ({
         (item: GenreMovie) => item.name_genre === genre
       );
       if (newValueGenre) {
-        genres_movie_API.push(newValueGenre);
+        genresMovie.push(newValueGenre);
+      }
+    });
+    values.formatsMovie.map((format: string) => {
+      const newValueFormat = formats.find(
+        (item: FormatMovie) => item.name_format === format
+      );
+      if (newValueFormat) {
+        formatsMovie.push(newValueFormat);
+      }
+    });
+    values.idiomsMovie.map((idiom: string) => {
+      const newValueIdiom = idioms.find(
+        (item: IdiomMovie) => item.name_idiom === idiom
+      );
+      if (newValueIdiom) {
+        idiomsMovie.push(newValueIdiom);
       }
     });
     const newDataFormAPI = {
       ...tranformDataMovie,
       releaseDateMovie: values.releaseDateMovie,
-      genresMovie: genres_movie_API,
-      restrictionMovie: restriction_movie_API,
+      restrictionMovie,
+      genresMovie,
+      formatsMovie,
+      idiomsMovie,
     };
     console.log("dataFinal", newDataFormAPI);
     MoviesService.postMovie(newDataFormAPI)
@@ -122,6 +152,62 @@ const AdminAddMovieForm = ({
                     }
                   />
                 </div>
+              </div>
+              <div className="checkbox_input">
+                <p>Idiomas</p>
+                <div className="checkbox_list">
+                  {idioms &&
+                    idioms?.map((idiom: IdiomMovie) => {
+                      return (
+                        <div key={idiom?.id_idiom} className="checkbox_item">
+                          <Field
+                            id={idiom?.id_idiom.toString()}
+                            type="checkbox"
+                            name="idiomsMovie"
+                            value={idiom?.name_idiom}
+                          />
+                          <label htmlFor={idiom?.id_idiom.toString()}>
+                            {idiom?.name_idiom}
+                          </label>
+                        </div>
+                      );
+                    })}
+                </div>
+                <InputErrorMessage
+                  text={
+                    errors.idiomsMovie?.toString()
+                      ? errors.idiomsMovie?.toString()
+                      : ""
+                  }
+                />
+              </div>
+              <div className="checkbox_input">
+                <p>Formatos</p>
+                <div className="checkbox_list">
+                  {formats &&
+                    formats?.map((format: FormatMovie) => {
+                      return (
+                        <div key={format?.id_format} className="checkbox_item">
+                          <Field
+                            id={format?.id_format.toString()}
+                            type="checkbox"
+                            name="formatsMovie"
+                            value={format?.name_format}
+                          />
+                          <label htmlFor={format.id_format.toString()}>
+                            {format?.name_format}
+                          </label>
+                        </div>
+                      );
+                    })}
+                </div>
+                <InputErrorMessage
+                  text={
+                    errors.formatsMovie?.toString()
+                      ? errors.formatsMovie?.toString()
+                      : ""
+                  }
+                />
               </div>
             </div>
             <div className="checkbox_inputs_select">

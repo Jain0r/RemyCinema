@@ -3,7 +3,7 @@ import routes from "../shared/navigation";
 import { Provider } from "react-redux";
 import Home from "../pages/User/Home";
 import MovieInitPage from "../pages/User/Movie";
-import AdminFunctionsPage from "../pages/Admin/AdminFunctions";
+import AdminPerformancesPage from "../pages/Admin/AdminPerformances";
 import AdminBookingsPage from "../pages/Admin/AdminBookings";
 import AdminUsersPage from "../pages/Admin/AdminUsers";
 import AdminCinemasPage from "../pages/Admin/AdminCinemas";
@@ -77,7 +77,7 @@ const App = () => {
                   ></Route>
                   <Route
                     path={`${routes.admin.functions}`}
-                    element={<AdminFunctionsPage />}
+                    element={<AdminPerformancesPage />}
                   ></Route>
                   <Route
                     path={`${routes.admin.users}`}

@@ -48,7 +48,6 @@ const AdminSelectMovieByQuery = ({
       .catch((error) => console.log(error));
   };
 
-  console.log(query);
   return (
     <div className="adminselect_movie">
       <p className="title_proccess">1. Seleccionar pelicula</p>

@@ -14,22 +14,32 @@ interface AdminSelectProps {
   label?: string;
   onChange(e: React.ChangeEvent<HTMLSelectElement>): void;
   defaultValue: string;
+  disabled?: boolean;
+  value: string;
 }
 
 const AdminSelect = ({
   options,
   inputName,
+  value,
   label,
   onChange,
   defaultValue,
+  disabled,
 }: AdminSelectProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(e);
   };
+
   return (
     <div className="adminmovie_select_container">
       {label ? <p>{label}</p> : null}
-      <select name={inputName} onChange={handleChange}>
+      <select
+        disabled={disabled ? disabled : false}
+        name={inputName}
+        value={value}
+        onChange={handleChange}
+      >
         <option value="">{defaultValue}</option>
         {options &&
           options?.map((option: OptionSelect) => {

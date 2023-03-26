@@ -113,12 +113,25 @@ export const fetchTransformAllMovieInfo = (allMovieData: any) => {
 };
 
 export const getMovieStatus = (movie: movieRCFormat) => {
-  if (
-    movie.idioms_available?.length > 0 &&
-    movie.formats_available?.length > 0
-  ) {
+  if (movie.idioms_movie?.length > 0 && movie.formats_movie?.length > 0) {
     return "active";
   } else {
     return "inactive";
   }
+};
+
+export const onShowMovies = (movies: movieRCFormat[]) => {
+  const moviesOnShow = movies.filter(
+    (movie: movieRCFormat) =>
+      todayDate.getTime() >= new Date(movie.release_date_movie).getTime()
+  );
+  return moviesOnShow;
+};
+
+export const offShowMovies = (movies: movieRCFormat[]) => {
+  const moviesOffShow = movies.filter(
+    (movie: movieRCFormat) =>
+      todayDate.getTime() < new Date(movie.release_date_movie).getTime()
+  );
+  return moviesOffShow;
 };

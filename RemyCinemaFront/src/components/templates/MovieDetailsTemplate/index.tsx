@@ -143,8 +143,8 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
               <li className="moviedetails_idioms">
                 <strong>Idioma</strong>
                 <div className="moviedetails_idioms_options">
-                  {data.idioms_available?.length > 0 ? (
-                    data.idioms_available?.map((idiom: IdiomMovie) => {
+                  {data.idioms_movie?.length > 0 ? (
+                    data.idioms_movie?.map((idiom: IdiomMovie) => {
                       return <p key={idiom.id_idiom}>{idiom.name_idiom}</p>;
                     })
                   ) : (
@@ -155,8 +155,8 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
               <li className="moviedetails_available">
                 <strong>Disponible</strong>
                 <div className="moviedetails_available_options">
-                  {data.formats_available?.length > 0 ? (
-                    data.formats_available?.map((format: FormatMovie) => {
+                  {data.formats_movie?.length > 0 ? (
+                    data.formats_movie?.map((format: FormatMovie) => {
                       return <p key={format.id_format}>{format.name_format}</p>;
                     })
                   ) : (
