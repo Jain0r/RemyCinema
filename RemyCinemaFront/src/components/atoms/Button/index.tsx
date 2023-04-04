@@ -8,7 +8,7 @@ interface ButtonProps {
   className: string;
   disabled?: boolean;
   type: "button" | "submit" | "reset";
-  onClick(): void;
+  onClick?: () => void;
 }
 
 const Button = ({
@@ -20,18 +20,32 @@ const Button = ({
   onClick,
   disabled,
 }: ButtonProps) => {
-  return (
-    <button
-      className={className}
-      style={styles}
-      type={type}
-      onClick={() => onClick()}
-      disabled={disabled}
-    >
-      {icon}
-      {text}
-    </button>
-  );
+  if (!onClick) {
+    return (
+      <button
+        className={className}
+        style={styles}
+        type={type}
+        disabled={disabled}
+      >
+        {icon}
+        {text}
+      </button>
+    );
+  } else {
+    return (
+      <button
+        className={className}
+        style={styles}
+        type={type}
+        onClick={() => onClick()}
+        disabled={disabled}
+      >
+        {icon}
+        {text}
+      </button>
+    );
+  }
 };
 
 export default Button;

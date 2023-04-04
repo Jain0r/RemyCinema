@@ -118,21 +118,19 @@
                       display: flex;
                       align-items: center;
                       gap: 5px;
-                      &::before {
-                        content: "";
-                        width: 8px;
-
-                        border-radius: 999px;
+                      .pulse {
+                        width: 7px;
                         aspect-ratio: 1/1;
-                        background-color: red;
+                        border-radius: 999px;
+                        position: relative;
                       }
                       &.active {
-                        &::before {
-                          background-color: #4abe1c;
+                        .pulse {
+                          background-color: #07bc0c;
                         }
                       }
                       &.inactive {
-                        &::before {
+                        .pulse {
                           background-color: rgb(197, 197, 197);
                         }
                       }

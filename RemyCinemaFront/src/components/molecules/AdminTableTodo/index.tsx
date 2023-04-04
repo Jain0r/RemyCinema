@@ -9,6 +9,7 @@ interface AdminTableTodoProps {
   headers: TableTodoColumnType[];
   dataSource: any[];
   itemsPerPage: number;
+  // actions:{onDelete():void, onUpdate():void, onInfo():void}
 }
 
 const AdminTableTodo = ({

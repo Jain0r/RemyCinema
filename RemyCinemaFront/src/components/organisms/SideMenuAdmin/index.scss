@@ -79,6 +79,7 @@
         }
         .tooltip_text {
           position: absolute;
+          z-index: 2;
           justify-content: center;
           display: none;
           width: 100px;

@@ -1,0 +1,103 @@
+@import "../../../styles/base.scss";
+.adminnotification_container {
+  display: flex;
+  background-color: white;
+  z-index: 1000;
+  width: 300px;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 5px;
+  padding: 20px;
+  gap: 20px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  position: relative;
+  .close_notification {
+    position: absolute;
+    right: 10px;
+    color: grey;
+    top: 10px;
+  }
+  .close_bar {
+    width: 100%;
+    height: 5px;
+    left: 0;
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+    animation: bar forwards linear;
+  }
+  .adminnotification_icon_container {
+    align-self: center;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    border-radius: 999px;
+    z-index: 100;
+    position: relative;
+
+    .icon_pulse {
+      position: absolute;
+      width: 100%;
+      border-radius: 999px;
+      height: 100%;
+      top: 0;
+      animation: pulse infinite linear forwards 1400ms;
+      bottom: 0;
+      &:nth-child(2) {
+        animation-delay: 800ms;
+      }
+    }
+    .adminnotification_icon {
+      font-size: $iconSmallSize;
+      color: white;
+      z-index: 1;
+      display: flex;
+    }
+  }
+  .success {
+    background-color: #07bc0c;
+  }
+  .error {
+    background-color: rgb(180, 25, 25);
+  }
+  .info {
+    background-color: rgb(31, 161, 194);
+  }
+  &:hover {
+    .close_bar {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.2);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.4;
+  }
+  75% {
+    transform: scale(1.4);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes bar {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}

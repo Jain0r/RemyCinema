@@ -25,7 +25,7 @@ const AdminAddMovieProccess = ({
     if (!selectedMovie.id) {
       setModalInform(true);
     } else {
-      setProccess(2);
+      setProccess(step);
     }
   };
   return (

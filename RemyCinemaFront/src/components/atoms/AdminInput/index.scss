@@ -1,20 +1,24 @@
 @import "../../../styles/base.scss";
-.input_search_container {
+
+.admin_input_container {
   display: flex;
-  align-items: center;
-  padding: 0 10px;
-
-  background-color: $inputText;
-
-  border-radius: 10px;
-
-  input {
-    background-color: transparent;
-    width: 100%;
-    padding: 15px 10px;
-  }
-  svg {
-    font-size: $iconSmallSize;
-    color: rgb(132, 145, 156);
+  flex-direction: column;
+  gap: 10px;
+  .input_main_container {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    background-color: $inputText;
+    border-radius: 10px;
+    input {
+      background-color: transparent;
+      width: 100%;
+      padding: 15px 10px;
+      height: 45px;
+    }
+    svg {
+      font-size: $iconSmallSize;
+      color: rgb(132, 145, 156);
+    }
   }
 }

@@ -22,6 +22,12 @@ button {
   }
   &.tertiary_button {
     background-color: $tertiary-color;
+    &.inner {
+      background-color: white;
+      border: 2px solid $tertiary-color;
+      color: $tertiary-color;
+      font-weight: 900;
+    }
   }
   &.fifth_button {
     background-color: $fifth-color;

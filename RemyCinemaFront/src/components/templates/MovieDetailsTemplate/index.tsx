@@ -17,6 +17,7 @@ import "./index.scss";
 import { POSTER_PATH } from "../../../Api/config";
 import DropDownFilter from "../../molecules/DropDownFilter";
 import { dataCinemasFake } from "../../../interfaces/initials";
+import FormatMovieContainer from "../../atoms/FormatMovieContainer";
 
 interface MovieDetailsTemplateProps {
   data: movieRCFormat;
@@ -157,7 +158,12 @@ const MovieDetailsTemplate = ({ data }: MovieDetailsTemplateProps) => {
                 <div className="moviedetails_available_options">
                   {data.formats_movie?.length > 0 ? (
                     data.formats_movie?.map((format: FormatMovie) => {
-                      return <p key={format.id_format}>{format.name_format}</p>;
+                      return (
+                        <FormatMovieContainer
+                          key={format.id_format}
+                          text={format.name_format}
+                        />
+                      );
                     })
                   ) : (
                     <p>-</p>

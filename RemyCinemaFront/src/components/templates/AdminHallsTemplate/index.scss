@@ -1,0 +1,90 @@
+@import "../../../styles/base.scss";
+.adminhalls_template_container {
+  .adminhalls_template {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    .adminhalls_list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      .admintabletodo_container {
+        .admintabletodo_head {
+          ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 2fr;
+            li {
+              display: none;
+              &:nth-child(1) {
+                display: flex;
+              }
+              &:nth-child(2) {
+                display: flex;
+              }
+              &:nth-child(3) {
+                display: flex;
+              }
+              &:last-child {
+                display: flex;
+              }
+            }
+          }
+        }
+        .admintabletodo_body {
+          ul {
+            display: flex;
+            flex-direction: column;
+
+            .admintabletodo_body_item {
+              ul {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 2fr;
+                li {
+                  display: none;
+                  &:nth-child(1) {
+                    display: flex;
+                  }
+                  &:nth-child(2) {
+                    display: flex;
+                  }
+                  &:nth-child(3) {
+                    display: flex;
+                  }
+                  &:last-child {
+                    display: flex;
+                  }
+                  .item_actions_container {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    svg {
+                      color: white;
+                    }
+                    .update_action,
+                    .delete_action {
+                      display: flex;
+                      padding: 10px;
+                      border-radius: 5px;
+                      cursor: pointer;
+                    }
+                    .update_action {
+                      background-color: rgb(38, 110, 218);
+                    }
+                    .delete_action {
+                      background-color: rgb(216, 40, 40);
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .admin_hall_schedule {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}

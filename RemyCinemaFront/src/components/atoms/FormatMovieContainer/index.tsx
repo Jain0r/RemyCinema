@@ -4,8 +4,8 @@ interface FormatProps {
   text: string;
 }
 
-const Format = ({ text }: FormatProps) => {
+const FormatMovieContainer = ({ text }: FormatProps) => {
   return <span className="format_container">{text}</span>;
 };
 
-export default Format;
+export default FormatMovieContainer;

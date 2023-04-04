@@ -19,6 +19,7 @@ import {
   setFoods,
   setTickets,
 } from "../../../redux/actions/shopActions";
+import FormatMovieContainer from "../../atoms/FormatMovieContainer";
 
 interface ShopTemplateProps {
   data: movieRCFormat;
@@ -106,8 +107,8 @@ const ShopTemplate = ({ data }: ShopTemplateProps) => {
             <ul className="moviedetails_info">
               <li className="location_function">CP Alcazar, SALA 6</li>
               <li className="format_availables">
-                <span>2D</span>
-                <span>Regular</span>
+                <FormatMovieContainer text="2D" />
+                <FormatMovieContainer text="3D" />
               </li>
               <li>
                 <span>

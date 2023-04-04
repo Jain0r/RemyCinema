@@ -17,6 +17,7 @@ const AdminMoviePage = () => {
   } = useQuery({
     queryKey: ["allMoviesAdmin"],
     queryFn: () => MoviesService.getAllMovies(),
+    refetchInterval: 50000,
   });
   const {
     data: genres,

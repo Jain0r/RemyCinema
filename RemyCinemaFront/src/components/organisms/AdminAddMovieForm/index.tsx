@@ -1,6 +1,6 @@
 import { Formik, Form, Field } from "formik";
-import RCInput from "../../atoms/RCInput";
 import {
+  dataToOptionSelect,
   fetchAllMovieInfo,
   fetchTransformAllMovieInfo,
 } from "../../../functions";
@@ -17,6 +17,9 @@ import InputErrorMessage from "../../atoms/InputErrorMessage";
 import Button from "../../atoms/Button";
 import MoviesService from "../../../Api/movies";
 import { toast } from "react-toastify";
+import AdminInput from "../../atoms/AdminInput";
+import AdminSelect from "../../atoms/AdminSelect";
+import useNotification from "../../../hooks/useNotification";
 
 interface AdminAddMovieFormProps {
   movieData: MovieByQuery;
@@ -55,6 +58,7 @@ const AdminAddMovieForm = ({
 
   const handleSubmit = async (values: initialAddMovieFormProps) => {
     const data = await fetchAllMovieInfo(movieData?.id);
+    const { createNotification } = useNotification();
     const tranformDataMovie = fetchTransformAllMovieInfo(data); //posible error
     const genresMovie: GenreMovie[] = [];
     const idiomsMovie: IdiomMovie[] = [];
@@ -98,16 +102,14 @@ const AdminAddMovieForm = ({
     console.log("dataFinal", newDataFormAPI);
     MoviesService.postMovie(newDataFormAPI)
       .then((result) =>
-        toast.success(result.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000,
-        })
+        createNotification({ type: "success", text: result, duration: 2000 })
       )
       .then(() => updateMovies())
       .catch((error) =>
-        toast.error(`${error}`, {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000,
+        createNotification({
+          type: "error",
+          text: JSON.stringify(error),
+          duration: 2000,
         })
       )
       .finally(() => onClose());
@@ -121,35 +123,34 @@ const AdminAddMovieForm = ({
         onSubmit={handleSubmit}
         validationSchema={AddMovieFormSchema}
       >
-        {({ errors }) => (
+        {({ errors, values, setFormikState, setFieldValue }) => (
           <Form>
             <div className="related_primary_info">
-              <RCInput
-                name="releaseDateMovie"
+              <AdminInput
                 type="date"
+                name="releaseDateMovie"
                 label="Fecha de estreno"
+                onChange={(e) => setFieldValue(e.target.name, e.target.value)}
+                value={values.releaseDateMovie}
+                validate={true}
               />
+
               <div className="selects_input">
                 <div className="select_input">
                   <p>Restricción</p>
-                  <Field as="select" name="restrictionMovie">
-                    <option value="">--Seleccione una restricción--</option>
-                    {restrictions &&
-                      restrictions?.map((ageRestriction: RestrictionMovie) => {
-                        return (
-                          <option
-                            key={ageRestriction?.id_restriction}
-                            value={ageRestriction?.tag_restriction}
-                          >
-                            {ageRestriction?.tag_restriction}
-                          </option>
-                        );
-                      })}
-                  </Field>
-                  <InputErrorMessage
-                    text={
-                      errors.restrictionMovie ? errors.restrictionMovie : ""
+                  <AdminSelect
+                    onChange={(e) =>
+                      setFieldValue(e.target.name, e.target.value)
                     }
+                    value={values.restrictionMovie}
+                    options={dataToOptionSelect(restrictions, {
+                      idField: "id_restriction",
+                      valueField: "tag_restriction",
+                      nameValueField: "tag_restriction",
+                    })}
+                    defaultValue="Seleccione una restricción"
+                    name="restrictionMovie"
+                    validate={true}
                   />
                 </div>
               </div>
@@ -242,7 +243,6 @@ const AdminAddMovieForm = ({
             </div>
             <Button
               text="Agregar"
-              onClick={() => console.log("hola")}
               type="submit"
               className="tertiary_button"
               styles={{

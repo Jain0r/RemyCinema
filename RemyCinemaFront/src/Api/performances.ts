@@ -11,4 +11,14 @@ export default class PerformancesService {
       return rspJson.result;
     }
   }
+  static async postPerformance(data: any) {
+    const rsp = await Api.post(`${BASE_URL_API}/performances`, data);
+    const rspJson = await rsp.json();
+    console.log("status", rsp.status);
+    if (rsp.status !== 200) {
+      throw new Error(rspJson.message);
+    } else {
+      return rspJson;
+    }
+  }
 }

@@ -165,16 +165,6 @@
             .format_availables {
               display: flex;
               gap: 5px;
-              span {
-                padding: 5px 10px;
-                background-color: $tertiary-color;
-                color: white;
-                font-weight: bold;
-                border-radius: 10px;
-              }
-              span::after {
-                display: none;
-              }
             }
           }
         }

@@ -8,7 +8,6 @@ import { InfoPerfomancesTemplate } from "../../../pages/Admin/AdminPerformances"
 import AdminCardInfo from "../../atoms/AdminCardInfo";
 import AdminSelect, { OptionSelect } from "../../atoms/AdminSelect";
 import Button from "../../atoms/Button";
-import "react-datepicker/dist/react-datepicker.css";
 import "./index.scss";
 import ModalLayout from "../../molecules/ModalLayout";
 import AdminAddPerformanceForm from "../../organisms/AdminAddPerformanceForm";
@@ -66,7 +65,7 @@ const AdminPerformancesTemplate = ({
           <AdminSelect
             defaultValue="Filtra por película"
             value={filters.performances_movies}
-            inputName="performances_movies"
+            name="performances_movies"
             onChange={(e) => handleFiltersOptions(e)}
             options={
               data?.movies &&
@@ -95,7 +94,7 @@ const AdminPerformancesTemplate = ({
         onClose={() => setModalAddPerformance(false)}
         title="Añadir función"
       >
-        <AdminAddPerformanceForm data={data} />
+        <p>xd</p>
       </ModalLayout>
     </div>
   );

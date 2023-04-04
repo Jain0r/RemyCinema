@@ -1,5 +1,7 @@
+import { Field, useField } from "formik";
 import React from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import InputErrorMessage from "../InputErrorMessage";
 import "./index.scss";
 
 export interface OptionSelect {
@@ -10,49 +12,84 @@ export interface OptionSelect {
 
 interface AdminSelectProps {
   options: OptionSelect[];
-  inputName: string;
+  name: string;
   label?: string;
-  onChange(e: React.ChangeEvent<HTMLSelectElement>): void;
-  defaultValue: string;
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  defaultValue?: string;
   disabled?: boolean;
   value: string;
+  validate?: boolean;
 }
 
 const AdminSelect = ({
   options,
-  inputName,
+  name,
   value,
   label,
   onChange,
   defaultValue,
   disabled,
+  validate,
 }: AdminSelectProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(e);
   };
 
-  return (
-    <div className="adminmovie_select_container">
-      {label ? <p>{label}</p> : null}
-      <select
-        disabled={disabled ? disabled : false}
-        name={inputName}
-        value={value}
-        onChange={handleChange}
-      >
-        <option value="">{defaultValue}</option>
-        {options &&
-          options?.map((option: OptionSelect) => {
-            return (
-              <option key={option.idValue} value={option.value}>
-                {option.nameValue}
-              </option>
-            );
-          })}
-      </select>
-      <MdKeyboardArrowDown />
-    </div>
-  );
+  if (validate) {
+    const [field, meta] = useField({ name });
+    return (
+      <div className="adminmovie_select_dropdown_container">
+        {label ? <p>{label}</p> : null}
+        <div className="adminmovie_select_container">
+          <Field
+            name={name}
+            onChange={handleChange}
+            as="select"
+            disabled={disabled ? disabled : false}
+          >
+            {defaultValue ? <option value="">{defaultValue}</option> : null}
+            {options &&
+              options?.map((option: OptionSelect) => {
+                return (
+                  <option key={option.idValue} value={option.value?.toString()}>
+                    {option.nameValue}
+                  </option>
+                );
+              })}
+          </Field>
+          <MdKeyboardArrowDown />
+        </div>
+        <InputErrorMessage
+          text={meta.touched && meta.error ? meta.error : ""}
+        />
+      </div>
+    );
+  } else {
+    return (
+      <div className="adminmovie_select_dropdown_container">
+        {label ? <p>{label}</p> : null}
+        <div className="adminmovie_select_container">
+          <select
+            disabled={disabled ? disabled : false}
+            name={name}
+            value={value}
+            onChange={handleChange}
+          >
+            {defaultValue ? <option value="">{defaultValue}</option> : null}
+            {options &&
+              options?.map((option: OptionSelect) => {
+                return (
+                  <option key={option.idValue} value={option.value?.toString()}>
+                    {option.nameValue}
+                  </option>
+                );
+              })}
+          </select>
+          <MdKeyboardArrowDown />
+        </div>
+      </div>
+    );
+  }
 };
 
 export default AdminSelect;

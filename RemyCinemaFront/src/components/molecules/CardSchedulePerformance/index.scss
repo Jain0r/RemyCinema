@@ -1,0 +1,109 @@
+@import "../../../styles/base.scss";
+.cardschedule_performances_container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .cardschedule_hall_info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 20px;
+    .hall_info {
+      display: flex;
+      gap: 10px;
+      p {
+        display: flex;
+        align-items: center;
+        text-transform: capitalize;
+        gap: 5px;
+        &:first-child {
+          color: #070707;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  .cardschedule_options_date {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    .cardschedule_buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      .cardschedule_buttons_manage_day {
+        display: flex;
+        gap: 5px;
+      }
+    }
+    .cardschedule_calendar {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      p {
+        color: #070707;
+        font-weight: 700;
+      }
+    }
+  }
+}
+.appointment_content_container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px;
+  justify-content: center;
+  color: white;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  .title_appointment {
+    font-size: $textMediumSize;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: 900;
+  }
+  .hours_info_appointment {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  .primary_info_appointment {
+    display: flex;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    gap: 10px;
+    text-transform: capitalize;
+    p {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      &::before {
+        content: "";
+        border-radius: 2px;
+        width: 10px;
+        height: 10px;
+        margin-bottom: 2px;
+      }
+      &:nth-child(1)::before {
+        background-color: rgb(255, 72, 0);
+      }
+      &:nth-child(2)::before {
+        background-color: rgb(39, 167, 14);
+      }
+    }
+  }
+}
+
+@media (min-width: $mobile) {
+  .cardschedule_performances_container {
+    .cardschedule_options_date {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}

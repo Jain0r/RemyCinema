@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import MoviesService from "../../../Api/movies";
-import { convertISODateToValid } from "../../../functions";
+import { convertISODateToValid, dataToOptionSelect } from "../../../functions";
 import {
   FormatMovie,
   GenreMovie,
@@ -9,11 +9,13 @@ import {
   movieRCFormat,
   RestrictionMovie,
 } from "../../../interfaces";
+import AdminInput from "../../atoms/AdminInput";
+import AdminSelect from "../../atoms/AdminSelect";
 import Button from "../../atoms/Button";
 import InputErrorMessage from "../../atoms/InputErrorMessage";
-import RCInput from "../../atoms/RCInput";
 import { AddMovieFormSchema } from "../AdminAddMovieForm/yupSchema";
 import "./index.scss";
+import useNotification from "../../../hooks/useNotification";
 
 interface AdminUpdateMovieFormProps {
   dataMovie: movieRCFormat;
@@ -54,6 +56,7 @@ const AdminUpdateMovieForm = ({
       (genre: GenreMovie) => genre.name_genre
     ),
   };
+  const { createNotification } = useNotification();
   const handleSubmit = (values: initialUpdateMovieFormProps) => {
     const genresMovie: GenreMovie[] = [];
     const idiomsMovie: IdiomMovie[] = [];
@@ -95,16 +98,18 @@ const AdminUpdateMovieForm = ({
     };
     MoviesService.updateMovie(dataMovie.id_movie, newDataFormAPI)
       .then((result) =>
-        toast.success(result.message, {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000,
+        createNotification({
+          type: "success",
+          text: result.message,
+          duration: 2000,
         })
       )
       .then(() => updateMovies())
       .catch((error) =>
-        toast.error(`${error}`, {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 2000,
+        createNotification({
+          type: "error",
+          text: JSON.stringify(error),
+          duration: 2000,
         })
       )
       .finally(() => onClose());
@@ -126,37 +131,34 @@ const AdminUpdateMovieForm = ({
           onSubmit={handleSubmit}
           validationSchema={AddMovieFormSchema}
         >
-          {({ errors }) => (
+          {({ errors, setFieldValue, values }) => (
             <Form>
               <div className="related_primary_info">
-                <RCInput
-                  name="releaseDateMovie"
+                <AdminInput
                   type="date"
+                  name="releaseDateMovie"
                   label="Fecha de estreno"
+                  onChange={(e) => setFieldValue(e.target.name, e.target.value)}
+                  value={values.releaseDateMovie}
+                  validate={true}
                 />
+
                 <div className="selects_input">
                   <div className="select_input">
                     <p>Restricción</p>
-                    <Field as="select" name="restrictionMovie">
-                      <option value="">--Seleccione una restricción--</option>
-                      {restrictions &&
-                        restrictions?.map(
-                          (ageRestriction: RestrictionMovie) => {
-                            return (
-                              <option
-                                key={ageRestriction?.id_restriction}
-                                value={ageRestriction?.tag_restriction}
-                              >
-                                {ageRestriction?.tag_restriction}
-                              </option>
-                            );
-                          }
-                        )}
-                    </Field>
-                    <InputErrorMessage
-                      text={
-                        errors.restrictionMovie ? errors.restrictionMovie : ""
+                    <AdminSelect
+                      onChange={(e) =>
+                        setFieldValue(e.target.name, e.target.value)
                       }
+                      value={values.restrictionMovie}
+                      options={dataToOptionSelect(restrictions, {
+                        idField: "id_restriction",
+                        valueField: "tag_restriction",
+                        nameValueField: "tag_restriction",
+                      })}
+                      defaultValue="Seleccione una restricción"
+                      name="restrictionMovie"
+                      validate={true}
                     />
                   </div>
                 </div>
@@ -252,7 +254,6 @@ const AdminUpdateMovieForm = ({
 
               <Button
                 text="Actualizar"
-                onClick={() => console.log("hola")}
                 type="submit"
                 className="tertiary_button"
                 styles={{

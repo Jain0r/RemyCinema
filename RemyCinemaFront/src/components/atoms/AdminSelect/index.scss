@@ -1,35 +1,40 @@
 @import "../../../styles/base.scss";
 
-.adminmovie_select_container {
-  background-color: $inputText;
-  border-radius: 10px;
+.adminmovie_select_dropdown_container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-
-  select {
-    padding: 15px 10px;
-    color: rgb(132, 145, 156);
-    width: 100%;
-    outline: none;
-    z-index: 1;
-    border: none;
-    background-color: transparent;
-    -webkit-appearance: none; /* Para Safari y Chrome */
-    -moz-appearance: none; /* Para Firefox */
-    appearance: none; /* Para otros navegadores */
-    text-overflow: ellipsis;
-    margin-right: 20px;
-    text-transform: capitalize;
-    option {
+  flex-direction: column;
+  gap: 10px;
+  .adminmovie_select_container {
+    background-color: $inputText;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    select {
+      padding: 15px 10px;
+      color: rgb(132, 145, 156);
+      width: 100%;
+      height: 45px;
+      outline: none;
+      z-index: 1;
+      border: none;
+      background-color: transparent;
+      -webkit-appearance: none; /* Para Safari y Chrome */
+      -moz-appearance: none; /* Para Firefox */
+      appearance: none; /* Para otros navegadores */
+      text-overflow: ellipsis;
+      margin-right: 20px;
       text-transform: capitalize;
+      option {
+        text-transform: capitalize;
+      }
     }
-  }
-  svg {
-    font-size: $iconSmallSize;
-    right: 4px;
-    position: absolute;
-    color: rgb(132, 145, 156);
+    svg {
+      font-size: $iconSmallSize;
+      right: 4px;
+      position: absolute;
+      color: rgb(132, 145, 156);
+    }
   }
 }

@@ -142,16 +142,17 @@ export interface CinemaRC {
 export interface HallRC {
   id_hall: number;
   tag_hall: string;
-  id_cinema: number;
+  cinema_info: CinemaRC;
   hall_formats: FormatMovie[];
 }
 
 export interface PerformanceMovie {
   id_performance: number;
-  id_movie: number;
-  id_hall: number;
-  id_format: number;
-  id_idiom: number;
+  movie_info: movieRCFormat;
+  cinema_info: CinemaRC;
+  hall_info: HallRC;
+  format_info: FormatMovie;
+  idiom_info: IdiomMovie;
   schedule_start_performance: string;
   schedule_end_performance: string;
 }
@@ -188,6 +189,15 @@ export interface DataTableTodoMovieType {
   title_movie: string;
   status_movie: JSX.Element;
   restriction_movie: string;
+}
+
+export interface DataTableTodoHallType {
+  index_hall: number;
+  tag_hall: string;
+  cinema_hall: string;
+  formats_hall: string;
+  status_hall: JSX.Element;
+  actions_hall: JSX.Element;
 }
 
 export interface infoFilterForMoviesPage {

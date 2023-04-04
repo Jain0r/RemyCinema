@@ -78,14 +78,7 @@ const AdminPerformancesPage = () => {
     queryFn: () => HallsService.getAllHalls(),
   });
 
-  console.log({
-    allFormats,
-    allIdioms,
-    allMovies,
-    allPerformances,
-    allCinemas,
-    allHalls,
-  });
+
   const data: InfoPerfomancesTemplate = {
     formats: allFormats,
     idioms: allIdioms,

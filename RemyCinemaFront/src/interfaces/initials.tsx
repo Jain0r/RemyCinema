@@ -1,4 +1,4 @@
-import { FunctionData, TableTodoColumnType } from ".";
+import { FunctionData, HallRC, TableTodoColumnType } from ".";
 
 //
 
@@ -107,3 +107,44 @@ export const ColumsForMoviesTable: TableTodoColumnType[] = [
     key: "actions_movie",
   },
 ];
+
+export const ColumsForHallsTable: TableTodoColumnType[] = [
+  {
+    title: "#",
+    dataIndex: "index_hall",
+    key: "index_hall",
+  },
+  {
+    title: "Tag",
+    dataIndex: "tag_hall",
+    key: "tag_hall",
+  },
+  {
+    title: "Cine",
+    dataIndex: "cinema_hall",
+    key: "cinema_hall",
+  },
+  {
+    title: "Tecnología",
+    dataIndex: "formats_hall",
+    key: "formats_hall",
+  },
+
+  {
+    title: "Estado",
+    dataIndex: "status_hall",
+    key: "status_hall",
+  },
+  {
+    title: "Acciones",
+    dataIndex: "actions_halls",
+    key: "actions_halls",
+  },
+];
+
+export const initialHall: HallRC = {
+  id_hall: 0,
+  id_cinema: 0,
+  tag_hall: "",
+  hall_formats: [],
+};
