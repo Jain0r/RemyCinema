@@ -48,17 +48,6 @@
   gap: 5px;
 }
 
-@media (max-width: 480px) {
-  .Toastify__toast {
-    margin-bottom: 10px;
-    margin-left: 5px;
-    margin-right: 25px;
-  }
-  .Toastify__toast-container {
-    top: 10px;
-  }
-}
-
 .swiper-button-next,
 .swiper-button-prev {
   color: white;

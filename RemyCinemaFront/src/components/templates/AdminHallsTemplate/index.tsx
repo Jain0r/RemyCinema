@@ -7,6 +7,7 @@ import {
   getHallsByCinema,
   getHallsByFormat,
   getPerformancesByHall,
+  hallsStatus,
   intersectionArrays,
 } from "../../../functions";
 import {
@@ -21,8 +22,8 @@ import AdminTableTodo from "../../molecules/AdminTableTodo";
 import CardSchedulePerformance from "../../molecules/CardSchedulePerformance";
 import ModalLayout from "../../molecules/ModalLayout";
 import "./index.scss";
-import useNotification from "../../../hooks/useNotification";
-import { toast } from "react-toastify";
+import AdminCardList from "../../molecules/AdminCardList";
+import { GiTheater, GiTheaterCurtains } from "react-icons/gi";
 
 interface AdminHallsTemplateProps {
   data: InfoPerfomancesTemplate;
@@ -39,7 +40,6 @@ const initialFiltersValues: FiltersHall = { cinema_hall: "", format_hall: "" };
 const AdminHallsTemplate = ({ data, onUpload }: AdminHallsTemplateProps) => {
   const [filters, setFilters] = useState<FiltersHall>(initialFiltersValues);
   const [scheduleHall, setScheduleHall] = useState<boolean>(false);
-  const { createNotification } = useNotification();
   const [currentHall, setCurrentHall] = useState<HallRC>(initialHall);
 
   const handleHallSchedule = (hall: HallRC) => {
@@ -107,12 +107,35 @@ const AdminHallsTemplate = ({ data, onUpload }: AdminHallsTemplateProps) => {
   const handleFilters = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
-  const handleAlert = () => {
-    createNotification({ text: "Texto informativo", type: "info" });
-  };
+
   return (
     <div className="adminhalls_template_container">
       <div className="adminhalls_template main">
+        <div className="adminhalls_primary_info admin_section">
+          <p className="admin_section_title">Información básica</p>
+          <AdminCardList
+            cardsInfo={[
+              {
+                icon: <GiTheater />,
+                color: "#baffc9",
+                cant: data.halls?.length,
+                title: "Salas totales",
+              },
+              {
+                icon: <GiTheaterCurtains />,
+                color: "#ffdfba",
+                cant: hallsStatus(data.halls).activeHalls?.length,
+                title: "Salas en proyección",
+              },
+              {
+                icon: <GiTheaterCurtains />,
+                color: "#ffb3ba",
+                cant: hallsStatus(data.halls).inactiveHalls?.length,
+                title: "Salas en espera",
+              },
+            ]}
+          />
+        </div>
         <div className="adminhalls_list admin_section">
           <p className="admin_section_title">Lista de Salas</p>
           <AdminSelect
@@ -160,7 +183,6 @@ const AdminHallsTemplate = ({ data, onUpload }: AdminHallsTemplateProps) => {
             />
           </ModalLayout>
         </div>
-        <button onClick={handleAlert}></button>
       </div>
     </div>
   );

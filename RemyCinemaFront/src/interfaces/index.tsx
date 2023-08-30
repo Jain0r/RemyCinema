@@ -144,6 +144,7 @@ export interface HallRC {
   tag_hall: string;
   cinema_info: CinemaRC;
   hall_formats: FormatMovie[];
+  performances_info: PerformanceMovie[];
 }
 
 export interface PerformanceMovie {

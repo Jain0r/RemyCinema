@@ -1,0 +1,10 @@
+.admin_cards_list_container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 20px 0;
+  .admincardinfo_container {
+    width: 200px;
+  }
+}

@@ -5,6 +5,7 @@
     background-color: white;
     display: flex;
     border-radius: 10px;
+    z-index: 101;
     width: 90%;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
@@ -12,7 +13,6 @@
       width: 100%;
       .modal_top_info {
         background-color: $tertiary-color;
-
         color: white;
         padding: 20px;
         font-weight: 900;

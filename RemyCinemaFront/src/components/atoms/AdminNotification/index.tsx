@@ -21,6 +21,7 @@ const AdminNotification = ({
 }: AdminNotificationProps) => {
   const [startTime, setStartTime] = useState<number>(Date.now());
   const [timeLeft, setTimeLeft] = useState<number>(duration);
+  const [isPaused, setIsPaused] = useState<boolean>(false);
 
   const typeNotifications = {
     success: { className: "success", icon: <BsCheck2 /> },
@@ -34,21 +35,24 @@ const AdminNotification = ({
     setStartTime(Date.now()); // se setea el tiempo de inicio con los ms actuales
 
     if (timeOutID.current !== undefined) {
-      // si es q ya se inicializo el primer temporarizador se limpiara, esto evita que se produzca un error al intentar limpiar un temporizador que nunca se ha creado.
+      // si es q ya se inicializo el primer temporizador se limpiara, esto evita que se produzca un error al intentar limpiar un temporizador que nunca se ha creado.
       clearTimeout(timeOutID.current); // se limpiar el timeoutid que se tenia
     }
+    //inicializando temporizador
     timeOutID.current = setTimeout(() => {
       // se  setea el nuevo timeoutid con el valor actualizado de timeleft
       onClose();
     }, timeLeft);
   };
   const pauseTimer = () => {
+    setIsPaused(true);
     if (timeOutID.current) {
       clearTimeout(timeOutID.current); // se limpia el temporizador que se tenia, de esta forma se evita qse cierre al cumplirse el temporizador anterior
       setTimeLeft(timeLeft - (Date.now() - startTime)); // seteamos el nuevo timeleft con la resta del valor que se tiene del ultimo timeleft con el tiempo transcurrido desde q se inicio el ultimo temporizador
     }
   };
   const resumeTimer = () => {
+    setIsPaused(false); //
     startTimer();
   };
   useEffect(() => {
@@ -59,8 +63,10 @@ const AdminNotification = ({
       }
     };
   }, [id]);
-  console.log(timeOutID.current);
-
+  const handleClose = () => {
+    pauseTimer();
+    onClose();
+  };
   return (
     <motion.div
       layout // animate other elements on a layout list
@@ -70,10 +76,10 @@ const AdminNotification = ({
       onMouseEnter={() => pauseTimer()}
       onMouseLeave={() => resumeTimer()}
       className="adminnotification_container"
-      onClick={() => onClose()}
+      onClick={() => handleClose()}
     >
       <span className="close_notification">
-        <IoMdClose onClick={() => onClose()} />
+        <IoMdClose onClick={() => handleClose()} />
       </span>
       <div
         className={`adminnotification_icon_container ${typeNotifications[type].className}`}
@@ -89,7 +95,10 @@ const AdminNotification = ({
         </span>
       </div>
       <span
-        style={{ animationDuration: `${duration}ms` }}
+        style={{
+          animationDuration: `${duration}ms`,
+          animationPlayState: isPaused ? "paused" : "running",
+        }}
         className={`close_bar ${typeNotifications[type].className}`}
       ></span>
       {children}

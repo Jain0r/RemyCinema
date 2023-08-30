@@ -63,11 +63,6 @@
   .info {
     background-color: rgb(31, 161, 194);
   }
-  &:hover {
-    .close_bar {
-      animation-play-state: paused;
-    }
-  }
 }
 
 @keyframes pulse {

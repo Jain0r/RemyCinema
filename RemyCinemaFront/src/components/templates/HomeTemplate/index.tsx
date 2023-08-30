@@ -1,4 +1,4 @@
-import { offShowMovies, onShowMovies } from "../../../functions";
+import { moviesStatus } from "../../../functions";
 import { movieRCFormat } from "../../../interfaces";
 import CardListGrid from "../../organisms/CardListGrid";
 import HomeSlider from "../../organisms/HomeSlider";
@@ -16,11 +16,11 @@ const HomeTemplate = ({ data }: HomeTemplateProps) => {
       <HomeSlider />
       <CardListGrid
         title="Películas en cartelera"
-        data={onShowMovies(data).slice(0, 5)}
+        data={moviesStatus(data).moviesOnShow.slice(0, 5)}
       />
       <CardListGrid
         title="Próximos estrenos"
-        data={offShowMovies(data).slice(0, 5)}
+        data={moviesStatus(data).moviesOffShow.slice(0, 5)}
       />
       {/* <CardListGrid
         data={data && data.slice(0, 5)}

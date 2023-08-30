@@ -179,7 +179,7 @@ const CardSchedulePerformance = ({
         onClick={() => setModalAddPerformance(true)}
       ></Button>
       <Paper>
-        <Scheduler locale="es" data={totalAppointments} height={300}>
+        <Scheduler locale="es" data={totalAppointments || []} height={300}>
           <ViewState currentDate={currentDate} />
           <DayView startDayHour={0} endDayHour={24} />
           <Appointments
@@ -201,6 +201,7 @@ const CardSchedulePerformance = ({
       >
         <AdminAddPerformanceForm
           currentDate={currentDate}
+          appointments={appointments}
           onUpload={() => onUpload()}
           onClose={() => setModalAddPerformance(false)}
           dataHall={dataHall}

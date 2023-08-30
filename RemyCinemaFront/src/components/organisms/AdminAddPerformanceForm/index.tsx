@@ -9,7 +9,7 @@ import {
   siguienteMultiploDe5,
   trailersDurationMinutes,
 } from "../../../functions";
-import { HallRC, PerformanceMovie } from "../../../interfaces";
+import { HallRC } from "../../../interfaces";
 import { InfoPerfomancesTemplate } from "../../../pages/Admin/AdminPerformances";
 import AdminSelect from "../../atoms/AdminSelect";
 import Button from "../../atoms/Button";
@@ -17,13 +17,13 @@ import { AddPerformanceFormSchema } from "./yupSchema";
 import "./index.scss";
 import InputErrorMessage from "../../atoms/InputErrorMessage";
 import PerformancesService from "../../../Api/performances";
-import moment from "moment";
-import { toast } from "react-toastify";
 import useNotification from "../../../hooks/useNotification";
+import { PerformanceProps } from "../../molecules/CardSchedulePerformance";
 
 interface AdminAddPerformanceFormProps {
   data: InfoPerfomancesTemplate;
   dataHall: HallRC;
+  appointments: PerformanceProps[];
   currentDate: string | number | Date;
   onClose: () => void;
   onUpload: () => void;
@@ -40,6 +40,7 @@ const AdminAddPerformanceForm = ({
   data,
   dataHall,
   currentDate,
+  appointments,
   onClose,
   onUpload,
 }: AdminAddPerformanceFormProps) => {
@@ -67,8 +68,8 @@ const AdminAddPerformanceForm = ({
       );
       //verificar 2 casos si el inicio del intervalo a verificar esta dentro del intervalo de los performances ya existentes
       // o si el final del intervalo a verificar esta dentro ...
-      const verifiedDate = data.performances.some(
-        (performance: PerformanceMovie) => {
+      const verifiedDate = appointments.some(
+        (performance: PerformanceProps) => {
           return (
             (values.scheduleStartPerformance &&
               values.scheduleStartPerformance >
@@ -117,7 +118,7 @@ const AdminAddPerformanceForm = ({
           .then((result) =>
             createNotification({
               type: "success",
-              text: result,
+              text: result.message,
               duration: 2000,
             })
           )

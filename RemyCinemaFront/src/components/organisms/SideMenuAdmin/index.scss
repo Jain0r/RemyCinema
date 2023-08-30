@@ -79,8 +79,7 @@
         }
         .tooltip_text {
           position: absolute;
-          z-index: 2;
-          justify-content: center;
+          z-index: 1;
           display: none;
           width: 100px;
           background-color: white;
@@ -89,7 +88,6 @@
           pointer-events: none;
           box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
           color: $primary-color;
-          animation: hide linear forwards 0.5s;
           right: -110px;
 
           p:after {
@@ -108,7 +106,7 @@
           color: $tertiary-color;
           .tooltip_text {
             display: flex;
-            animation: show linear forwards 0.3s;
+            justify-content: center;
           }
         }
         &.active {

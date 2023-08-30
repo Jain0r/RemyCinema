@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-interface AdminCardInfoProps {
+export interface AdminCardInfoProps {
   cant: number;
   title: string;
   icon: JSX.Element;

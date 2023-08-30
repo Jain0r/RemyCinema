@@ -15,14 +15,8 @@ import AdminMoviePage from "../pages/Admin/AdminMovies";
 import UserContainer from "../pages/User/Container";
 import AuthPage from "../pages/User/Auth";
 import ShopPage from "../pages/User/Shop";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { useLayoutEffect } from "react";
 import useNotification from "../hooks/useNotification";
-import { useDispatch } from "react-redux";
-import { cleanNotifications } from "../redux/actions/notificationActions";
-// minified version is also included
-// import 'react-toastify/dist/ReactToastify.min.css';
 
 const ScrollToTop = ({ children }) => {
   const location = useLocation();
@@ -100,7 +94,6 @@ const App = () => {
         </ScrollToTop>
       </BrowserRouter>
       {allNotifications}
-      <ToastContainer />
     </div>
   );
 };

@@ -88,3 +88,12 @@
     }
   }
 }
+
+@media (min-width: $mobile) {
+  .adminhalls_template_container {
+    .adminhalls_template {
+      .adminhalls_list {
+      }
+    }
+  }
+}

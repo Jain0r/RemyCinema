@@ -1,5 +1,4 @@
 import { SchedulerDateTime } from "@devexpress/dx-react-scheduler";
-import { toast } from "react-toastify";
 import MoviesServiceTMD from "../Api/moviesTMD";
 import { OptionSelect } from "../components/atoms/AdminSelect";
 import { PerformanceProps } from "../components/molecules/CardSchedulePerformance";
@@ -159,22 +158,6 @@ export const dataToOptionSelect = (
     value: item[config.valueField],
     nameValue: item[config.nameValueField],
   }));
-};
-
-export const onShowMovies = (movies: movieRCFormat[]) => {
-  const moviesOnShow = movies.filter(
-    (movie: movieRCFormat) =>
-      todayDate.getTime() >= new Date(movie.release_date_movie).getTime()
-  );
-  return moviesOnShow;
-};
-
-export const offShowMovies = (movies: movieRCFormat[]) => {
-  const moviesOffShow = movies.filter(
-    (movie: movieRCFormat) =>
-      todayDate.getTime() < new Date(movie.release_date_movie).getTime()
-  );
-  return moviesOffShow;
 };
 
 export const intersectionArrays = (array: any[]) => {
@@ -339,4 +322,31 @@ export const dateToBDFormat = (date: Date) => {
   const dateUTC4 = moment(date).utcOffset("-04:00").toDate();
   const dateTOBD = moment(dateUTC4).format("YYYY-MM-DD HH:mm:ss");
   return dateTOBD;
+};
+
+export const hallsStatus = (halls: HallRC[]) => {
+  const activeHalls: HallRC[] = [];
+  const inactiveHalls: HallRC[] = [];
+  halls?.map((hall) =>
+    hall.performances_info.some(
+      (performance) =>
+        new Date(performance.schedule_start_performance) <= new Date() &&
+        new Date(performance.schedule_end_performance) >= new Date()
+    )
+      ? activeHalls.push(hall)
+      : inactiveHalls.push(hall)
+  );
+
+  return { activeHalls, inactiveHalls };
+};
+export const moviesStatus = (movies: movieRCFormat[]) => {
+  const moviesOnShow = movies.filter(
+    (movie: movieRCFormat) =>
+      todayDate.getTime() >= new Date(movie.release_date_movie).getTime()
+  );
+  const moviesOffShow = movies.filter(
+    (movie: movieRCFormat) =>
+      todayDate.getTime() < new Date(movie.release_date_movie).getTime()
+  );
+  return { moviesOnShow, moviesOffShow };
 };

@@ -17,8 +17,7 @@ import {
   getMoviesByStatus,
   getMovieStatus,
   intersectionArrays,
-  offShowMovies,
-  onShowMovies,
+  moviesStatus,
   sortMoviesByDate,
   sortMoviesByDuration,
 } from "../../../functions";
@@ -36,6 +35,7 @@ import { FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { RiFilter3Fill } from "react-icons/ri";
 import "./index.scss";
 import AdminSelect from "../../atoms/AdminSelect";
+import AdminCardList from "../../molecules/AdminCardList";
 
 interface AdminMoviesTemplateProps {
   info: infoFilterForMoviesPage;
@@ -200,26 +200,28 @@ const AdminMoviesTemplate = ({
       <div className="adminmovies_template_main">
         <div className="adminmovies_primary_info admin_section">
           <p className="admin_section_title">Información básica</p>
-          <div className="adminmovies_list_cards">
-            <AdminCardInfo
-              icon={<MdMovieFilter />}
-              color="#baffc9"
-              cant={info.movies?.length}
-              title="Péliculas totales"
-            />
-            <AdminCardInfo
-              icon={<MdMovieFilter />}
-              color="#ffdfba"
-              cant={onShowMovies(info.movies).length}
-              title="Péliculas en cartelera"
-            />
-            <AdminCardInfo
-              icon={<MdMovieFilter />}
-              color="#ffb3ba"
-              cant={offShowMovies(info.movies).length}
-              title="Péliculas por estrenar"
-            />
-          </div>
+          <AdminCardList
+            cardsInfo={[
+              {
+                icon: <MdMovieFilter />,
+                color: "#baffc9",
+                cant: info.movies?.length,
+                title: "Péliculas totales",
+              },
+              {
+                icon: <MdMovieFilter />,
+                color: "#ffdfba",
+                cant: moviesStatus(info.movies).moviesOnShow?.length,
+                title: "Péliculas en cartelera",
+              },
+              {
+                icon: <MdMovieFilter />,
+                color: "#ffb3ba",
+                cant: moviesStatus(info.movies).moviesOffShow?.length,
+                title: "Péliculas por estrenar",
+              },
+            ]}
+          />
         </div>
         <div className="adminmovies_list_movies_container admin_section">
           <div className="adminmovies_table_info">
